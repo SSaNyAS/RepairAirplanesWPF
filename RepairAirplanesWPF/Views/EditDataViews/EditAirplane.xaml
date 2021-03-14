@@ -1,0 +1,40 @@
+﻿<Window x:Class="RepairAirplanesWPF.Views.EditDataViews.EditAirplane"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RepairAirplanesWPF.Views.EditDataViews"
+        mc:Ignorable="d"
+        Title="Данные о самолёте" Height="500" Width="800"
+        WindowStartupLocation="CenterScreen">
+    <ScrollViewer Margin="10">
+        <StackPanel Orientation="Vertical">
+            <TextBlock Text="Название самолета"/>
+            <TextBox Text="{Binding model}"/>
+            <TextBlock Margin="0,10,0,0" Text="Двигатель"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="30"/>
+                </Grid.ColumnDefinitions>
+                <ComboBox Grid.Column="0" SelectedValuePath="id" DisplayMemberPath="name" SelectedValue="{Binding engine_id}"/>
+                <Button Grid.Column="1" Content="+" Padding="2"/>
+            </Grid>
+            <TextBlock Margin="0,10,0,0" Text="Количество мест для пилотов"/>
+            <TextBox Text="{Binding pilots_seat_count}"/>
+            <TextBlock Margin="0,10,0,0" Text="Количество мест для пассажиров"/>
+            <TextBox Text="{Binding passengers_seat_count}"/>
+            <TextBlock Margin="0,10,0,0" Text="Максимальная скорость полёта"/>
+            <TextBox Text="{Binding max_speed}"/>
+            <TextBlock Margin="0,10,0,0" Text="Максимальная высота полёта"/>
+            <TextBox Text="{Binding max_height}"/>
+            <TextBlock Margin="0,10,0,0" Text="Максимальная дальность полёта"/>
+            <TextBox Text="{Binding max_fly_distance}"/>
+            <TextBlock Margin="0,10,0,0" Text="Грузоподъемность"/>
+            <TextBox Text="{Binding load_capacity}"/>
+            <TextBlock Margin="0,10,0,0" Text="Размер топливного бака"/>
+            <TextBox Text="{Binding fuel_capacity}"/>
+            <Button Margin="0,10,0,0" Content="Сохранить"/>
+        </StackPanel>
+    </ScrollViewer>
+</Window>

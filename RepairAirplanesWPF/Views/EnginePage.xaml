@@ -1,0 +1,23 @@
+﻿<Page x:Class="RepairAirplanesWPF.Views.EnginePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:RepairAirplanesWPF.Views"
+      xmlns:uicomponents ="clr-namespace:RepairAirplanesWPF.UIComponents" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:cmd="http://www.galasoft.ch/mvvmlight"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Двигатель">
+    <StackPanel Orientation="Vertical" Background="White">
+        <TextBlock Text="{Binding model}" FontSize="40" Margin="10" FontWeight="Black" HorizontalAlignment="Center"/>
+        <StackPanel Orientation="Vertical" Margin="50,00">
+            <uicomponents:TextBlockWithHeader HeaderText="Мощность:" Text="{Binding power}" EndText="л.с"/>
+            <uicomponents:TextBlockWithHeader HeaderText="Количество цилиндров:" Text="{Binding cylinder_count}"/>
+            <uicomponents:TextBlockWithHeader HeaderText="Время наработки на отказ:" Text="{Binding working_time}" EndText="ч"/>
+            <uicomponents:TextBlockWithHeader HeaderText="Крутящий момент:" Text="{Binding torque}" EndText="Н·м"/>
+            <uicomponents:TextBlockWithHeader HeaderText="Межремонтный период:" Text="{Binding repair_period}" EndText="ч"/>
+            <uicomponents:TextBlockWithHeader HeaderText="Вес:" Text="{Binding weight}" EndText="кг"/>
+            <uicomponents:TextBlockWithHeader HeaderText="Система охлаждения:" Text="{Binding Cooling_system.name}"/>
+        </StackPanel>
+    </StackPanel>
+</Page>

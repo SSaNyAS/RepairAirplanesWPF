@@ -1,0 +1,37 @@
+﻿<Application x:Class="RepairAirplanesWPF.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:RepairAirplanesWPF"
+             x:Name="ThisApp"
+             StartupUri="Views/LoginWindow.xaml">
+    <Application.Resources>
+        <Color x:Key="AppMainColor" R="0" G="148" B="214" A="255"/>
+        
+        <Style TargetType="Button">
+            <Setter Property="Padding" Value="20,5"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background">
+                <Setter.Value>
+                    <SolidColorBrush Color="{StaticResource ResourceKey= AppMainColor}"/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+
+        <Style TargetType="TextBlock">
+            <Setter Property="Padding" Value="0,5"/>
+            <Setter Property="Foreground" Value="#222"/>
+            <Setter Property="FontWeight" Value="Regular"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+        
+        <Style TargetType="TextBox">
+            <Setter Property="MinHeight" Value="30"/>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="MinHeight" Value="30"/>
+        </Style>
+    </Application.Resources>
+</Application>

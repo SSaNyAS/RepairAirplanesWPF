@@ -1,0 +1,38 @@
+﻿<Window x:Class="RepairAirplanesWPF.Views.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RepairAirplanesWPF" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:cmd="http://www.galasoft.ch/mvvmlight"
+        mc:Ignorable="d"
+        Title="Авторизация" Height="450" Width="800">
+    <StackPanel Orientation="Vertical">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="9*"/>
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.Background>
+                    <SolidColorBrush Color="{StaticResource AppMainColor}"/>
+                </Grid.Background>
+                <WrapPanel Orientation="Horizontal"  Grid.Row="0" HorizontalAlignment="Center">
+                    <WrapPanel.Background>
+                        <SolidColorBrush Color="{StaticResource AppMainColor}"/>
+                    </WrapPanel.Background>
+                    <Button Content="Двигатели" Command="{Binding EnginePage_Open}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">
+                    </Button>
+                    <Button Command="{Binding EditEnginePage_Open}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Редактирование</Button>
+                    <Button Command="{Binding RepairHistoryPage_Open}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">История ремонтов</Button>
+                    <Button>Двигатели</Button>
+                    <Button>Двигатели</Button>
+                </WrapPanel>
+            </Grid>
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden">
+                <Frame Background="White" NavigationUIVisibility="Hidden" Content="{Binding CurrentPage}"/>
+            </ScrollViewer>
+        </Grid>
+    </StackPanel>
+    
+</Window>
+

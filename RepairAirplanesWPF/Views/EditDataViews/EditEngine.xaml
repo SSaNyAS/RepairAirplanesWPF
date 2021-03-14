@@ -1,0 +1,33 @@
+﻿<Page x:Class="RepairAirplanesWPF.Views.EditDataViews.EditEngine"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:RepairAirplanesWPF.Views.EditDataViews" xmlns:uicomponents="clr-namespace:RepairAirplanesWPF.UIComponents"
+      mc:Ignorable="d" 
+      d:DesignHeight="571.108" d:DesignWidth="800"
+      Title="Данные о двигателе">
+
+    <StackPanel Orientation="Vertical" Background="White">
+        <TextBlock Text="{Binding model}" FontSize="40" Margin="10" FontWeight="Black" HorizontalAlignment="Center"/>
+        <StackPanel Orientation="Vertical" Margin="50,00">
+            <uicomponents:TextBoxWithHeader HeaderText="Мощность:" Text="{Binding power}" EndText="л.с"/>
+            <uicomponents:TextBoxWithHeader HeaderText="Количество цилиндров:" Text="{Binding cylinder_count}"/>
+            <uicomponents:TextBoxWithHeader HeaderText="Время наработки на отказ:" Text="{Binding working_time}" EndText="ч"/>
+            <uicomponents:TextBoxWithHeader HeaderText="Крутящий момент:" Text="{Binding torque}" EndText="Н·м"/>
+            <uicomponents:TextBoxWithHeader HeaderText="Межремонтный период:" Text="{Binding repair_period}" EndText="ч"/>
+            <uicomponents:TextBoxWithHeader HeaderText="Вес:" Text="{Binding weight}" EndText="кг"/>
+            <TextBlock Text="Система охлаждения:"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="30"/>
+                </Grid.ColumnDefinitions>
+                
+                <ComboBox Grid.Column="0" DisplayMemberPath="name" MinWidth="250" ItemsSource="{Binding Cooling_system_list}" SelectedValuePath="id" SelectedValue="{Binding cooling_system_id}"/>
+                <Button Grid.Column="1" Command="{Binding }" CommandTarget="{Binding RelativeSource={RelativeSource Mode=Self}}" Content="+" Padding="5"/>
+            </Grid>
+            
+        </StackPanel>
+    </StackPanel>
+</Page>
