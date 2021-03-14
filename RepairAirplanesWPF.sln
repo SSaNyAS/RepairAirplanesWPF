@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31019.35
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepairAirplanesWPF", "RepairAirplanesWPF\RepairAirplanesWPF.csproj", "{3D20F55B-8670-42F2-95EF-0807255B0EFE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBManager", "..\DBManager\DBManager\DBManager.csproj", "{6AD5AEF2-2C1E-42B6-99C7-AD3C141F0D27}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBManager", "DBManager\DBManager.csproj", "{6AD5AEF2-2C1E-42B6-99C7-AD3C141F0D27}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
