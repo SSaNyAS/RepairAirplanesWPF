@@ -18,12 +18,20 @@ namespace RepairAirplanesWPF.Views
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
-    public partial class LoginWindow : Window
+    public partial class MainWindow : Window
     {
-        public LoginWindow()
+        public MainWindow()
         {
             InitializeComponent();
             this.DataContext = (Application.Current as App).baseViewModel;
+        }
+
+        private void Frame_Navigated(object sender, NavigationEventArgs e)
+        {
+            if (e.Content is EngineListPage engineListPage)
+            {
+                engineListPage.DataContext = this.DataContext;
+            }
         }
     }
 }

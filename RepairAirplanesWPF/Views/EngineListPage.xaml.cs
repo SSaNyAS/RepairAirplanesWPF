@@ -1,5 +1,7 @@
-﻿using System;
+﻿using RepairAirplanesWPF.ViewModels;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +12,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace RepairAirplanesWPF.Views
@@ -17,8 +20,9 @@ namespace RepairAirplanesWPF.Views
     /// <summary>
     /// Логика взаимодействия для EngineListPage.xaml
     /// </summary>
-    public partial class EngineListPage : Window
+    public partial class EngineListPage : Page
     {
+        public ObservableCollection<Engine> Engines;
         public EngineListPage()
         {
             InitializeComponent();

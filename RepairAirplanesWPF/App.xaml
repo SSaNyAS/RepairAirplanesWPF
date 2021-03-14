@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:RepairAirplanesWPF"
              x:Name="ThisApp"
-             StartupUri="Views/LoginWindow.xaml">
+             StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
         <Color x:Key="AppMainColor" R="0" G="148" B="214" A="255"/>
         

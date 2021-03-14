@@ -1,0 +1,1746 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище Repair_airplanesModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Airplane">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="model" Type="nvarchar" MaxLength="400" Nullable="false" />
+          <Property Name="max_speed" Type="int" />
+          <Property Name="max_height" Type="int" />
+          <Property Name="max_fly_distance" Type="int" />
+          <Property Name="pilots_seat_count" Type="int" Nullable="false" />
+          <Property Name="passengers_seat_count" Type="int" Nullable="false" />
+          <Property Name="fuel_capacity" Type="int" />
+          <Property Name="load_capacity" Type="int" />
+          <Property Name="engine_id" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Authorization">
+          <Key>
+            <PropertyRef Name="person_id" />
+          </Key>
+          <Property Name="person_id" Type="bigint" Nullable="false" />
+          <Property Name="login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="last_login_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Cooling_system">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="300" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Engine">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="model" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="power" Type="int" Nullable="false" />
+          <Property Name="cylinder_count" Type="int" Nullable="false" />
+          <Property Name="working_time" Type="bigint" Nullable="false" />
+          <Property Name="torque" Type="int" Nullable="false" />
+          <Property Name="repair_period" Type="bigint" Nullable="false" />
+          <Property Name="weight" Type="int" Nullable="false" />
+          <Property Name="cooling_system_id" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Engineer">
+          <Key>
+            <PropertyRef Name="person_id" />
+          </Key>
+          <Property Name="person_id" Type="bigint" Nullable="false" />
+          <Property Name="qualification" Type="nvarchar" MaxLength="300" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Engines_fuel_type">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="engine_id" Type="bigint" Nullable="false" />
+          <Property Name="fuel_type" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Flight_log">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="airplane_id" Type="bigint" Nullable="false" />
+          <Property Name="pilot" Type="bigint" Nullable="false" />
+          <Property Name="instructor" Type="bigint" />
+          <Property Name="start_time" Type="datetime" Nullable="false" />
+          <Property Name="end_time" Type="datetime" />
+          <Property Name="flight_time" Type="decimal" Precision="18" Scale="2" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="Fuel_type">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="300" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Instructor">
+          <Key>
+            <PropertyRef Name="person_id" />
+          </Key>
+          <Property Name="person_id" Type="bigint" Nullable="false" />
+          <Property Name="work_start_date" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Mastered_type_airplane">
+          <Key>
+            <PropertyRef Name="pilot_id" />
+            <PropertyRef Name="airplane_id" />
+          </Key>
+          <Property Name="pilot_id" Type="bigint" Nullable="false" />
+          <Property Name="airplane_id" Type="bigint" Nullable="false" />
+          <Property Name="flight_start_date" Type="date" />
+        </EntityType>
+        <EntityType Name="Permission">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="Permission_for_group">
+          <Key>
+            <PropertyRef Name="group_id" />
+            <PropertyRef Name="permission_id" />
+          </Key>
+          <Property Name="group_id" Type="bigint" Nullable="false" />
+          <Property Name="permission_id" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Permission_group">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="firstname" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="lastname" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="middlename" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="birthday" Type="date" Nullable="false" />
+          <Property Name="passport" Type="bigint" Nullable="false" />
+          <Property Name="permission_group" Type="bigint" Nullable="false" />
+          <Property Name="FIO" Type="nvarchar" MaxLength="452" StoreGeneratedPattern="Computed" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pilot">
+          <Key>
+            <PropertyRef Name="person_id" />
+          </Key>
+          <Property Name="person_id" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Recommended_repair_period">
+          <Key>
+            <PropertyRef Name="airplane_id" />
+            <PropertyRef Name="work_id" />
+          </Key>
+          <Property Name="airplane_id" Type="bigint" Nullable="false" />
+          <Property Name="work_id" Type="bigint" Nullable="false" />
+          <Property Name="recommended_period_hours" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Repair_list">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="airplane_id" Type="bigint" Nullable="false" />
+          <Property Name="start_repair_date" Type="datetime" Nullable="false" />
+          <Property Name="end_repair_date" Type="datetime" />
+          <Property Name="status_id" Type="bigint" Nullable="false" />
+          <Property Name="additional_information" Type="nvarchar" MaxLength="1000" />
+        </EntityType>
+        <EntityType Name="Repair_part">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="1000" />
+          <Property Name="price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Repair_status">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Repair_work">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="300" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Required_repair_part">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="required_repair_work_id" Type="bigint" Nullable="false" />
+          <Property Name="repair_part_id" Type="bigint" Nullable="false" />
+          <Property Name="count" Type="int" Nullable="false" />
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Required_repair_work">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="repair_id" Type="bigint" Nullable="false" />
+          <Property Name="repair_work_id" Type="bigint" Nullable="false" />
+          <Property Name="status_id" Type="bigint" Nullable="false" />
+          <Property Name="engineer_id" Type="bigint" Nullable="false" />
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="count" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Student_pilot">
+          <Key>
+            <PropertyRef Name="person_id" />
+          </Key>
+          <Property Name="person_id" Type="bigint" Nullable="false" />
+          <Property Name="study_group_id" Type="bigint" Nullable="false" />
+          <Property Name="start_learning_date" Type="date" Nullable="false" />
+          <Property Name="eduation_sertificate_number" Type="bigint" Nullable="false" />
+          <Property Name="eduation_sertificate_serial" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Study_group">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_Airplane_Engine">
+          <End Role="Engine" Type="Self.Engine" Multiplicity="1" />
+          <End Role="Airplane" Type="Self.Airplane" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Engine">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Airplane">
+              <PropertyRef Name="engine_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Authorization_Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Authorization" Type="Self.Authorization" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Authorization">
+              <PropertyRef Name="person_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Engine_Cooling_system">
+          <End Role="Cooling_system" Type="Self.Cooling_system" Multiplicity="1" />
+          <End Role="Engine" Type="Self.Engine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cooling_system">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Engine">
+              <PropertyRef Name="cooling_system_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Engineer_Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Engineer" Type="Self.Engineer" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Engineer">
+              <PropertyRef Name="person_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Engines_fuel_type_Engine">
+          <End Role="Engine" Type="Self.Engine" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Engines_fuel_type" Type="Self.Engines_fuel_type" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Engine">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Engines_fuel_type">
+              <PropertyRef Name="engine_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Engines_fuel_type_Fuel_type">
+          <End Role="Fuel_type" Type="Self.Fuel_type" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Engines_fuel_type" Type="Self.Engines_fuel_type" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fuel_type">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Engines_fuel_type">
+              <PropertyRef Name="fuel_type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Flight_log_Airplane">
+          <End Role="Airplane" Type="Self.Airplane" Multiplicity="1" />
+          <End Role="Flight_log" Type="Self.Flight_log" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Airplane">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Flight_log">
+              <PropertyRef Name="airplane_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Flight_log_Instructor">
+          <End Role="Instructor" Type="Self.Instructor" Multiplicity="0..1" />
+          <End Role="Flight_log" Type="Self.Flight_log" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Instructor">
+              <PropertyRef Name="person_id" />
+            </Principal>
+            <Dependent Role="Flight_log">
+              <PropertyRef Name="instructor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Flight_log_Pilot">
+          <End Role="Pilot" Type="Self.Pilot" Multiplicity="1" />
+          <End Role="Flight_log" Type="Self.Flight_log" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pilot">
+              <PropertyRef Name="person_id" />
+            </Principal>
+            <Dependent Role="Flight_log">
+              <PropertyRef Name="pilot" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Instructor_Pilot">
+          <End Role="Pilot" Type="Self.Pilot" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Instructor" Type="Self.Instructor" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Pilot">
+              <PropertyRef Name="person_id" />
+            </Principal>
+            <Dependent Role="Instructor">
+              <PropertyRef Name="person_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mastered_type_airplane_Airplane">
+          <End Role="Airplane" Type="Self.Airplane" Multiplicity="1" />
+          <End Role="Mastered_type_airplane" Type="Self.Mastered_type_airplane" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Airplane">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Mastered_type_airplane">
+              <PropertyRef Name="airplane_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mastered_type_airplane_Pilot">
+          <End Role="Pilot" Type="Self.Pilot" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Mastered_type_airplane" Type="Self.Mastered_type_airplane" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pilot">
+              <PropertyRef Name="person_id" />
+            </Principal>
+            <Dependent Role="Mastered_type_airplane">
+              <PropertyRef Name="pilot_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permission_for_group_permission">
+          <End Role="Permission" Type="Self.Permission" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Permission_for_group" Type="Self.Permission_for_group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permission">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Permission_for_group">
+              <PropertyRef Name="permission_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permission_for_group_Permission_group">
+          <End Role="Permission_group" Type="Self.Permission_group" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Permission_for_group" Type="Self.Permission_for_group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permission_group">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Permission_for_group">
+              <PropertyRef Name="group_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Person_Permission_group">
+          <End Role="Permission_group" Type="Self.Permission_group" Multiplicity="1" />
+          <End Role="Person" Type="Self.Person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permission_group">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Person">
+              <PropertyRef Name="permission_group" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pilot_Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Pilot" Type="Self.Pilot" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Pilot">
+              <PropertyRef Name="person_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Recommended_repair_period_Airplane">
+          <End Role="Airplane" Type="Self.Airplane" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Recommended_repair_period" Type="Self.Recommended_repair_period" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Airplane">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Recommended_repair_period">
+              <PropertyRef Name="airplane_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Recommended_repair_period_Repair_work">
+          <End Role="Repair_work" Type="Self.Repair_work" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Recommended_repair_period" Type="Self.Recommended_repair_period" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Repair_work">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Recommended_repair_period">
+              <PropertyRef Name="work_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Repair_list_Airplane">
+          <End Role="Airplane" Type="Self.Airplane" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Repair_list" Type="Self.Repair_list" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Airplane">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Repair_list">
+              <PropertyRef Name="airplane_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Required_repair_part_Repair_part">
+          <End Role="Repair_part" Type="Self.Repair_part" Multiplicity="1" />
+          <End Role="Required_repair_part" Type="Self.Required_repair_part" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Repair_part">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Required_repair_part">
+              <PropertyRef Name="repair_part_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Required_repair_part_Required_repair_work">
+          <End Role="Required_repair_work" Type="Self.Required_repair_work" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Required_repair_part" Type="Self.Required_repair_part" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Required_repair_work">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Required_repair_part">
+              <PropertyRef Name="required_repair_work_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Required_repair_work_Engineer">
+          <End Role="Engineer" Type="Self.Engineer" Multiplicity="1" />
+          <End Role="Required_repair_work" Type="Self.Required_repair_work" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Engineer">
+              <PropertyRef Name="person_id" />
+            </Principal>
+            <Dependent Role="Required_repair_work">
+              <PropertyRef Name="engineer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Required_repair_work_Repair_list">
+          <End Role="Repair_list" Type="Self.Repair_list" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Required_repair_work" Type="Self.Required_repair_work" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Repair_list">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Required_repair_work">
+              <PropertyRef Name="repair_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Required_repair_work_Repair_status">
+          <End Role="Repair_status" Type="Self.Repair_status" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Required_repair_work" Type="Self.Required_repair_work" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Repair_status">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Required_repair_work">
+              <PropertyRef Name="status_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Required_repair_work_Repair_work">
+          <End Role="Repair_work" Type="Self.Repair_work" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Required_repair_work" Type="Self.Required_repair_work" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Repair_work">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Required_repair_work">
+              <PropertyRef Name="repair_work_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_pilot_Pilot1">
+          <End Role="Pilot" Type="Self.Pilot" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Student_pilot" Type="Self.Student_pilot" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Pilot">
+              <PropertyRef Name="person_id" />
+            </Principal>
+            <Dependent Role="Student_pilot">
+              <PropertyRef Name="person_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_pilot_Study_group">
+          <End Role="Study_group" Type="Self.Study_group" Multiplicity="1" />
+          <End Role="Student_pilot" Type="Self.Student_pilot" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Study_group">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Student_pilot">
+              <PropertyRef Name="study_group_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище Repair_airplanesModelContainer">
+          <EntitySet Name="Airplane" EntityType="Self.Airplane" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Authorization" EntityType="Self.Authorization" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cooling_system" EntityType="Self.Cooling_system" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Engine" EntityType="Self.Engine" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Engineer" EntityType="Self.Engineer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Engines_fuel_type" EntityType="Self.Engines_fuel_type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Flight_log" EntityType="Self.Flight_log" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Fuel_type" EntityType="Self.Fuel_type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Instructor" EntityType="Self.Instructor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Mastered_type_airplane" EntityType="Self.Mastered_type_airplane" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Permission" EntityType="Self.Permission" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Permission_for_group" EntityType="Self.Permission_for_group" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Permission_group" EntityType="Self.Permission_group" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pilot" EntityType="Self.Pilot" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Recommended_repair_period" EntityType="Self.Recommended_repair_period" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Repair_list" EntityType="Self.Repair_list" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Repair_part" EntityType="Self.Repair_part" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Repair_status" EntityType="Self.Repair_status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Repair_work" EntityType="Self.Repair_work" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Required_repair_part" EntityType="Self.Required_repair_part" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Required_repair_work" EntityType="Self.Required_repair_work" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Student_pilot" EntityType="Self.Student_pilot" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Study_group" EntityType="Self.Study_group" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Airplane_Engine" Association="Self.FK_Airplane_Engine">
+            <End Role="Engine" EntitySet="Engine" />
+            <End Role="Airplane" EntitySet="Airplane" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Authorization_Person" Association="Self.FK_Authorization_Person">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Authorization" EntitySet="Authorization" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Engine_Cooling_system" Association="Self.FK_Engine_Cooling_system">
+            <End Role="Cooling_system" EntitySet="Cooling_system" />
+            <End Role="Engine" EntitySet="Engine" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Engineer_Person" Association="Self.FK_Engineer_Person">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Engineer" EntitySet="Engineer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Engines_fuel_type_Engine" Association="Self.FK_Engines_fuel_type_Engine">
+            <End Role="Engine" EntitySet="Engine" />
+            <End Role="Engines_fuel_type" EntitySet="Engines_fuel_type" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Engines_fuel_type_Fuel_type" Association="Self.FK_Engines_fuel_type_Fuel_type">
+            <End Role="Fuel_type" EntitySet="Fuel_type" />
+            <End Role="Engines_fuel_type" EntitySet="Engines_fuel_type" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Flight_log_Airplane" Association="Self.FK_Flight_log_Airplane">
+            <End Role="Airplane" EntitySet="Airplane" />
+            <End Role="Flight_log" EntitySet="Flight_log" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Flight_log_Instructor" Association="Self.FK_Flight_log_Instructor">
+            <End Role="Instructor" EntitySet="Instructor" />
+            <End Role="Flight_log" EntitySet="Flight_log" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Flight_log_Pilot" Association="Self.FK_Flight_log_Pilot">
+            <End Role="Pilot" EntitySet="Pilot" />
+            <End Role="Flight_log" EntitySet="Flight_log" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Instructor_Pilot" Association="Self.FK_Instructor_Pilot">
+            <End Role="Pilot" EntitySet="Pilot" />
+            <End Role="Instructor" EntitySet="Instructor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mastered_type_airplane_Airplane" Association="Self.FK_Mastered_type_airplane_Airplane">
+            <End Role="Airplane" EntitySet="Airplane" />
+            <End Role="Mastered_type_airplane" EntitySet="Mastered_type_airplane" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mastered_type_airplane_Pilot" Association="Self.FK_Mastered_type_airplane_Pilot">
+            <End Role="Pilot" EntitySet="Pilot" />
+            <End Role="Mastered_type_airplane" EntitySet="Mastered_type_airplane" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permission_for_group_permission" Association="Self.FK_Permission_for_group_permission">
+            <End Role="Permission" EntitySet="Permission" />
+            <End Role="Permission_for_group" EntitySet="Permission_for_group" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permission_for_group_Permission_group" Association="Self.FK_Permission_for_group_Permission_group">
+            <End Role="Permission_group" EntitySet="Permission_group" />
+            <End Role="Permission_for_group" EntitySet="Permission_for_group" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Person_Permission_group" Association="Self.FK_Person_Permission_group">
+            <End Role="Permission_group" EntitySet="Permission_group" />
+            <End Role="Person" EntitySet="Person" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pilot_Person" Association="Self.FK_Pilot_Person">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Pilot" EntitySet="Pilot" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Recommended_repair_period_Airplane" Association="Self.FK_Recommended_repair_period_Airplane">
+            <End Role="Airplane" EntitySet="Airplane" />
+            <End Role="Recommended_repair_period" EntitySet="Recommended_repair_period" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Recommended_repair_period_Repair_work" Association="Self.FK_Recommended_repair_period_Repair_work">
+            <End Role="Repair_work" EntitySet="Repair_work" />
+            <End Role="Recommended_repair_period" EntitySet="Recommended_repair_period" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Repair_list_Airplane" Association="Self.FK_Repair_list_Airplane">
+            <End Role="Airplane" EntitySet="Airplane" />
+            <End Role="Repair_list" EntitySet="Repair_list" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Required_repair_part_Repair_part" Association="Self.FK_Required_repair_part_Repair_part">
+            <End Role="Repair_part" EntitySet="Repair_part" />
+            <End Role="Required_repair_part" EntitySet="Required_repair_part" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Required_repair_part_Required_repair_work" Association="Self.FK_Required_repair_part_Required_repair_work">
+            <End Role="Required_repair_work" EntitySet="Required_repair_work" />
+            <End Role="Required_repair_part" EntitySet="Required_repair_part" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Required_repair_work_Engineer" Association="Self.FK_Required_repair_work_Engineer">
+            <End Role="Engineer" EntitySet="Engineer" />
+            <End Role="Required_repair_work" EntitySet="Required_repair_work" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Required_repair_work_Repair_list" Association="Self.FK_Required_repair_work_Repair_list">
+            <End Role="Repair_list" EntitySet="Repair_list" />
+            <End Role="Required_repair_work" EntitySet="Required_repair_work" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Required_repair_work_Repair_status" Association="Self.FK_Required_repair_work_Repair_status">
+            <End Role="Repair_status" EntitySet="Repair_status" />
+            <End Role="Required_repair_work" EntitySet="Required_repair_work" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Required_repair_work_Repair_work" Association="Self.FK_Required_repair_work_Repair_work">
+            <End Role="Repair_work" EntitySet="Repair_work" />
+            <End Role="Required_repair_work" EntitySet="Required_repair_work" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_pilot_Pilot1" Association="Self.FK_Student_pilot_Pilot1">
+            <End Role="Pilot" EntitySet="Pilot" />
+            <End Role="Student_pilot" EntitySet="Student_pilot" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_pilot_Study_group" Association="Self.FK_Student_pilot_Study_group">
+            <End Role="Study_group" EntitySet="Study_group" />
+            <End Role="Student_pilot" EntitySet="Student_pilot" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Repair_airplanesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Airplane">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="model" Type="String" MaxLength="400" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="max_speed" Type="Int32" />
+          <Property Name="max_height" Type="Int32" />
+          <Property Name="max_fly_distance" Type="Int32" />
+          <Property Name="pilots_seat_count" Type="Int32" Nullable="false" />
+          <Property Name="passengers_seat_count" Type="Int32" Nullable="false" />
+          <Property Name="fuel_capacity" Type="Int32" />
+          <Property Name="load_capacity" Type="Int32" />
+          <Property Name="engine_id" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Engine" Relationship="Self.FK_Airplane_Engine" FromRole="Airplane" ToRole="Engine" />
+          <NavigationProperty Name="Flight_log" Relationship="Self.FK_Flight_log_Airplane" FromRole="Airplane" ToRole="Flight_log" />
+          <NavigationProperty Name="Mastered_type_airplane" Relationship="Self.FK_Mastered_type_airplane_Airplane" FromRole="Airplane" ToRole="Mastered_type_airplane" />
+          <NavigationProperty Name="Recommended_repair_period" Relationship="Self.FK_Recommended_repair_period_Airplane" FromRole="Airplane" ToRole="Recommended_repair_period" />
+          <NavigationProperty Name="Repair_list" Relationship="Self.FK_Repair_list_Airplane" FromRole="Airplane" ToRole="Repair_list" />
+        </EntityType>
+        <EntityType Name="Authorization">
+          <Key>
+            <PropertyRef Name="person_id" />
+          </Key>
+          <Property Name="person_id" Type="Int64" Nullable="false" />
+          <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="last_login_date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Person" Relationship="Self.FK_Authorization_Person" FromRole="Authorization" ToRole="Person" />
+        </EntityType>
+        <EntityType Name="Cooling_system">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Engine" Relationship="Self.FK_Engine_Cooling_system" FromRole="Cooling_system" ToRole="Engine" />
+        </EntityType>
+        <EntityType Name="Engine">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="model" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="power" Type="Int32" Nullable="false" />
+          <Property Name="cylinder_count" Type="Int32" Nullable="false" />
+          <Property Name="working_time" Type="Int64" Nullable="false" />
+          <Property Name="torque" Type="Int32" Nullable="false" />
+          <Property Name="repair_period" Type="Int64" Nullable="false" />
+          <Property Name="weight" Type="Int32" Nullable="false" />
+          <Property Name="cooling_system_id" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Airplane" Relationship="Self.FK_Airplane_Engine" FromRole="Engine" ToRole="Airplane" />
+          <NavigationProperty Name="Cooling_system" Relationship="Self.FK_Engine_Cooling_system" FromRole="Engine" ToRole="Cooling_system" />
+          <NavigationProperty Name="Engines_fuel_type" Relationship="Self.FK_Engines_fuel_type_Engine" FromRole="Engine" ToRole="Engines_fuel_type" />
+        </EntityType>
+        <EntityType Name="Engineer">
+          <Key>
+            <PropertyRef Name="person_id" />
+          </Key>
+          <Property Name="person_id" Type="Int64" Nullable="false" />
+          <Property Name="qualification" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Person" Relationship="Self.FK_Engineer_Person" FromRole="Engineer" ToRole="Person" />
+          <NavigationProperty Name="Required_repair_work" Relationship="Self.FK_Required_repair_work_Engineer" FromRole="Engineer" ToRole="Required_repair_work" />
+        </EntityType>
+        <EntityType Name="Engines_fuel_type">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="engine_id" Type="Int64" Nullable="false" />
+          <Property Name="fuel_type" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Engine" Relationship="Self.FK_Engines_fuel_type_Engine" FromRole="Engines_fuel_type" ToRole="Engine" />
+          <NavigationProperty Name="Fuel_type1" Relationship="Self.FK_Engines_fuel_type_Fuel_type" FromRole="Engines_fuel_type" ToRole="Fuel_type" />
+        </EntityType>
+        <EntityType Name="Flight_log">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="airplane_id" Type="Int64" Nullable="false" />
+          <Property Name="pilot" Type="Int64" Nullable="false" />
+          <Property Name="instructor" Type="Int64" />
+          <Property Name="start_time" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="end_time" Type="DateTime" Precision="3" />
+          <Property Name="flight_time" Type="Decimal" Precision="18" Scale="2" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="Airplane" Relationship="Self.FK_Flight_log_Airplane" FromRole="Flight_log" ToRole="Airplane" />
+          <NavigationProperty Name="Instructor1" Relationship="Self.FK_Flight_log_Instructor" FromRole="Flight_log" ToRole="Instructor" />
+          <NavigationProperty Name="Pilot1" Relationship="Self.FK_Flight_log_Pilot" FromRole="Flight_log" ToRole="Pilot" />
+        </EntityType>
+        <EntityType Name="Fuel_type">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Engines_fuel_type" Relationship="Self.FK_Engines_fuel_type_Fuel_type" FromRole="Fuel_type" ToRole="Engines_fuel_type" />
+        </EntityType>
+        <EntityType Name="Instructor">
+          <Key>
+            <PropertyRef Name="person_id" />
+          </Key>
+          <Property Name="person_id" Type="Int64" Nullable="false" />
+          <Property Name="work_start_date" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Flight_log" Relationship="Self.FK_Flight_log_Instructor" FromRole="Instructor" ToRole="Flight_log" />
+          <NavigationProperty Name="Pilot" Relationship="Self.FK_Instructor_Pilot" FromRole="Instructor" ToRole="Pilot" />
+        </EntityType>
+        <EntityType Name="Mastered_type_airplane">
+          <Key>
+            <PropertyRef Name="pilot_id" />
+            <PropertyRef Name="airplane_id" />
+          </Key>
+          <Property Name="pilot_id" Type="Int64" Nullable="false" />
+          <Property Name="airplane_id" Type="Int64" Nullable="false" />
+          <Property Name="flight_start_date" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Airplane" Relationship="Self.FK_Mastered_type_airplane_Airplane" FromRole="Mastered_type_airplane" ToRole="Airplane" />
+          <NavigationProperty Name="Pilot" Relationship="Self.FK_Mastered_type_airplane_Pilot" FromRole="Mastered_type_airplane" ToRole="Pilot" />
+        </EntityType>
+        <EntityType Name="Permission">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Permission_group" Relationship="Self.Permission_for_group" FromRole="Permission" ToRole="Permission_group" />
+        </EntityType>
+        <EntityType Name="Permission_group">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Person" Relationship="Self.FK_Person_Permission_group" FromRole="Permission_group" ToRole="Person" />
+          <NavigationProperty Name="Permission" Relationship="Self.Permission_for_group" FromRole="Permission_group" ToRole="Permission" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firstname" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="lastname" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="middlename" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="birthday" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="passport" Type="Int64" Nullable="false" />
+          <Property Name="permission_group" Type="Int64" Nullable="false" />
+          <Property Name="FIO" Type="String" MaxLength="452" FixedLength="false" Unicode="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="Authorization" Relationship="Self.FK_Authorization_Person" FromRole="Person" ToRole="Authorization" />
+          <NavigationProperty Name="Engineer" Relationship="Self.FK_Engineer_Person" FromRole="Person" ToRole="Engineer" />
+          <NavigationProperty Name="Permission_group1" Relationship="Self.FK_Person_Permission_group" FromRole="Person" ToRole="Permission_group" />
+          <NavigationProperty Name="Pilot" Relationship="Self.FK_Pilot_Person" FromRole="Person" ToRole="Pilot" />
+        </EntityType>
+        <EntityType Name="Pilot">
+          <Key>
+            <PropertyRef Name="person_id" />
+          </Key>
+          <Property Name="person_id" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Flight_log" Relationship="Self.FK_Flight_log_Pilot" FromRole="Pilot" ToRole="Flight_log" />
+          <NavigationProperty Name="Instructor" Relationship="Self.FK_Instructor_Pilot" FromRole="Pilot" ToRole="Instructor" />
+          <NavigationProperty Name="Mastered_type_airplane" Relationship="Self.FK_Mastered_type_airplane_Pilot" FromRole="Pilot" ToRole="Mastered_type_airplane" />
+          <NavigationProperty Name="Person" Relationship="Self.FK_Pilot_Person" FromRole="Pilot" ToRole="Person" />
+          <NavigationProperty Name="Student_pilot" Relationship="Self.FK_Student_pilot_Pilot1" FromRole="Pilot" ToRole="Student_pilot" />
+        </EntityType>
+        <EntityType Name="Recommended_repair_period">
+          <Key>
+            <PropertyRef Name="airplane_id" />
+            <PropertyRef Name="work_id" />
+          </Key>
+          <Property Name="airplane_id" Type="Int64" Nullable="false" />
+          <Property Name="work_id" Type="Int64" Nullable="false" />
+          <Property Name="recommended_period_hours" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Airplane" Relationship="Self.FK_Recommended_repair_period_Airplane" FromRole="Recommended_repair_period" ToRole="Airplane" />
+          <NavigationProperty Name="Repair_work" Relationship="Self.FK_Recommended_repair_period_Repair_work" FromRole="Recommended_repair_period" ToRole="Repair_work" />
+        </EntityType>
+        <EntityType Name="Repair_list">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="airplane_id" Type="Int64" Nullable="false" />
+          <Property Name="start_repair_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="end_repair_date" Type="DateTime" Precision="3" />
+          <Property Name="status_id" Type="Int64" Nullable="false" />
+          <Property Name="additional_information" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Airplane" Relationship="Self.FK_Repair_list_Airplane" FromRole="Repair_list" ToRole="Airplane" />
+          <NavigationProperty Name="Required_repair_work" Relationship="Self.FK_Required_repair_work_Repair_list" FromRole="Repair_list" ToRole="Required_repair_work" />
+        </EntityType>
+        <EntityType Name="Repair_part">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="price" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <NavigationProperty Name="Required_repair_part" Relationship="Self.FK_Required_repair_part_Repair_part" FromRole="Repair_part" ToRole="Required_repair_part" />
+        </EntityType>
+        <EntityType Name="Repair_status">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Required_repair_work" Relationship="Self.FK_Required_repair_work_Repair_status" FromRole="Repair_status" ToRole="Required_repair_work" />
+        </EntityType>
+        <EntityType Name="Repair_work">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Recommended_repair_period" Relationship="Self.FK_Recommended_repair_period_Repair_work" FromRole="Repair_work" ToRole="Recommended_repair_period" />
+          <NavigationProperty Name="Required_repair_work" Relationship="Self.FK_Required_repair_work_Repair_work" FromRole="Repair_work" ToRole="Required_repair_work" />
+        </EntityType>
+        <EntityType Name="Required_repair_part">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="required_repair_work_id" Type="Int64" Nullable="false" />
+          <Property Name="repair_part_id" Type="Int64" Nullable="false" />
+          <Property Name="count" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Repair_part" Relationship="Self.FK_Required_repair_part_Repair_part" FromRole="Required_repair_part" ToRole="Repair_part" />
+          <NavigationProperty Name="Required_repair_work" Relationship="Self.FK_Required_repair_part_Required_repair_work" FromRole="Required_repair_part" ToRole="Required_repair_work" />
+        </EntityType>
+        <EntityType Name="Required_repair_work">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="repair_id" Type="Int64" Nullable="false" />
+          <Property Name="repair_work_id" Type="Int64" Nullable="false" />
+          <Property Name="status_id" Type="Int64" Nullable="false" />
+          <Property Name="engineer_id" Type="Int64" Nullable="false" />
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="count" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Engineer" Relationship="Self.FK_Required_repair_work_Engineer" FromRole="Required_repair_work" ToRole="Engineer" />
+          <NavigationProperty Name="Repair_list" Relationship="Self.FK_Required_repair_work_Repair_list" FromRole="Required_repair_work" ToRole="Repair_list" />
+          <NavigationProperty Name="Repair_status" Relationship="Self.FK_Required_repair_work_Repair_status" FromRole="Required_repair_work" ToRole="Repair_status" />
+          <NavigationProperty Name="Repair_work" Relationship="Self.FK_Required_repair_work_Repair_work" FromRole="Required_repair_work" ToRole="Repair_work" />
+          <NavigationProperty Name="Required_repair_part" Relationship="Self.FK_Required_repair_part_Required_repair_work" FromRole="Required_repair_work" ToRole="Required_repair_part" />
+        </EntityType>
+        <EntityType Name="Student_pilot">
+          <Key>
+            <PropertyRef Name="person_id" />
+          </Key>
+          <Property Name="person_id" Type="Int64" Nullable="false" />
+          <Property Name="study_group_id" Type="Int64" Nullable="false" />
+          <Property Name="start_learning_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="eduation_sertificate_number" Type="Int64" Nullable="false" />
+          <Property Name="eduation_sertificate_serial" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Pilot" Relationship="Self.FK_Student_pilot_Pilot1" FromRole="Student_pilot" ToRole="Pilot" />
+          <NavigationProperty Name="Study_group" Relationship="Self.FK_Student_pilot_Study_group" FromRole="Student_pilot" ToRole="Study_group" />
+        </EntityType>
+        <EntityType Name="Study_group">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Student_pilot" Relationship="Self.FK_Student_pilot_Study_group" FromRole="Study_group" ToRole="Student_pilot" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_Airplane_Engine">
+          <End Role="Engine" Type="Self.Engine" Multiplicity="1" />
+          <End Role="Airplane" Type="Self.Airplane" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Engine">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Airplane">
+              <PropertyRef Name="engine_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Flight_log_Airplane">
+          <End Role="Airplane" Type="Self.Airplane" Multiplicity="1" />
+          <End Role="Flight_log" Type="Self.Flight_log" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Airplane">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Flight_log">
+              <PropertyRef Name="airplane_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mastered_type_airplane_Airplane">
+          <End Role="Airplane" Type="Self.Airplane" Multiplicity="1" />
+          <End Role="Mastered_type_airplane" Type="Self.Mastered_type_airplane" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Airplane">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Mastered_type_airplane">
+              <PropertyRef Name="airplane_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Recommended_repair_period_Airplane">
+          <End Role="Airplane" Type="Self.Airplane" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Recommended_repair_period" Type="Self.Recommended_repair_period" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Airplane">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Recommended_repair_period">
+              <PropertyRef Name="airplane_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Repair_list_Airplane">
+          <End Role="Airplane" Type="Self.Airplane" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Repair_list" Type="Self.Repair_list" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Airplane">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Repair_list">
+              <PropertyRef Name="airplane_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Authorization_Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Authorization" Type="Self.Authorization" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Authorization">
+              <PropertyRef Name="person_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Engine_Cooling_system">
+          <End Role="Cooling_system" Type="Self.Cooling_system" Multiplicity="1" />
+          <End Role="Engine" Type="Self.Engine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cooling_system">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Engine">
+              <PropertyRef Name="cooling_system_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Engines_fuel_type_Engine">
+          <End Role="Engine" Type="Self.Engine" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Engines_fuel_type" Type="Self.Engines_fuel_type" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Engine">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Engines_fuel_type">
+              <PropertyRef Name="engine_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Engineer_Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Engineer" Type="Self.Engineer" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Engineer">
+              <PropertyRef Name="person_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Required_repair_work_Engineer">
+          <End Role="Engineer" Type="Self.Engineer" Multiplicity="1" />
+          <End Role="Required_repair_work" Type="Self.Required_repair_work" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Engineer">
+              <PropertyRef Name="person_id" />
+            </Principal>
+            <Dependent Role="Required_repair_work">
+              <PropertyRef Name="engineer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Engines_fuel_type_Fuel_type">
+          <End Role="Fuel_type" Type="Self.Fuel_type" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Engines_fuel_type" Type="Self.Engines_fuel_type" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fuel_type">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Engines_fuel_type">
+              <PropertyRef Name="fuel_type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Flight_log_Instructor">
+          <End Role="Instructor" Type="Self.Instructor" Multiplicity="0..1" />
+          <End Role="Flight_log" Type="Self.Flight_log" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Instructor">
+              <PropertyRef Name="person_id" />
+            </Principal>
+            <Dependent Role="Flight_log">
+              <PropertyRef Name="instructor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Flight_log_Pilot">
+          <End Role="Pilot" Type="Self.Pilot" Multiplicity="1" />
+          <End Role="Flight_log" Type="Self.Flight_log" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pilot">
+              <PropertyRef Name="person_id" />
+            </Principal>
+            <Dependent Role="Flight_log">
+              <PropertyRef Name="pilot" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Instructor_Pilot">
+          <End Role="Pilot" Type="Self.Pilot" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Instructor" Type="Self.Instructor" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Pilot">
+              <PropertyRef Name="person_id" />
+            </Principal>
+            <Dependent Role="Instructor">
+              <PropertyRef Name="person_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mastered_type_airplane_Pilot">
+          <End Role="Pilot" Type="Self.Pilot" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Mastered_type_airplane" Type="Self.Mastered_type_airplane" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pilot">
+              <PropertyRef Name="person_id" />
+            </Principal>
+            <Dependent Role="Mastered_type_airplane">
+              <PropertyRef Name="pilot_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Person_Permission_group">
+          <End Role="Permission_group" Type="Self.Permission_group" Multiplicity="1" />
+          <End Role="Person" Type="Self.Person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permission_group">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Person">
+              <PropertyRef Name="permission_group" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pilot_Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Pilot" Type="Self.Pilot" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Pilot">
+              <PropertyRef Name="person_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_pilot_Pilot1">
+          <End Role="Pilot" Type="Self.Pilot" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Student_pilot" Type="Self.Student_pilot" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Pilot">
+              <PropertyRef Name="person_id" />
+            </Principal>
+            <Dependent Role="Student_pilot">
+              <PropertyRef Name="person_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Recommended_repair_period_Repair_work">
+          <End Role="Repair_work" Type="Self.Repair_work" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Recommended_repair_period" Type="Self.Recommended_repair_period" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Repair_work">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Recommended_repair_period">
+              <PropertyRef Name="work_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Required_repair_work_Repair_list">
+          <End Role="Repair_list" Type="Self.Repair_list" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Required_repair_work" Type="Self.Required_repair_work" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Repair_list">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Required_repair_work">
+              <PropertyRef Name="repair_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Required_repair_part_Repair_part">
+          <End Role="Repair_part" Type="Self.Repair_part" Multiplicity="1" />
+          <End Role="Required_repair_part" Type="Self.Required_repair_part" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Repair_part">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Required_repair_part">
+              <PropertyRef Name="repair_part_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Required_repair_work_Repair_status">
+          <End Role="Repair_status" Type="Self.Repair_status" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Required_repair_work" Type="Self.Required_repair_work" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Repair_status">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Required_repair_work">
+              <PropertyRef Name="status_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Required_repair_work_Repair_work">
+          <End Role="Repair_work" Type="Self.Repair_work" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Required_repair_work" Type="Self.Required_repair_work" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Repair_work">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Required_repair_work">
+              <PropertyRef Name="repair_work_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Required_repair_part_Required_repair_work">
+          <End Role="Required_repair_work" Type="Self.Required_repair_work" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Required_repair_part" Type="Self.Required_repair_part" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Required_repair_work">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Required_repair_part">
+              <PropertyRef Name="required_repair_work_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_pilot_Study_group">
+          <End Role="Study_group" Type="Self.Study_group" Multiplicity="1" />
+          <End Role="Student_pilot" Type="Self.Student_pilot" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Study_group">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Student_pilot">
+              <PropertyRef Name="study_group_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Permission_for_group">
+          <End Role="Permission" Type="Self.Permission" Multiplicity="*" />
+          <End Role="Permission_group" Type="Self.Permission_group" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="Repair_airplanesConnection" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Airplane" EntityType="Self.Airplane" />
+          <EntitySet Name="Authorization" EntityType="Self.Authorization" />
+          <EntitySet Name="Cooling_system" EntityType="Self.Cooling_system" />
+          <EntitySet Name="Engine" EntityType="Self.Engine" />
+          <EntitySet Name="Engineer" EntityType="Self.Engineer" />
+          <EntitySet Name="Engines_fuel_type" EntityType="Self.Engines_fuel_type" />
+          <EntitySet Name="Flight_log" EntityType="Self.Flight_log" />
+          <EntitySet Name="Fuel_type" EntityType="Self.Fuel_type" />
+          <EntitySet Name="Instructor" EntityType="Self.Instructor" />
+          <EntitySet Name="Mastered_type_airplane" EntityType="Self.Mastered_type_airplane" />
+          <EntitySet Name="Permission" EntityType="Self.Permission" />
+          <EntitySet Name="Permission_group" EntityType="Self.Permission_group" />
+          <EntitySet Name="Person" EntityType="Self.Person" />
+          <EntitySet Name="Pilot" EntityType="Self.Pilot" />
+          <EntitySet Name="Recommended_repair_period" EntityType="Self.Recommended_repair_period" />
+          <EntitySet Name="Repair_list" EntityType="Self.Repair_list" />
+          <EntitySet Name="Repair_part" EntityType="Self.Repair_part" />
+          <EntitySet Name="Repair_status" EntityType="Self.Repair_status" />
+          <EntitySet Name="Repair_work" EntityType="Self.Repair_work" />
+          <EntitySet Name="Required_repair_part" EntityType="Self.Required_repair_part" />
+          <EntitySet Name="Required_repair_work" EntityType="Self.Required_repair_work" />
+          <EntitySet Name="Student_pilot" EntityType="Self.Student_pilot" />
+          <EntitySet Name="Study_group" EntityType="Self.Study_group" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <AssociationSet Name="FK_Airplane_Engine" Association="Self.FK_Airplane_Engine">
+            <End Role="Engine" EntitySet="Engine" />
+            <End Role="Airplane" EntitySet="Airplane" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Flight_log_Airplane" Association="Self.FK_Flight_log_Airplane">
+            <End Role="Airplane" EntitySet="Airplane" />
+            <End Role="Flight_log" EntitySet="Flight_log" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mastered_type_airplane_Airplane" Association="Self.FK_Mastered_type_airplane_Airplane">
+            <End Role="Airplane" EntitySet="Airplane" />
+            <End Role="Mastered_type_airplane" EntitySet="Mastered_type_airplane" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Recommended_repair_period_Airplane" Association="Self.FK_Recommended_repair_period_Airplane">
+            <End Role="Airplane" EntitySet="Airplane" />
+            <End Role="Recommended_repair_period" EntitySet="Recommended_repair_period" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Repair_list_Airplane" Association="Self.FK_Repair_list_Airplane">
+            <End Role="Airplane" EntitySet="Airplane" />
+            <End Role="Repair_list" EntitySet="Repair_list" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Authorization_Person" Association="Self.FK_Authorization_Person">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Authorization" EntitySet="Authorization" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Engine_Cooling_system" Association="Self.FK_Engine_Cooling_system">
+            <End Role="Cooling_system" EntitySet="Cooling_system" />
+            <End Role="Engine" EntitySet="Engine" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Engines_fuel_type_Engine" Association="Self.FK_Engines_fuel_type_Engine">
+            <End Role="Engine" EntitySet="Engine" />
+            <End Role="Engines_fuel_type" EntitySet="Engines_fuel_type" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Engineer_Person" Association="Self.FK_Engineer_Person">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Engineer" EntitySet="Engineer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Required_repair_work_Engineer" Association="Self.FK_Required_repair_work_Engineer">
+            <End Role="Engineer" EntitySet="Engineer" />
+            <End Role="Required_repair_work" EntitySet="Required_repair_work" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Engines_fuel_type_Fuel_type" Association="Self.FK_Engines_fuel_type_Fuel_type">
+            <End Role="Fuel_type" EntitySet="Fuel_type" />
+            <End Role="Engines_fuel_type" EntitySet="Engines_fuel_type" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Flight_log_Instructor" Association="Self.FK_Flight_log_Instructor">
+            <End Role="Instructor" EntitySet="Instructor" />
+            <End Role="Flight_log" EntitySet="Flight_log" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Flight_log_Pilot" Association="Self.FK_Flight_log_Pilot">
+            <End Role="Pilot" EntitySet="Pilot" />
+            <End Role="Flight_log" EntitySet="Flight_log" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Instructor_Pilot" Association="Self.FK_Instructor_Pilot">
+            <End Role="Pilot" EntitySet="Pilot" />
+            <End Role="Instructor" EntitySet="Instructor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mastered_type_airplane_Pilot" Association="Self.FK_Mastered_type_airplane_Pilot">
+            <End Role="Pilot" EntitySet="Pilot" />
+            <End Role="Mastered_type_airplane" EntitySet="Mastered_type_airplane" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Person_Permission_group" Association="Self.FK_Person_Permission_group">
+            <End Role="Permission_group" EntitySet="Permission_group" />
+            <End Role="Person" EntitySet="Person" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pilot_Person" Association="Self.FK_Pilot_Person">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Pilot" EntitySet="Pilot" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_pilot_Pilot1" Association="Self.FK_Student_pilot_Pilot1">
+            <End Role="Pilot" EntitySet="Pilot" />
+            <End Role="Student_pilot" EntitySet="Student_pilot" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Recommended_repair_period_Repair_work" Association="Self.FK_Recommended_repair_period_Repair_work">
+            <End Role="Repair_work" EntitySet="Repair_work" />
+            <End Role="Recommended_repair_period" EntitySet="Recommended_repair_period" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Required_repair_work_Repair_list" Association="Self.FK_Required_repair_work_Repair_list">
+            <End Role="Repair_list" EntitySet="Repair_list" />
+            <End Role="Required_repair_work" EntitySet="Required_repair_work" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Required_repair_part_Repair_part" Association="Self.FK_Required_repair_part_Repair_part">
+            <End Role="Repair_part" EntitySet="Repair_part" />
+            <End Role="Required_repair_part" EntitySet="Required_repair_part" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Required_repair_work_Repair_status" Association="Self.FK_Required_repair_work_Repair_status">
+            <End Role="Repair_status" EntitySet="Repair_status" />
+            <End Role="Required_repair_work" EntitySet="Required_repair_work" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Required_repair_work_Repair_work" Association="Self.FK_Required_repair_work_Repair_work">
+            <End Role="Repair_work" EntitySet="Repair_work" />
+            <End Role="Required_repair_work" EntitySet="Required_repair_work" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Required_repair_part_Required_repair_work" Association="Self.FK_Required_repair_part_Required_repair_work">
+            <End Role="Required_repair_work" EntitySet="Required_repair_work" />
+            <End Role="Required_repair_part" EntitySet="Required_repair_part" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_pilot_Study_group" Association="Self.FK_Student_pilot_Study_group">
+            <End Role="Study_group" EntitySet="Study_group" />
+            <End Role="Student_pilot" EntitySet="Student_pilot" />
+          </AssociationSet>
+          <AssociationSet Name="Permission_for_group" Association="Self.Permission_for_group">
+            <End Role="Permission" EntitySet="Permission" />
+            <End Role="Permission_group" EntitySet="Permission_group" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище Repair_airplanesModelContainer" CdmEntityContainer="Repair_airplanesConnection">
+          <EntitySetMapping Name="Airplane">
+            <EntityTypeMapping TypeName="Repair_airplanesModel.Airplane">
+              <MappingFragment StoreEntitySet="Airplane">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="model" ColumnName="model" />
+                <ScalarProperty Name="max_speed" ColumnName="max_speed" />
+                <ScalarProperty Name="max_height" ColumnName="max_height" />
+                <ScalarProperty Name="max_fly_distance" ColumnName="max_fly_distance" />
+                <ScalarProperty Name="pilots_seat_count" ColumnName="pilots_seat_count" />
+                <ScalarProperty Name="passengers_seat_count" ColumnName="passengers_seat_count" />
+                <ScalarProperty Name="fuel_capacity" ColumnName="fuel_capacity" />
+                <ScalarProperty Name="load_capacity" ColumnName="load_capacity" />
+                <ScalarProperty Name="engine_id" ColumnName="engine_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Authorization">
+            <EntityTypeMapping TypeName="Repair_airplanesModel.Authorization">
+              <MappingFragment StoreEntitySet="Authorization">
+                <ScalarProperty Name="person_id" ColumnName="person_id" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="last_login_date" ColumnName="last_login_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cooling_system">
+            <EntityTypeMapping TypeName="Repair_airplanesModel.Cooling_system">
+              <MappingFragment StoreEntitySet="Cooling_system">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Engine">
+            <EntityTypeMapping TypeName="Repair_airplanesModel.Engine">
+              <MappingFragment StoreEntitySet="Engine">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="model" ColumnName="model" />
+                <ScalarProperty Name="power" ColumnName="power" />
+                <ScalarProperty Name="cylinder_count" ColumnName="cylinder_count" />
+                <ScalarProperty Name="working_time" ColumnName="working_time" />
+                <ScalarProperty Name="torque" ColumnName="torque" />
+                <ScalarProperty Name="repair_period" ColumnName="repair_period" />
+                <ScalarProperty Name="weight" ColumnName="weight" />
+                <ScalarProperty Name="cooling_system_id" ColumnName="cooling_system_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Engineer">
+            <EntityTypeMapping TypeName="Repair_airplanesModel.Engineer">
+              <MappingFragment StoreEntitySet="Engineer">
+                <ScalarProperty Name="person_id" ColumnName="person_id" />
+                <ScalarProperty Name="qualification" ColumnName="qualification" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Engines_fuel_type">
+            <EntityTypeMapping TypeName="Repair_airplanesModel.Engines_fuel_type">
+              <MappingFragment StoreEntitySet="Engines_fuel_type">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="engine_id" ColumnName="engine_id" />
+                <ScalarProperty Name="fuel_type" ColumnName="fuel_type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Flight_log">
+            <EntityTypeMapping TypeName="Repair_airplanesModel.Flight_log">
+              <MappingFragment StoreEntitySet="Flight_log">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="airplane_id" ColumnName="airplane_id" />
+                <ScalarProperty Name="pilot" ColumnName="pilot" />
+                <ScalarProperty Name="instructor" ColumnName="instructor" />
+                <ScalarProperty Name="start_time" ColumnName="start_time" />
+                <ScalarProperty Name="end_time" ColumnName="end_time" />
+                <ScalarProperty Name="flight_time" ColumnName="flight_time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Fuel_type">
+            <EntityTypeMapping TypeName="Repair_airplanesModel.Fuel_type">
+              <MappingFragment StoreEntitySet="Fuel_type">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Instructor">
+            <EntityTypeMapping TypeName="Repair_airplanesModel.Instructor">
+              <MappingFragment StoreEntitySet="Instructor">
+                <ScalarProperty Name="person_id" ColumnName="person_id" />
+                <ScalarProperty Name="work_start_date" ColumnName="work_start_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Mastered_type_airplane">
+            <EntityTypeMapping TypeName="Repair_airplanesModel.Mastered_type_airplane">
+              <MappingFragment StoreEntitySet="Mastered_type_airplane">
+                <ScalarProperty Name="pilot_id" ColumnName="pilot_id" />
+                <ScalarProperty Name="airplane_id" ColumnName="airplane_id" />
+                <ScalarProperty Name="flight_start_date" ColumnName="flight_start_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Permission">
+            <EntityTypeMapping TypeName="Repair_airplanesModel.Permission">
+              <MappingFragment StoreEntitySet="Permission">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="description" ColumnName="description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Permission_group">
+            <EntityTypeMapping TypeName="Repair_airplanesModel.Permission_group">
+              <MappingFragment StoreEntitySet="Permission_group">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Person">
+            <EntityTypeMapping TypeName="Repair_airplanesModel.Person">
+              <MappingFragment StoreEntitySet="Person">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="middlename" ColumnName="middlename" />
+                <ScalarProperty Name="birthday" ColumnName="birthday" />
+                <ScalarProperty Name="passport" ColumnName="passport" />
+                <ScalarProperty Name="permission_group" ColumnName="permission_group" />
+                <ScalarProperty Name="FIO" ColumnName="FIO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pilot">
+            <EntityTypeMapping TypeName="Repair_airplanesModel.Pilot">
+              <MappingFragment StoreEntitySet="Pilot">
+                <ScalarProperty Name="person_id" ColumnName="person_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Recommended_repair_period">
+            <EntityTypeMapping TypeName="Repair_airplanesModel.Recommended_repair_period">
+              <MappingFragment StoreEntitySet="Recommended_repair_period">
+                <ScalarProperty Name="airplane_id" ColumnName="airplane_id" />
+                <ScalarProperty Name="work_id" ColumnName="work_id" />
+                <ScalarProperty Name="recommended_period_hours" ColumnName="recommended_period_hours" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Repair_list">
+            <EntityTypeMapping TypeName="Repair_airplanesModel.Repair_list">
+              <MappingFragment StoreEntitySet="Repair_list">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="airplane_id" ColumnName="airplane_id" />
+                <ScalarProperty Name="start_repair_date" ColumnName="start_repair_date" />
+                <ScalarProperty Name="end_repair_date" ColumnName="end_repair_date" />
+                <ScalarProperty Name="status_id" ColumnName="status_id" />
+                <ScalarProperty Name="additional_information" ColumnName="additional_information" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Repair_part">
+            <EntityTypeMapping TypeName="Repair_airplanesModel.Repair_part">
+              <MappingFragment StoreEntitySet="Repair_part">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="price" ColumnName="price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Repair_status">
+            <EntityTypeMapping TypeName="Repair_airplanesModel.Repair_status">
+              <MappingFragment StoreEntitySet="Repair_status">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Repair_work">
+            <EntityTypeMapping TypeName="Repair_airplanesModel.Repair_work">
+              <MappingFragment StoreEntitySet="Repair_work">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Required_repair_part">
+            <EntityTypeMapping TypeName="Repair_airplanesModel.Required_repair_part">
+              <MappingFragment StoreEntitySet="Required_repair_part">
+                <ScalarProperty Name="required_repair_work_id" ColumnName="required_repair_work_id" />
+                <ScalarProperty Name="repair_part_id" ColumnName="repair_part_id" />
+                <ScalarProperty Name="count" ColumnName="count" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Required_repair_work">
+            <EntityTypeMapping TypeName="Repair_airplanesModel.Required_repair_work">
+              <MappingFragment StoreEntitySet="Required_repair_work">
+                <ScalarProperty Name="repair_id" ColumnName="repair_id" />
+                <ScalarProperty Name="repair_work_id" ColumnName="repair_work_id" />
+                <ScalarProperty Name="status_id" ColumnName="status_id" />
+                <ScalarProperty Name="engineer_id" ColumnName="engineer_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="count" ColumnName="count" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Student_pilot">
+            <EntityTypeMapping TypeName="Repair_airplanesModel.Student_pilot">
+              <MappingFragment StoreEntitySet="Student_pilot">
+                <ScalarProperty Name="person_id" ColumnName="person_id" />
+                <ScalarProperty Name="study_group_id" ColumnName="study_group_id" />
+                <ScalarProperty Name="start_learning_date" ColumnName="start_learning_date" />
+                <ScalarProperty Name="eduation_sertificate_number" ColumnName="eduation_sertificate_number" />
+                <ScalarProperty Name="eduation_sertificate_serial" ColumnName="eduation_sertificate_serial" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Study_group">
+            <EntityTypeMapping TypeName="Repair_airplanesModel.Study_group">
+              <MappingFragment StoreEntitySet="Study_group">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="Repair_airplanesModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Permission_for_group" TypeName="Repair_airplanesModel.Permission_for_group" StoreEntitySet="Permission_for_group">
+            <EndProperty Name="Permission">
+              <ScalarProperty Name="id" ColumnName="permission_id" />
+            </EndProperty>
+            <EndProperty Name="Permission_group">
+              <ScalarProperty Name="id" ColumnName="group_id" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

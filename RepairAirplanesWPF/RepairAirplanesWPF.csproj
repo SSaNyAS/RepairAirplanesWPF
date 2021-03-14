@@ -53,6 +53,12 @@
     <Reference Include="CommonServiceLocator, Version=2.0.2.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.2.0.2\lib\net47\CommonServiceLocator.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="GalaSoft.MvvmLight, Version=5.4.1.0, Culture=neutral, PublicKeyToken=e7570ab207bcb616, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.dll</HintPath>
     </Reference>
@@ -63,7 +69,10 @@
       <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.Platform.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\System.Windows.Interactivity.dll</HintPath>
     </Reference>
@@ -85,10 +94,97 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Airplane.cs">
+      <DependentUpon>RepairAirplanesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Authorization.cs">
+      <DependentUpon>RepairAirplanesModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Classes\MenuNavigateCommand.cs" />
     <Compile Include="Classes\RepairAirplanesDataManager.cs" />
     <Compile Include="Converters\ObjectExistingConverter.cs" />
     <Compile Include="Converters\PermissionCheckConverter.cs" />
+    <Compile Include="Cooling_system.cs">
+      <DependentUpon>RepairAirplanesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Engine.cs">
+      <DependentUpon>RepairAirplanesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Engineer.cs">
+      <DependentUpon>RepairAirplanesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Engines_fuel_type.cs">
+      <DependentUpon>RepairAirplanesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Flight_log.cs">
+      <DependentUpon>RepairAirplanesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Fuel_type.cs">
+      <DependentUpon>RepairAirplanesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Instructor.cs">
+      <DependentUpon>RepairAirplanesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Mastered_type_airplane.cs">
+      <DependentUpon>RepairAirplanesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Permission.cs">
+      <DependentUpon>RepairAirplanesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Permission_group.cs">
+      <DependentUpon>RepairAirplanesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Person.cs">
+      <DependentUpon>RepairAirplanesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Pilot.cs">
+      <DependentUpon>RepairAirplanesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Recommended_repair_period.cs">
+      <DependentUpon>RepairAirplanesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RepairAirplanesModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RepairAirplanesModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RepairAirplanesModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RepairAirplanesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RepairAirplanesModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RepairAirplanesModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Repair_list.cs">
+      <DependentUpon>RepairAirplanesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repair_part.cs">
+      <DependentUpon>RepairAirplanesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repair_status.cs">
+      <DependentUpon>RepairAirplanesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repair_work.cs">
+      <DependentUpon>RepairAirplanesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Required_repair_part.cs">
+      <DependentUpon>RepairAirplanesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Required_repair_work.cs">
+      <DependentUpon>RepairAirplanesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Student_pilot.cs">
+      <DependentUpon>RepairAirplanesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Study_group.cs">
+      <DependentUpon>RepairAirplanesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sysdiagrams.cs">
+      <DependentUpon>RepairAirplanesModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="UIComponents\FrameworkElementWithHeader.xaml.cs">
       <DependentUpon>FrameworkElementWithHeader.xaml</DependentUpon>
     </Compile>
@@ -132,11 +228,11 @@
     <Compile Include="Views\EditDataViews\EditRequiredRepairWorkList.xaml.cs">
       <DependentUpon>EditRequiredRepairWorkList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\EditDataViews\SimpleEditWindow.xaml.cs">
-      <DependentUpon>SimpleEditWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\EngineListPage.xaml.cs">
       <DependentUpon>EngineListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EditDataViews\SimpleEditWindow.xaml.cs">
+      <DependentUpon>SimpleEditWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\EnginePage.xaml.cs">
       <DependentUpon>EnginePage.xaml</DependentUpon>
@@ -200,11 +296,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\EditDataViews\SimpleEditWindow.xaml">
+    <Page Include="Views\EngineListPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\EngineListPage.xaml">
+    <Page Include="Views\EditDataViews\SimpleEditWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -212,7 +308,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\LoginWindow.xaml">
+    <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -220,8 +316,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Views\LoginWindow.xaml.cs">
-      <DependentUpon>LoginWindow.xaml</DependentUpon>
+    <Compile Include="Views\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\RepairHistoryPage.xaml">
@@ -252,6 +348,13 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <EntityDeploy Include="RepairAirplanesModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>RepairAirplanesModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="RepairAirplanesModel.edmx.diagram">
+      <DependentUpon>RepairAirplanesModel.edmx</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -276,6 +379,21 @@
       <Project>{6ad5aef2-2c1e-42b6-99c7-ad3c141f0d27}</Project>
       <Name>DBManager</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="RepairAirplanesModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>RepairAirplanesModel.Context.cs</LastGenOutput>
+      <DependentUpon>RepairAirplanesModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="RepairAirplanesModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>RepairAirplanesModel.edmx</DependentUpon>
+      <LastGenOutput>RepairAirplanesModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

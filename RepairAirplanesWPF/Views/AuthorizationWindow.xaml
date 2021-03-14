@@ -11,12 +11,12 @@
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="1.7*"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
-                <RowDefinition Height="12*"/>
+                <RowDefinition Height="16*"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
             <Border Grid.Column="1" Grid.Row="1">
@@ -33,16 +33,16 @@
 
                 <Grid x:Name="container" Background="White" ClipToBounds="False">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="0.5*"/>
+                        <RowDefinition Height="0.67*"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <Image Source="https://www.bluga.ru/images/logo1.png"/>
-                    <StackPanel Grid.Row="1" x:Name="loginPanel" HorizontalAlignment="Center" Orientation="Vertical" VerticalAlignment="Center" ClipToBounds="True" Width="340">
+                    <Image Source="https://www.bluga.ru/images/logo1.png" VerticalAlignment="Bottom"/>
+                    <StackPanel Grid.Row="1" x:Name="loginPanel" HorizontalAlignment="Center" Orientation="Vertical" ClipToBounds="True" Width="320">
                         <TextBlock Text="Логин:"></TextBlock>
                         <TextBox Text="{Binding Login}" Margin="0,0,0,15"/>
                         <TextBlock Text="Пароль:"></TextBlock>
                         <TextBox Text="{Binding Password}" Margin="0,0,0,25"/>
-                        <Button Content="Войти" Click="Login_Click"></Button>
+                        <Button Content="Войти"></Button>
                     </StackPanel>
                 </Grid>
             </Border>

@@ -12,32 +12,40 @@ namespace DBManager
 {
     public class DBLoader<T> where T : class
     {
-        public DBLoader(DbContext context) { this.context = context; this.TryConnectionTimer = new TryConnectionTimer(this.context.Database.Connection);  }
-        public DbContext context { get; private set; }
-        public double TryConnectionInterval { get; set; } = 5000;
-        public int MaxTryConnectionCount { get; set; } = 10;
-        private int CurrentTryConnectionCount { get; set; } = 0;
-        private TryConnectionTimer TryConnectionTimer;
+        public DBLoader(DbContext context) { this.Context = context; }
+        public DbContext Context { get; private set; }
+       // private TryConnectionTimer TryConnectionTimer;
         public bool IsConnected {
             get
             {
-                var isConnected = this.context.Database.Connection.State == System.Data.ConnectionState.Open;
+                var isConnected = this.Context.Database.Connection.State == System.Data.ConnectionState.Open;
                 if (!isConnected)
                 {
-                    TryConnectionTimer.Start();
+                    //TryConnectionTimer.Start();
+                    TryOpenConnection();
                 } else
                 {
-                    TryConnectionTimer.Stop();
+                    //TryConnectionTimer.Stop();
                 }
                 return isConnected;
             }
         }
+        private void TryOpenConnection()
+        {
+            try
+            {
+                this.Context.Database.Connection.Open();
+            }
+            catch (Exception)
+            {
 
+            }
+        }
         public virtual ObservableCollection<T> GetList()
         {
             if (IsConnected)
             {
-                var dbSet = context.Set<T>();
+                var dbSet = Context.Set<T>();
                 dbSet.Load();
                 return dbSet.Local;
             }
@@ -47,7 +55,7 @@ namespace DBManager
         {
             if (IsConnected)
             {
-                var dbSet = context.Set<T>();
+                var dbSet = Context.Set<T>();
 
                 if (reversed)
                     dbSet.Where(filter).Reverse().Load();
@@ -62,11 +70,11 @@ namespace DBManager
         {
             if (IsConnected)
             {
-                var dbSet = context.Set<T>();
+                var dbSet = Context.Set<T>();
                 try
                 {
                     dbSet.AddOrUpdate(item);
-                    context.SaveChanges();
+                    Context.SaveChanges();
                 }
                 catch (Exception error)
                 {
@@ -78,11 +86,11 @@ namespace DBManager
         {
             if (IsConnected)
             {
-                var dbSet = context.Set<T>();
+                var dbSet = Context.Set<T>();
                 try
                 {
                     dbSet.Remove(item);
-                    context.SaveChanges();
+                    Context.SaveChanges();
                 }
                 catch (Exception error)
                 {
@@ -94,7 +102,7 @@ namespace DBManager
         {
             if (IsConnected)
             {
-                var dbSet = context.Set<T>();
+                var dbSet = Context.Set<T>();
                 try
                 {
                     return dbSet.Find(keyValues);
@@ -110,7 +118,7 @@ namespace DBManager
         {
             if (IsConnected)
             {
-                var dbSet = context.Set<T>();
+                var dbSet = Context.Set<T>();
                 try
                 {
                     var result = dbSet.FirstOrDefault(filter);
@@ -129,11 +137,11 @@ namespace DBManager
         {
             if (IsConnected)
             {
-                var dbSet = context.Set<T>();
+                var dbSet = Context.Set<T>();
                 try
                 {
                     dbSet.AddOrUpdate(item);
-                    context.SaveChanges();
+                    Context.SaveChanges();
                 }
                 catch (Exception)
                 {
