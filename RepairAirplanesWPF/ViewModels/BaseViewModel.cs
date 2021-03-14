@@ -16,29 +16,15 @@ namespace RepairAirplanesWPF.ViewModels
 {
     public class BaseViewModel: DependencyObject
     {
-        #region DependencyProperties
-        public static DependencyProperty CurrentPageProperty = DependencyProperty.Register("CurrentPage", typeof(Page), typeof(BaseViewModel));
-        public static DependencyProperty Repair_listProperty = DependencyProperty.Register("Repair_list", typeof(object), typeof(BaseViewModel));
-        #endregion
         public BaseViewModel(Page currentPage)
         {
             CurrentPage = currentPage;
         }
+
         #region DataCollections
         public ObservableCollection<object> Repair_list => new ObservableCollection<object>();
 
         #endregion
-        public Page CurrentPage
-        {
-            get
-            {
-                return GetValue(CurrentPageProperty) as Page;
-            }
-            set
-            {
-                SetValue(CurrentPageProperty, value);
-            }
-        }
 
         #region Commands
         public ICommand EnginePage_Open => new MenuNavigateCommand((sender) =>
@@ -59,8 +45,18 @@ namespace RepairAirplanesWPF.ViewModels
         });
         #endregion
 
-
-       
+        #region CurrentPageManagement
+        public Page CurrentPage
+        {
+            get
+            {
+                return GetValue(CurrentPageProperty) as Page;
+            }
+            set
+            {
+                SetValue(CurrentPageProperty, value);
+            }
+        }
         private object currentPageButton = null;
         private void SetPage(Page page, object sender = null)
         {
@@ -79,5 +75,11 @@ namespace RepairAirplanesWPF.ViewModels
             page.DataContext = this;
             this.CurrentPage = page;
         }
+        #endregion
+        
+        #region DependencyProperties
+        public static DependencyProperty CurrentPageProperty = DependencyProperty.Register("CurrentPage", typeof(Page), typeof(BaseViewModel));
+        public static DependencyProperty Repair_listProperty = DependencyProperty.Register("Repair_list", typeof(object), typeof(BaseViewModel));
+        #endregion
     }
 }
