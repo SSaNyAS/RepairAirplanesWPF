@@ -99,6 +99,9 @@
       <DependentUpon>TextBoxWithHeader.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="Views\AuthorizationWindow.xaml.cs">
+      <DependentUpon>AuthorizationWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\EditDataViews\EditAirplane.xaml.cs">
       <DependentUpon>EditAirplane.xaml</DependentUpon>
     </Compile>
@@ -132,6 +135,9 @@
     <Compile Include="Views\EditDataViews\SimpleEditWindow.xaml.cs">
       <DependentUpon>SimpleEditWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\EngineListPage.xaml.cs">
+      <DependentUpon>EngineListPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\EnginePage.xaml.cs">
       <DependentUpon>EnginePage.xaml</DependentUpon>
     </Compile>
@@ -147,6 +153,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UIComponents\TextBoxWithHeader.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AuthorizationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -191,6 +201,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\EditDataViews\SimpleEditWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EngineListPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
