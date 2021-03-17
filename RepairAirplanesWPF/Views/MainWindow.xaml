@@ -23,6 +23,8 @@
                     <Button Content="Двигатели" Command="{Binding EngineListPage_Open}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">
                     </Button>
                     <Button Command="{Binding RepairHistoryPage_Open}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">История ремонтов</Button>
+                    <Button Command="{Binding FlightHistoryPage_Open}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">История полётов</Button>
+                    <Button Command="{Binding PersonListPage_Open}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Пользователи</Button>
                 </WrapPanel>
             </Grid>
             <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden">

@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        x:Name="thisWindow"
         xmlns:local="clr-namespace:RepairAirplanesWPF.Views.EditDataViews" xmlns:uicomponents="clr-namespace:RepairAirplanesWPF.UIComponents"
         mc:Ignorable="d"
         Title="Редактирование пользователя" Height="495" MinHeight="495" MinWidth="400" Width="500" WindowStartupLocation="CenterScreen">
@@ -18,7 +19,7 @@
         <TextBlock Margin="0,10,0,0" Text="Дата рождения"/>
         <DatePicker MinHeight="30" SelectedDate="{Binding birthday}"/>
         <TextBlock Margin="0,10,0,0" Text="Отношение"/>
-        <ComboBox ItemsSource="{Binding Permission_group_list}" SelectedValuePath="id" DisplayMemberPath="name" SelectedValue="{Binding permission_group}"/>
-        <Button Margin="0,10,0,0" Content="Сохранить"/>
+        <ComboBox Name="permissionGroupSelector" SelectedValuePath="id" DisplayMemberPath="name" SelectedValue="{Binding permission_group}"/>
+        <Button Margin="0,10,0,0" Click="Save_Click" Content="Сохранить"/>
     </StackPanel>
 </Window>

@@ -13,8 +13,8 @@
                 <ColumnDefinition/>
                 <ColumnDefinition Width="30"/>
             </Grid.ColumnDefinitions>
-            <ComboBox Grid.Column="0" ItemsSource="{Binding Repair_work_list}" SelectedValuePath="id" DisplayMemberPath="name" SelectedValue="{Binding repair_work_id}" />
-            <Button Grid.Column="1" Content="+" Padding="2"/>
+            <ComboBox x:Name="repairWorkSelector" Grid.Column="0" SelectedValuePath="id" DisplayMemberPath="name" SelectedValue="{Binding repair_work_id}" />
+            <Button x:Name="addRepairWorkButton" Grid.Column="1" Content="+" Padding="2"/>
         </Grid>
         <TextBlock Text="Статус работы"/>
         <Grid>
@@ -22,8 +22,8 @@
                 <ColumnDefinition/>
                 <ColumnDefinition Width="30"/>
             </Grid.ColumnDefinitions>
-            <ComboBox Grid.Column="0" ItemsSource="{Binding Repair_status_list}" SelectedValuePath="id" DisplayMemberPath="name" SelectedValue="{Binding status_id}" />
-            <Button Grid.Column="1" Content="+" Padding="2"/>
+            <ComboBox x:Name="repairStatusSelector" Grid.Column="0" SelectedValuePath="id" DisplayMemberPath="name" SelectedValue="{Binding status_id}" />
+            <Button x:Name="addRepairStatusButton" Grid.Column="1" Content="+" Padding="2"/>
         </Grid>
         <TextBlock Margin="0,10,0,0" Text="Инженер"/>
         <Grid>
@@ -31,14 +31,14 @@
                 <ColumnDefinition/>
                 <ColumnDefinition Width="30"/>
             </Grid.ColumnDefinitions>
-            <ComboBox Grid.Column="0" ItemsSource="{Binding Engineer_list}" SelectedValuePath="person_id" SelectedValue="{Binding engineer_id}">
+            <ComboBox x:Name="engineerSelector" Grid.Column="0" SelectedValuePath="person_id" SelectedValue="{Binding engineer_id}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Person.FIO}"/>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <Button Grid.Column="1" Content="+" Padding="2"/>
+            <Button x:Name="addEngineerButton" Grid.Column="1" Content="+" Padding="2"/>
         </Grid>
         <TextBlock Margin="0,10,0,0" Text="Необходимое количество выполнений работы"/>
         <TextBox Text="{Binding count}"/>
@@ -48,7 +48,7 @@
                 <ColumnDefinition Width="30"/>
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" Text="Компоненты необходимые для работы"/>
-            <Button Grid.Column="1" Content="+" Padding="2"/>
+            <Button x:Name="addRequiredRepairPartButton" Grid.Column="1" Content="+" Padding="2"/>
         </Grid>
         <ListBox ItemsSource="{Binding Required_repair_part}" Height="130">
             <ListBox.ItemTemplate>
@@ -68,6 +68,6 @@
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
         </ListBox>
-        <Button Margin="0,10,0,0" Content="Сохранить"/>
+        <Button Margin="0,10,0,0" Click="Save_Click" Content="Сохранить"/>
     </StackPanel>
 </Window>

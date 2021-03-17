@@ -1,7 +1,6 @@
 ﻿using RepairAirplanesWPF.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,28 +17,29 @@ using System.Windows.Shapes;
 namespace RepairAirplanesWPF.Views
 {
     /// <summary>
-    /// Логика взаимодействия для EngineListPage.xaml
+    /// Логика взаимодействия для PersonListPage.xaml
     /// </summary>
-    public partial class EngineListPage : Page
+    public partial class PersonListPage : Page
     {
         private BaseViewModel BaseViewModel;
-        public EngineListPage( BaseViewModel baseViewModel)
+        public PersonListPage(BaseViewModel baseViewModel)
         {
             this.BaseViewModel = baseViewModel;
-            baseViewModel.Engine_listChangedEvent += BaseViewModel_Engine_listChangedEvent;
-            BaseViewModel.LoadEngineList();
+            baseViewModel.Person_listChangedEvent += BaseViewModel_Person_listChangedEvent;
             InitializeComponent();
-            addEngineButton.Command = baseViewModel.AddEngine_Show;
-            addEngineButton.CommandTarget = addEngineButton;
+            addPersonButton.Command = baseViewModel.AddPerson_Show;
+            addPersonButton.CommandTarget = addPersonButton;
         }
-        private void BaseViewModel_Engine_listChangedEvent()
+
+        private void BaseViewModel_Person_listChangedEvent()
         {
-            this.engineListView.ItemsSource = null;
-            this.engineListView.ItemsSource = BaseViewModel.Engine_list;
+            this.personListView.ItemsSource = null;
+            this.personListView.ItemsSource = BaseViewModel.Person_list;
         }
+
         private void StackPanel_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            BaseViewModel.EditEngine_Show.Execute(sender);
+            BaseViewModel.EditPerson_Show.Execute(sender);
         }
     }
 }

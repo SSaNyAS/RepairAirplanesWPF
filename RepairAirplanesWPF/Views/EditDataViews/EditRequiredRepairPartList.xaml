@@ -14,7 +14,7 @@
                 <ColumnDefinition/>
                 <ColumnDefinition Width="30"/>
             </Grid.ColumnDefinitions>
-            <ComboBox Grid.Column="0" ItemsSource="{Binding Repair_part_list}" SelectedValuePath="id" SelectedValue="{Binding repair_part_id}">
+            <ComboBox x:Name="repairPartSelector" Grid.Column="0" SelectedValuePath="id" SelectedValue="{Binding repair_part_id}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -25,11 +25,11 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <Button Grid.Column="1" Content="+" Padding="2"/>
+            <Button x:Name="addRepairPartButton" Grid.Column="1" Content="+" Padding="2"/>
         </Grid>
         
         <TextBlock Margin="0,10,0,0" Text="Количество"/>
         <TextBox Text="{Binding count}"/>
-        <Button Margin="0,10,0,0" Content="Сохранить"/>
+        <Button Margin="0,10,0,0" Click="Save_Click" Content="Сохранить"/>
     </StackPanel>
 </Window>

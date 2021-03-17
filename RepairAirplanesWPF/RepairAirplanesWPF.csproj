@@ -116,6 +116,7 @@
     <Compile Include="Engines_fuel_type.cs">
       <DependentUpon>RepairAirplanesModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Extensions\RepairListExtension.cs" />
     <Compile Include="Flight_log.cs">
       <DependentUpon>RepairAirplanesModel.tt</DependentUpon>
     </Compile>
@@ -216,6 +217,9 @@
     <Compile Include="Views\EditDataViews\EditPerson.xaml.cs">
       <DependentUpon>EditPerson.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\EditDataViews\EditRecommendedRepairPeriod.xaml.cs">
+      <DependentUpon>EditRecommendedRepairPeriod.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\EditDataViews\EditRepairList.xaml.cs">
       <DependentUpon>EditRepairList.xaml</DependentUpon>
     </Compile>
@@ -236,6 +240,12 @@
     </Compile>
     <Compile Include="Views\EnginePage.xaml.cs">
       <DependentUpon>EnginePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FlightHistoryPage.xaml.cs">
+      <DependentUpon>FlightHistoryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PersonListPage.xaml.cs">
+      <DependentUpon>PersonListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\RepairHistoryPage.xaml.cs">
       <DependentUpon>RepairHistoryPage.xaml</DependentUpon>
@@ -280,6 +290,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\EditDataViews\EditRecommendedRepairPeriod.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\EditDataViews\EditRepairList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -308,6 +322,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\FlightHistoryPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -320,6 +338,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\PersonListPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\RepairHistoryPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -359,9 +381,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Extensions\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
       <Visible>False</Visible>

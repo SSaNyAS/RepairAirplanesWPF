@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RepairAirplanesWPF.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,21 @@ namespace RepairAirplanesWPF.Views
     /// </summary>
     public partial class RepairHistoryPage : Page
     {
-        public RepairHistoryPage()
+        private BaseViewModel BaseViewModel;
+        public RepairHistoryPage(BaseViewModel baseViewModel)
         {
+            this.BaseViewModel = baseViewModel;
+            baseViewModel.Repair_listChangedEvent += BaseViewModel_Repair_listChangedEvent;
+            _ = baseViewModel.LoadRepairList();
             InitializeComponent();
+            addRepairOrderButton.Command = baseViewModel.AddRepairListItem_Show;
+            addRepairOrderButton.CommandTarget = addRepairOrderButton;
+        }
+
+        private void BaseViewModel_Repair_listChangedEvent()
+        {
+            this.repairListView.ItemsSource = null;
+            this.repairListView.ItemsSource = BaseViewModel.Repair_list;
         }
     }
 }

@@ -11,26 +11,30 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace RepairAirplanesWPF.Views.EditDataViews
+namespace RepairAirplanesWPF.Views
 {
     /// <summary>
-    /// Логика взаимодействия для SimpleEditWindow.xaml
+    /// Логика взаимодействия для FlightHistoryPage.xaml
     /// </summary>
-    public partial class SimpleEditWindow : Window
+    public partial class FlightHistoryPage : Page
     {
         private BaseViewModel BaseViewModel;
-        public SimpleEditWindow(BaseViewModel baseViewModel)
+        public FlightHistoryPage(BaseViewModel baseViewModel)
         {
             this.BaseViewModel = baseViewModel;
+            baseViewModel.FlightLog_listChangedEvent += BaseViewModel_FlightLog_listChangedEvent;
             InitializeComponent();
+            baseViewModel.LoadFlightLogList();
         }
 
-        private void Save_Click(object sender, RoutedEventArgs e)
+        private void BaseViewModel_FlightLog_listChangedEvent()
         {
-            this.DialogResult = true;
-            this.Close();
+            this.flightLogView.ItemsSource = null;
+            this.flightLogView.ItemsSource = BaseViewModel.FlightLog_list;
         }
+
     }
 }

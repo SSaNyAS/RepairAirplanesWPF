@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RepairAirplanesWPF.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,16 @@ namespace RepairAirplanesWPF.Views.EditDataViews
     /// </summary>
     public partial class EditRepairPart : Window
     {
-        public EditRepairPart()
+        private BaseViewModel BaseViewModel;
+        public EditRepairPart(BaseViewModel baseViewModel)
         {
+            this.BaseViewModel = baseViewModel;
             InitializeComponent();
+        }
+        private void Save_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = true;
+            this.Close();
         }
     }
 }

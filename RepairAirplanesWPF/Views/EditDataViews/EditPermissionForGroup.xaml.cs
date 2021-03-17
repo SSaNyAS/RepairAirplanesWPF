@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RepairAirplanesWPF.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,8 +20,10 @@ namespace RepairAirplanesWPF.Views.EditDataViews
     /// </summary>
     public partial class EditPermissionForGroup : Window
     {
-        public EditPermissionForGroup()
+        public BaseViewModel BaseViewModel;
+        public EditPermissionForGroup(BaseViewModel baseViewModel)
         {
+            this.BaseViewModel = baseViewModel;
             InitializeComponent();
         }
     }

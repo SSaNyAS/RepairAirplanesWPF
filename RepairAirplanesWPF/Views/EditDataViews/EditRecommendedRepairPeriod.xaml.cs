@@ -1,5 +1,4 @@
-﻿using RepairAirplanesWPF.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,21 +15,13 @@ using System.Windows.Shapes;
 namespace RepairAirplanesWPF.Views.EditDataViews
 {
     /// <summary>
-    /// Логика взаимодействия для SimpleEditWindow.xaml
+    /// Логика взаимодействия для EditRecommendedRepairPeriod.xaml
     /// </summary>
-    public partial class SimpleEditWindow : Window
+    public partial class EditRecommendedRepairPeriod : Window
     {
-        private BaseViewModel BaseViewModel;
-        public SimpleEditWindow(BaseViewModel baseViewModel)
+        public EditRecommendedRepairPeriod()
         {
-            this.BaseViewModel = baseViewModel;
             InitializeComponent();
-        }
-
-        private void Save_Click(object sender, RoutedEventArgs e)
-        {
-            this.DialogResult = true;
-            this.Close();
         }
     }
 }

@@ -15,7 +15,7 @@ using System.Windows.Input;
 
 namespace RepairAirplanesWPF.ViewModels
 {
-    public class BaseViewModel: DependencyObject, INotifyPropertyChanged
+    public class BaseViewModel: DependencyObject
     {
         public RepairAirplanesDataManager DataManager = new RepairAirplanesDataManager(new Repair_airplanesConnection());
         public BaseViewModel(Page currentPage)
@@ -24,30 +24,333 @@ namespace RepairAirplanesWPF.ViewModels
         }
 
         #region DataCollections
-        public ObservableCollection<object> Repair_list => new ObservableCollection<object>();
-        private ObservableCollection<Engine> _Engine_list = new ObservableCollection<Engine>();
+        public ObservableCollection<Repair_list> Repair_list
+        {
+            get
+            {
+                return (ObservableCollection<Repair_list>)GetValue(Repair_listProperty);
+            }
+            set
+            {
+                SetValue(Repair_listProperty, value);
+                Dispatcher.Invoke(() => { this.Repair_listChangedEvent?.Invoke(); });
+            }
+        }
+        public ObservableCollection<Airplane> Airplane_list
+        {
+            get
+            {
+                return (ObservableCollection<Airplane>)GetValue(Airplane_listProperty);
+            }
+            set
+            {
+                SetValue(Airplane_listProperty, value);
+                Dispatcher.Invoke(() => { this.Airplane_listChangedEvent?.Invoke(); });
+            }
+        }
+        public ObservableCollection<Flight_log> FlightLog_list
+        {
+            get
+            {
+                return (ObservableCollection<Flight_log>)GetValue(FlightLog_listProperty);
+            }
+            set
+            {
+                SetValue(FlightLog_listProperty, value);
+                Dispatcher.Invoke(() => { this.FlightLog_listChangedEvent?.Invoke(); });
+            }
+        }
+        public ObservableCollection<Person> Person_list
+        {
+            get
+            {
+                return (ObservableCollection<Person>)GetValue(Person_listProperty);
+            }
+            set
+            {
+                SetValue(Person_listProperty, value);
+                Dispatcher.Invoke(() => { this.Person_listChangedEvent?.Invoke(); });
+            }
+        }
+        public ObservableCollection<Permission_group> Permission_group_list
+        {
+            get
+            {
+                return (ObservableCollection<Permission_group>)GetValue(Permission_group_listProperty);
+            }
+            set
+            {
+                SetValue(Permission_group_listProperty, value);
+                Dispatcher.Invoke(() => { this.Permission_group_listChangedEvent?.Invoke(); });
+            }
+        }
         public ObservableCollection<Engine> Engine_list
         {
             get
             {
-                return _Engine_list;
+                return (ObservableCollection<Engine>)GetValue(Engine_listProperty);
             }
             set
             {
-                _Engine_list = value;
-                PropertyChanged?.Invoke(_Engine_list, new PropertyChangedEventArgs("Engine_list"));
+                SetValue(Engine_listProperty,value);
+                Dispatcher.Invoke(() => { this.Engine_listChangedEvent?.Invoke(); });
             }
         }
-
+        public ObservableCollection<Engines_fuel_type> Engines_fuel_type_list
+        {
+            get
+            {
+                return (ObservableCollection<Engines_fuel_type>)GetValue(Engines_fuel_type_listProperty);
+            }
+            set
+            {
+                SetValue(Engines_fuel_type_listProperty, value);
+                Dispatcher.Invoke(() => { this.Engines_fuel_type_listChangedEvent?.Invoke(); });
+            }
+        }
+        public ObservableCollection<Fuel_type> Fuel_type_list
+        {
+            get
+            {
+                return (ObservableCollection<Fuel_type>)GetValue(Fuel_type_listProperty);
+            }
+            set
+            {
+                SetValue(Fuel_type_listProperty, value);
+                Dispatcher.Invoke(() => { this.Fuel_type_listChangedEvent?.Invoke(); });
+            }
+        }
+        public ObservableCollection<Cooling_system> Cooling_system_list
+        {
+            get
+            {
+                return (ObservableCollection<Cooling_system>)GetValue(Cooling_system_listProperty);
+            }
+            set
+            {
+                SetValue(Cooling_system_listProperty, value);
+                Dispatcher.Invoke(() => { this.Cooling_system_listChangedEvent?.Invoke(); });
+            }
+        }
+        public ObservableCollection<Repair_work> Repair_work_list
+        {
+            get
+            {
+                return (ObservableCollection<Repair_work>)GetValue(Repair_work_listProperty);
+            }
+            set
+            {
+                SetValue(Repair_work_listProperty, value);
+                Dispatcher.Invoke(() => { this.Repair_work_listChangedEvent?.Invoke(); });
+            }
+        }
+        public ObservableCollection<Repair_status> Repair_status_list
+        {
+            get
+            {
+                return (ObservableCollection<Repair_status>)GetValue(Repair_status_listProperty);
+            }
+            set
+            {
+                SetValue(Repair_status_listProperty, value);
+                Dispatcher.Invoke(() => { this.Repair_status_listChangedEvent?.Invoke(); });
+            }
+        }
+        public ObservableCollection<Repair_part> Repair_part_list
+        {
+            get
+            {
+                return (ObservableCollection<Repair_part>)GetValue(Repair_part_listProperty);
+            }
+            set
+            {
+                SetValue(Repair_part_listProperty, value);
+                Dispatcher.Invoke(() => { this.Repair_part_listChangedEvent?.Invoke(); });
+            }
+        }
+        public ObservableCollection<Engineer> Engineer_list
+        {
+            get
+            {
+                return (ObservableCollection<Engineer>)GetValue(Engineer_listProperty);
+            }
+            set
+            {
+                SetValue(Engineer_listProperty, value);
+                Dispatcher.Invoke(() => { this.Engineer_listChangedEvent?.Invoke(); });
+            }
+        }
+        public ObservableCollection<Pilot> Pilot_list
+        {
+            get
+            {
+                return (ObservableCollection<Pilot>)GetValue(Pilot_listProperty);
+            }
+            set
+            {
+                SetValue(Pilot_listProperty, value);
+                Dispatcher.Invoke(() => { this.Pilot_listChangedEvent?.Invoke(); });
+            }
+        }
+        public ObservableCollection<Student_pilot> StudentPilot_list
+        {
+            get
+            {
+                return (ObservableCollection<Student_pilot>)GetValue(StudentPilot_listProperty);
+            }
+            set
+            {
+                SetValue(StudentPilot_listProperty, value);
+                Dispatcher.Invoke(() => { this.StudentPilot_listChangedEvent?.Invoke(); });
+            }
+        }
+        public ObservableCollection<Instructor> Instructor_list
+        {
+            get
+            {
+                return (ObservableCollection<Instructor>)GetValue(Instructor_listProperty);
+            }
+            set
+            {
+                SetValue(Instructor_listProperty, value);
+                Dispatcher.Invoke(() => { this.Instructor_listChangedEvent?.Invoke(); });
+            }
+        }
         #endregion
 
         #region LoadData
-        private async void LoadEngineList()
+        public async Task LoadEngineList()
         {
             await Task.Run(() =>
             {
                 var result = DataManager.GetEngine_List();
-                Dispatcher.Invoke(() => { this.Engine_list = result;});
+                Dispatcher.Invoke(() => { this.Engine_list = result; });
+            });
+        }
+        public async Task LoadRepairList()
+        {
+            await Task.Run(() =>
+            {
+                var result = DataManager.GetRepair_List();
+                Dispatcher.Invoke(() => { this.Repair_list = result; });
+            });
+        }
+        public async Task LoadPersonList()
+        {
+            await Task.Run(() =>
+            {
+                var result = DataManager.GetPerson_List();
+                Dispatcher.Invoke(() => { this.Person_list = result; });
+            });
+        }
+        public async Task LoadFlightLogList()
+        {
+            await Task.Run(() =>
+            {
+                var result = DataManager.GetFlightLog_List();
+                Dispatcher.Invoke(() => { this.FlightLog_list = result; });
+            });
+        }
+        public async Task LoadAirplaneList()
+        {
+            await Task.Run(() =>
+            {
+                var result = DataManager.GetAirplane_List();
+                Dispatcher.Invoke(() => { this.Airplane_list = result; });
+            });
+        }
+        public async Task LoadPermissionGroupList()
+        {
+            await Task.Run(() =>
+            {
+                var result = DataManager.GetPermissionGroup_List();
+                Dispatcher.Invoke(() => { this.Permission_group_list = result; });
+            });
+        }
+        public async Task LoadEnginesFuelTypeList()
+        {
+            await Task.Run(() =>
+            {
+                var result = DataManager.GetEngineFuelType_List();
+                Dispatcher.Invoke(() => { this.Engines_fuel_type_list = result; });
+            });
+        }
+        public async Task LoadFuelTypeList()
+        {
+            await Task.Run(() =>
+            {
+                var result = DataManager.GetFuelType_List();
+                Dispatcher.Invoke(() => { this.Fuel_type_list = result; });
+            });
+        }
+        public async Task LoadCoolingSystemList()
+        {
+            await Task.Run(() =>
+            {
+                var result = DataManager.GetCoolingSystem_List();
+                Dispatcher.Invoke(() => { this.Cooling_system_list = result; });
+            });
+        }
+        public async Task LoadRepairWorkList()
+        {
+            await Task.Run(() =>
+            {
+                var result = DataManager.GetRepairWork_List();
+                Dispatcher.Invoke(() => { this.Repair_work_list = result; });
+            });
+        }
+        public async Task LoadRepairStatusList()
+        {
+            await Task.Run(() =>
+            {
+                var result = DataManager.GetRepairStatus_List();
+                Dispatcher.Invoke(() => { this.Repair_status_list = result; });
+            });
+        }
+        public async Task LoadRepairPartList()
+        {
+            await Task.Run(() =>
+            {
+                var result = DataManager.GetRepairPart_List();
+                Dispatcher.Invoke(() => { this.Repair_part_list = result; });
+            });
+        }
+        public async Task LoadEngineerList()
+        {
+            await LoadPersonList();
+            await Task.Run(() =>
+            {
+                var result = DataManager.GetEngineer_List();
+                Dispatcher.Invoke(() => { this.Engineer_list = result; });
+            });
+        }
+        public async Task LoadPilotList()
+        {
+            await LoadPersonList();
+            await Task.Run(() =>
+            {
+                var result = DataManager.GetPilot_List();
+                Dispatcher.Invoke(() => { this.Pilot_list = result; });
+            });
+        }
+        public async Task LoadStudentPilotList()
+        {
+            await LoadPersonList();
+            await LoadPilotList();
+            await Task.Run(() =>
+            {
+                var result = DataManager.GetStudentPilot_List();
+                Dispatcher.Invoke(() => { this.StudentPilot_list = result; });
+            });
+        }
+        public async Task LoadInstructorList()
+        {
+            await LoadPersonList();
+            await LoadPilotList();
+            await Task.Run(() =>
+            {
+                var result = DataManager.GetInstructor_List();
+                Dispatcher.Invoke(() => { this.Instructor_list = result; });
             });
         }
         #endregion
@@ -55,21 +358,157 @@ namespace RepairAirplanesWPF.ViewModels
         #region Commands
         public ICommand EngineListPage_Open => new MenuNavigateCommand((sender) =>
         {
-            LoadEngineList();
-            SetPage(new EngineListPage() { DataContext = this }, sender);
+            SetPage(new EngineListPage(this) { DataContext = this }, sender);
+        });
+        public ICommand PersonListPage_Open => new MenuNavigateCommand((sender) =>
+        {
+            _ = LoadPersonList();
+            
+            var newPage = new PersonListPage(this) { DataContext = this };
+            SetPage(newPage, sender);
+        });
+        public ICommand EditEngine_Show => new MenuNavigateCommand((sender) =>
+        {
+            if (sender is FrameworkElement element)
+            {
+                if (element.DataContext is Engine engine)
+                {
+                    var window = new EditEngine(this) { DataContext = engine};
+                    window.ShowDialog();
+                    _ = LoadEngineList();
+                }
+            }
+        });
+        public ICommand EditPerson_Show => new MenuNavigateCommand((sender) =>
+        {
+            if (sender is FrameworkElement element)
+            {
+                if (element.DataContext is Person person)
+                {
+                    var window = new EditPerson(this) { DataContext = person };
+                    window.ShowDialog();
+                    _ = LoadPersonList();
+                }
+            }
+        });
+        public ICommand AddCoolingSystem_Show => new MenuNavigateCommand((sender) =>
+        {
+            var newCoolingSystem = new Cooling_system();
+            var window = new SimpleEditWindow(this) { DataContext = newCoolingSystem }; 
+            var result = window.ShowDialog();
+            if (result == true)
+            {
+                DataManager.AddCoolingSystem(newCoolingSystem);
+                _ = LoadCoolingSystemList();
+            }
             
         });
-        public ICommand EditEnginePage_Open => new MenuNavigateCommand((sender) =>
+        public ICommand AddPerson_Show => new MenuNavigateCommand((sender) =>
         {
-            SetPage(new EditEngine(), sender);
+            var newPerson = new Person();
+            var window = new EditPerson(this) { DataContext = newPerson };
+            var result = window.ShowDialog();
+            if(result == true)
+            {
+                DataManager.AddPerson(newPerson);
+                _ = LoadCoolingSystemList();
+            }
         });
-        public ICommand AddCoolingSystem_Command => new MenuNavigateCommand((sender) =>
+        public ICommand AddEngine_Show => new MenuNavigateCommand((sender) =>
         {
-
+            var newEngine = new Engine();
+            var window = new EditEngine(this) { DataContext = newEngine };
+            var result = window.ShowDialog();
+            if (result == true)
+            {
+                DataManager.AddEngine(newEngine);
+                _ = LoadEngineList();
+            }
+        });
+        public ICommand AddRepairWork_Show => new MenuNavigateCommand((sender) =>
+        {
+            var newWork = new Repair_work();
+            var window = new SimpleEditWindow(this) { DataContext = newWork };
+            var result = window.ShowDialog();
+            if (result == true)
+            {
+                DataManager.AddRepairWork(newWork);
+                _ = LoadRepairWorkList();
+            }
+        });
+        public ICommand AddRepairStatus_Show => new MenuNavigateCommand((sender) =>
+        {
+            var newStatus = new Repair_status();
+            var window = new SimpleEditWindow(this) { DataContext = newStatus };
+            var result = window.ShowDialog();
+            if (result == true)
+            {
+                DataManager.AddRepairStatus(newStatus);
+                _ = LoadRepairStatusList();
+            }
+        });
+        public ICommand AddRepairPart_Show => new MenuNavigateCommand((sender) =>
+        {
+            var newPart = new Repair_part();
+            var window = new EditRepairPart(this) { DataContext = newPart };
+            var result = window.ShowDialog();
+            if (result == true)
+            {
+                DataManager.AddRepairPart(newPart);
+                _ = LoadRepairPartList();
+            }
+        });
+        public ICommand AddRepairListItem_Show => new MenuNavigateCommand((sender) =>
+        {
+            var newRepairList = new Repair_list();
+            var window = new EditRepairList(this) { DataContext = newRepairList };
+            var result = window.ShowDialog();
+            if (result == true)
+            {
+                newRepairList.start_repair_date = DateTime.Now;
+                DataManager.AddRepairList(newRepairList);
+                _ = LoadRepairList();
+            }
+        });
+        public ICommand AddRequredRepairWork_Show => new MenuNavigateCommand((sender) =>
+        {
+            if (sender is FrameworkElement element)
+            {
+                if (element.DataContext is Repair_list repair_List)
+                {
+                    var newRequiredWork = new Required_repair_work();
+                    var window = new EditRequiredRepairWorkList(this) { DataContext = newRequiredWork };
+                    var result = window.ShowDialog();
+                    if (result == true)
+                    {
+                        repair_List.Required_repair_work.Add(newRequiredWork);
+                    }
+                }
+            }
+        });
+        public ICommand AddRequredRepairPart_Show => new MenuNavigateCommand((sender) =>
+        {
+            if (sender is FrameworkElement element)
+            {
+                if (element.DataContext is Required_repair_work required_Repair_Work)
+                {
+                    var newRequiredPart = new Required_repair_part();
+                    var window = new EditRequiredRepairPartList(this) { DataContext = newRequiredPart };
+                    var result = window.ShowDialog();
+                    if (result == true)
+                    {
+                        required_Repair_Work.Required_repair_part.Add(newRequiredPart);
+                    }
+                }
+            }
         });
         public ICommand RepairHistoryPage_Open => new MenuNavigateCommand((sender) =>
         {
-            SetPage(new RepairHistoryPage(), sender);
+            SetPage(new RepairHistoryPage(this), sender);
+        });
+        public ICommand FlightHistoryPage_Open => new MenuNavigateCommand((sender) =>
+        {
+            SetPage(new FlightHistoryPage(this), sender);
         });
         #endregion
 
@@ -107,10 +546,41 @@ namespace RepairAirplanesWPF.ViewModels
         
         #region DependencyProperties
         public static DependencyProperty CurrentPageProperty = DependencyProperty.Register("CurrentPage", typeof(Page), typeof(BaseViewModel));
-        public static DependencyProperty Repair_listProperty = DependencyProperty.Register("Repair_list", typeof(object), typeof(BaseViewModel));
-        //public static DependencyProperty Engine_listProperty = DependencyProperty.Register("Engine_list", typeof(ObservableCollection<Engine>), typeof(BaseViewModel));
+        public static DependencyProperty Repair_listProperty = DependencyProperty.Register("Repair_list", typeof(ObservableCollection<Repair_list>), typeof(BaseViewModel), new PropertyMetadata(new ObservableCollection<Repair_list>()));
+        public static DependencyProperty Person_listProperty = DependencyProperty.Register("Person_list", typeof(ObservableCollection<Person>), typeof(BaseViewModel),new PropertyMetadata(new ObservableCollection<Person>()));
+        public static DependencyProperty Engine_listProperty = DependencyProperty.Register("Engine_list", typeof(ObservableCollection<Engine>), typeof(BaseViewModel), new PropertyMetadata(new ObservableCollection<Engine>()));
+        public static DependencyProperty Permission_group_listProperty = DependencyProperty.Register("Permission_group_list", typeof(ObservableCollection<Permission_group>), typeof(BaseViewModel), new PropertyMetadata(new ObservableCollection<Permission_group>()));
+        public static DependencyProperty Engines_fuel_type_listProperty = DependencyProperty.Register("Engines_fuel_type_list", typeof(ObservableCollection<Engines_fuel_type>), typeof(BaseViewModel), new PropertyMetadata(new ObservableCollection<Engines_fuel_type>()));
+        public static DependencyProperty Fuel_type_listProperty = DependencyProperty.Register("Fuel_type_list", typeof(ObservableCollection<Fuel_type>), typeof(BaseViewModel), new PropertyMetadata(new ObservableCollection<Fuel_type>()));
+        public static DependencyProperty Cooling_system_listProperty = DependencyProperty.Register("Cooling_system_list", typeof(ObservableCollection<Cooling_system>), typeof(BaseViewModel), new PropertyMetadata(new ObservableCollection<Cooling_system>()));
+        public static DependencyProperty FlightLog_listProperty = DependencyProperty.Register("FlightLog_list", typeof(ObservableCollection<Flight_log>), typeof(BaseViewModel), new PropertyMetadata(new ObservableCollection<Flight_log>()));
+        public static DependencyProperty Airplane_listProperty = DependencyProperty.Register("Airplane_list", typeof(ObservableCollection<Airplane>), typeof(BaseViewModel), new PropertyMetadata(new ObservableCollection<Airplane>()));
+        public static DependencyProperty Repair_work_listProperty = DependencyProperty.Register("Repair_work_list", typeof(ObservableCollection<Repair_work>), typeof(BaseViewModel), new PropertyMetadata(new ObservableCollection<Repair_work>()));
+        public static DependencyProperty Repair_status_listProperty = DependencyProperty.Register("Repair_status_list", typeof(ObservableCollection<Repair_status>), typeof(BaseViewModel), new PropertyMetadata(new ObservableCollection<Repair_status>()));
+        public static DependencyProperty Repair_part_listProperty = DependencyProperty.Register("Repair_part_list", typeof(ObservableCollection<Repair_part>), typeof(BaseViewModel), new PropertyMetadata(new ObservableCollection<Repair_part>()));
+        public static DependencyProperty Engineer_listProperty = DependencyProperty.Register("Engineer_list", typeof(ObservableCollection<Engineer>), typeof(BaseViewModel), new PropertyMetadata(new ObservableCollection<Engineer>()));
+        public static DependencyProperty Pilot_listProperty = DependencyProperty.Register("Pilot_list", typeof(ObservableCollection<Pilot>), typeof(BaseViewModel), new PropertyMetadata(new ObservableCollection<Pilot>()));
+        public static DependencyProperty StudentPilot_listProperty = DependencyProperty.Register("StudentPilot_list", typeof(ObservableCollection<Student_pilot>), typeof(BaseViewModel), new PropertyMetadata(new ObservableCollection<Student_pilot>()));
+        public static DependencyProperty Instructor_listProperty = DependencyProperty.Register("Instructor_list", typeof(ObservableCollection<Instructor>), typeof(BaseViewModel), new PropertyMetadata(new ObservableCollection<Instructor>()));
+        #endregion
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        #region Events
+        public event Action Repair_listChangedEvent;
+        public event Action Person_listChangedEvent;
+        public event Action Engine_listChangedEvent;
+        public event Action Permission_group_listChangedEvent;
+        public event Action Engines_fuel_type_listChangedEvent;
+        public event Action Fuel_type_listChangedEvent;
+        public event Action Cooling_system_listChangedEvent;
+        public event Action FlightLog_listChangedEvent;
+        public event Action Airplane_listChangedEvent;
+        public event Action Repair_work_listChangedEvent;
+        public event Action Repair_status_listChangedEvent;
+        public event Action Repair_part_listChangedEvent;
+        public event Action Engineer_listChangedEvent;
+        public event Action Pilot_listChangedEvent;
+        public event Action StudentPilot_listChangedEvent;
+        public event Action Instructor_listChangedEvent;
         #endregion
     }
 }
