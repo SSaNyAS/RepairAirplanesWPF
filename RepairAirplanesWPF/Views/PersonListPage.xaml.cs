@@ -27,8 +27,9 @@ namespace RepairAirplanesWPF.Views
             this.BaseViewModel = baseViewModel;
             baseViewModel.Person_listChangedEvent += BaseViewModel_Person_listChangedEvent;
             InitializeComponent();
+            _ = baseViewModel.LoadPersonList();
             addPersonButton.Command = baseViewModel.AddPerson_Show;
-            addPersonButton.CommandTarget = addPersonButton;
+            addPersonButton.CommandParameter = addPersonButton;
         }
 
         private void BaseViewModel_Person_listChangedEvent()

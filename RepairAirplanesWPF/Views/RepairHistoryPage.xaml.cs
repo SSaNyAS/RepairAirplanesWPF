@@ -37,5 +37,10 @@ namespace RepairAirplanesWPF.Views
             this.repairListView.ItemsSource = null;
             this.repairListView.ItemsSource = BaseViewModel.Repair_list;
         }
+
+        private void StackPanel_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+
+        }
     }
 }

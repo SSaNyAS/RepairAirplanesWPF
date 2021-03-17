@@ -13,6 +13,18 @@ namespace RepairAirplanesWPF.Converters
     {
         object IValueConverter.Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            if (parameter is string paramString)
+            {
+                if (paramString == "reversed")
+                {
+                    if (value == null)
+                    {
+                        return Visibility.Visible;
+                    }
+                    return Visibility.Collapsed;
+                }
+            }
+
             if (value != null)
             {
                 return Visibility.Visible;

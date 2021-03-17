@@ -6,7 +6,7 @@
         x:Name="thisWindow"
         xmlns:local="clr-namespace:RepairAirplanesWPF.Views.EditDataViews" xmlns:uicomponents="clr-namespace:RepairAirplanesWPF.UIComponents"
         mc:Ignorable="d"
-        Title="Редактирование пользователя" Height="495" MinHeight="495" MinWidth="400" Width="500" WindowStartupLocation="CenterScreen">
+        Title="Редактирование пользователя" Height="435" MinHeight="435" MinWidth="400" Width="500" WindowStartupLocation="CenterScreen">
     <StackPanel Orientation="Vertical" Margin="10">
         <TextBlock Text="Фамилия"/>
         <TextBox Text="{Binding lastname}"/>
@@ -18,8 +18,6 @@
         <TextBox Text="{Binding passport}" ToolTip="Укажите серию и номер паспорта, без пробелов" />
         <TextBlock Margin="0,10,0,0" Text="Дата рождения"/>
         <DatePicker MinHeight="30" SelectedDate="{Binding birthday}"/>
-        <TextBlock Margin="0,10,0,0" Text="Отношение"/>
-        <ComboBox Name="permissionGroupSelector" SelectedValuePath="id" DisplayMemberPath="name" SelectedValue="{Binding permission_group}"/>
         <Button Margin="0,10,0,0" Click="Save_Click" Content="Сохранить"/>
     </StackPanel>
 </Window>

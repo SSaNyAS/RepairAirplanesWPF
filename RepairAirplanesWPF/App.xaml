@@ -1,10 +1,11 @@
 ﻿<Application x:Class="RepairAirplanesWPF.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:RepairAirplanesWPF"
+             xmlns:local="clr-namespace:RepairAirplanesWPF" xmlns:converters="clr-namespace:RepairAirplanesWPF.Converters"
              x:Name="ThisApp"
              StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
+        <converters:ObjectExistingConverter x:Key="objectExistingConverter"/>
         <Color x:Key="AppMainColor" R="0" G="148" B="214" A="255"/>
         
         <Style TargetType="Button">

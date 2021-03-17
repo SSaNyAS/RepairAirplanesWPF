@@ -12,7 +12,7 @@
         <ItemsControl x:Name="flightLogView">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Vertical" MouseUp="StackPanel_MouseUp">
                             <TextBlock FontSize="22" FontWeight="Bold" Margin="5,0,0,0" Text="{Binding Pilot.Person.FIO}"/>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock FontSize="16" Text="Самолёт:"/>

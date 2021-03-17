@@ -12,28 +12,29 @@ namespace RepairAirplanesWPF.Classes
     {
         private Repair_airplanesConnection Connection;
         #region DataLoaders
-            private DBLoader<Airplane> AirplaneDataLoader;
-            private DBLoader<Engine> EngineDataLoader;
-            private DBLoader<Engines_fuel_type> EngineFuelTypeDataLoader;
-            private DBLoader<Fuel_type> FuelTypeDataLoader;
-            private DBLoader<Person> PersonDataLoader;
-            private DBLoader<Engineer> EngineerDataLoader;
-            private DBLoader<Pilot> PilotDataLoader;
-            private DBLoader<Student_pilot> StudentPilotDataLoader;
-            private DBLoader<Instructor> InstructorDataLoader;
-            private DBLoader<Repair_status> RepairStatusDataLoader;
-            private DBLoader<Repair_work> RepairWorkDataLoader;
-            private DBLoader<Repair_part> RepairPartDataLoader;
-            private DBLoader<Required_repair_part> RequiredRepairPartDataLoader;
-            private DBLoader<Required_repair_work> RequiredRepairWorkDataLoader;
-            private DBLoader<Permission> PermissionDataLoader;
-            private DBLoader<Permission_group> PermissionGroupDataLoader;
-            private DBLoader<Authorization> AuthorizationDataLoader;
-            private DBLoader<Cooling_system> CoolingSystemDataLoader;
-            private DBLoader<Repair_list> RepairListDataLoader;
-            private DBLoader<Flight_log> FlightLogListDataLoader;
+        private DBLoader<Airplane> AirplaneDataLoader;
+        private DBLoader<Engine> EngineDataLoader;
+        private DBLoader<Engines_fuel_type> EngineFuelTypeDataLoader;
+        private DBLoader<Fuel_type> FuelTypeDataLoader;
+        private DBLoader<Person> PersonDataLoader;
+        private DBLoader<Engineer> EngineerDataLoader;
+        private DBLoader<Pilot> PilotDataLoader;
+        private DBLoader<Student_pilot> StudentPilotDataLoader;
+        private DBLoader<Instructor> InstructorDataLoader;
+        private DBLoader<Repair_status> RepairStatusDataLoader;
+        private DBLoader<Repair_work> RepairWorkDataLoader;
+        private DBLoader<Repair_part> RepairPartDataLoader;
+        private DBLoader<Required_repair_part> RequiredRepairPartDataLoader;
+        private DBLoader<Required_repair_work> RequiredRepairWorkDataLoader;
+        private DBLoader<Permission> PermissionDataLoader;
+        private DBLoader<Permission_group> PermissionGroupDataLoader;
+        private DBLoader<Authorization> AuthorizationDataLoader;
+        private DBLoader<Cooling_system> CoolingSystemDataLoader;
+        private DBLoader<Repair_list> RepairListDataLoader;
+        private DBLoader<Flight_log> FlightLogListDataLoader;
+        private DBLoader<Study_group> StudyGroupListDataLoader;
         #endregion
-        
+
 
         public RepairAirplanesDataManager(Repair_airplanesConnection connection)
         {
@@ -58,9 +59,23 @@ namespace RepairAirplanesWPF.Classes
             PilotDataLoader = new DBLoader<Pilot>(connection);
             StudentPilotDataLoader = new DBLoader<Student_pilot>(connection);
             InstructorDataLoader = new DBLoader<Instructor>(connection);
+            StudyGroupListDataLoader = new DBLoader<Study_group>(connection);
             TryOpenConnection();
         }
 
+        #region SaveMethods
+        public void SaveChanges(Action<Exception> errorAction = null)
+        {
+            try
+            {
+                Connection.SaveChanges();
+            }
+            catch (Exception error)
+            {
+                errorAction?.Invoke(error);
+            }
+        }
+        #endregion
         #region GetDataList
         public ObservableCollection<Airplane> GetAirplane_List()
         {
@@ -142,6 +157,10 @@ namespace RepairAirplanesWPF.Classes
         {
             return InstructorDataLoader.GetList();
         }
+        public ObservableCollection<Study_group> GetStudyGroup_List()
+        {
+            return StudyGroupListDataLoader.GetList();
+        }
         #endregion
 
         #region AddItems
@@ -156,6 +175,10 @@ namespace RepairAirplanesWPF.Classes
         public void AddPerson(Person person)
         {
             PersonDataLoader.AddItem(person);
+        }
+        public void AddEngineer(Engineer engineer)
+        {
+            EngineerDataLoader.AddItem(engineer);
         }
         public void AddRepairWork(Repair_work repair_Work)
         {
@@ -177,7 +200,7 @@ namespace RepairAirplanesWPF.Classes
         {
             AuthorizationDataLoader.AddItem(authorization);
         }
-        public void AddRequiredRepairPart(Required_repair_part  required_Repair_Part)
+        public void AddRequiredRepairPart(Required_repair_part required_Repair_Part)
         {
             RequiredRepairPartDataLoader.AddItem(required_Repair_Part);
         }
@@ -196,6 +219,22 @@ namespace RepairAirplanesWPF.Classes
         public void AddRepairList(Repair_list repair_List)
         {
             RepairListDataLoader.AddItem(repair_List);
+        }
+        public void AddStudentPilot(Student_pilot student_Pilot)
+        {
+            StudentPilotDataLoader.AddItem(student_Pilot);
+        }
+        public void AddPilot(Pilot pilot)
+        {
+            PilotDataLoader.AddItem(pilot);
+        }
+        public void AddInstructor(Instructor instructor)
+        {
+            InstructorDataLoader.AddItem(instructor);
+        }
+        public void AddStudyGroup(Study_group group)
+        {
+            StudyGroupListDataLoader.AddItem(group);
         }
         #endregion
 

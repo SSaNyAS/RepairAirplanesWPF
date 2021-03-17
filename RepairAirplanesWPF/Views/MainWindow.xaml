@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RepairAirplanesWPF" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:cmd="http://www.galasoft.ch/mvvmlight"
         mc:Ignorable="d"
-        Title="" Height="450" Width="800">
+        Title="" Height="550" Width="1200">
     <StackPanel Orientation="Vertical">
         <Grid>
             <Grid.RowDefinitions>
@@ -25,6 +25,9 @@
                     <Button Command="{Binding RepairHistoryPage_Open}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">История ремонтов</Button>
                     <Button Command="{Binding FlightHistoryPage_Open}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">История полётов</Button>
                     <Button Command="{Binding PersonListPage_Open}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Пользователи</Button>
+                    <Button Command="{Binding StudentPilotListPage_Open}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Студенты</Button>
+                    <Button Command="{Binding InstructorListPage_Open}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Инструкторы</Button>
+                    <Button Command="{Binding EngineerListPage_Open}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Инженеры</Button>
                 </WrapPanel>
             </Grid>
             <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden">

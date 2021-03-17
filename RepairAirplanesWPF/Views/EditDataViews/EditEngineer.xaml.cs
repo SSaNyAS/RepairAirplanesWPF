@@ -1,7 +1,6 @@
 ﻿using RepairAirplanesWPF.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,12 +16,12 @@ using System.Windows.Shapes;
 namespace RepairAirplanesWPF.Views.EditDataViews
 {
     /// <summary>
-    /// Логика взаимодействия для EditPerson.xaml
+    /// Логика взаимодействия для EditEngineer.xaml
     /// </summary>
-    public partial class EditPerson : Window
+    public partial class EditEngineer : Window
     {
         private BaseViewModel BaseViewModel;
-        public EditPerson(BaseViewModel baseViewModel)
+        public EditEngineer(BaseViewModel baseViewModel)
         {
             this.BaseViewModel = baseViewModel;
             InitializeComponent();

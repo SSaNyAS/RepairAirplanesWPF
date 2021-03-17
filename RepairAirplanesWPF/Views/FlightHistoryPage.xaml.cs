@@ -27,7 +27,7 @@ namespace RepairAirplanesWPF.Views
             this.BaseViewModel = baseViewModel;
             baseViewModel.FlightLog_listChangedEvent += BaseViewModel_FlightLog_listChangedEvent;
             InitializeComponent();
-            baseViewModel.LoadFlightLogList();
+            _ = baseViewModel.LoadFlightLogList();
         }
 
         private void BaseViewModel_FlightLog_listChangedEvent()
@@ -36,5 +36,9 @@ namespace RepairAirplanesWPF.Views
             this.flightLogView.ItemsSource = BaseViewModel.FlightLog_list;
         }
 
+        private void StackPanel_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            BaseViewModel.ConfirmRequredRepairWork_Show.Execute(sender);
+        }
     }
 }

@@ -1,0 +1,43 @@
+﻿<Page x:Class="RepairAirplanesWPF.Views.StudentPilotListPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:RepairAirplanesWPF.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Студенты">
+
+    <StackPanel Orientation="Vertical" Margin="10">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="30"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Список студентов" HorizontalAlignment="Center" FontWeight="Bold" FontSize="24"/>
+            <Button x:Name="addStudentButton" Grid.Column="1" Content="+" Padding="2" Height="30"/>
+        </Grid>
+        <ItemsControl x:Name="studentListView">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Vertical" MouseUp="StackPanel_MouseUp">
+                        <TextBlock FontSize="22" FontWeight="Bold" Margin="5,0,0,0" Text="{Binding Pilot.Person.FIO}"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontSize="16" Text="Аттестат:"/>
+                            <TextBlock FontSize="16" Margin="5,0,0,0" Text="{Binding eduation_sertificate}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontSize="16" Text="Группа:"/>
+                            <TextBlock FontSize="16" Margin="5,0,0,0" Text="{Binding Study_group.name}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontSize="16" Text="Дата поступления:"/>
+                            <TextBlock FontSize="16" Margin="5,0,0,0" Text="{Binding start_learning_date, StringFormat='dd.MM.yyyy'}"/>
+                        </StackPanel>
+                        <Separator/>
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </StackPanel>
+</Page>

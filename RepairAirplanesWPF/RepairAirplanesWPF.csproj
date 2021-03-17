@@ -199,6 +199,9 @@
     <Compile Include="Views\AuthorizationWindow.xaml.cs">
       <DependentUpon>AuthorizationWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\EditDataViews\ConfirmRequiredRepairList.xaml.cs">
+      <DependentUpon>ConfirmRequiredRepairList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\EditDataViews\EditAirplane.xaml.cs">
       <DependentUpon>EditAirplane.xaml</DependentUpon>
     </Compile>
@@ -207,6 +210,12 @@
     </Compile>
     <Compile Include="Views\EditDataViews\EditEngine.xaml.cs">
       <DependentUpon>EditEngine.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EditDataViews\EditEngineer.xaml.cs">
+      <DependentUpon>EditEngineer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EditDataViews\EditInstructor.xaml.cs">
+      <DependentUpon>EditInstructor.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\EditDataViews\EditPermission.xaml.cs">
       <DependentUpon>EditPermission.xaml</DependentUpon>
@@ -232,6 +241,12 @@
     <Compile Include="Views\EditDataViews\EditRequiredRepairWorkList.xaml.cs">
       <DependentUpon>EditRequiredRepairWorkList.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\EditDataViews\EditStudentPilot.xaml.cs">
+      <DependentUpon>EditStudentPilot.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EngineerListPage.xaml.cs">
+      <DependentUpon>EngineerListPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\EngineListPage.xaml.cs">
       <DependentUpon>EngineListPage.xaml</DependentUpon>
     </Compile>
@@ -244,11 +259,17 @@
     <Compile Include="Views\FlightHistoryPage.xaml.cs">
       <DependentUpon>FlightHistoryPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\InstructorListPage.xaml.cs">
+      <DependentUpon>InstructorListPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\PersonListPage.xaml.cs">
       <DependentUpon>PersonListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\RepairHistoryPage.xaml.cs">
       <DependentUpon>RepairHistoryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StudentPilotListPage.xaml.cs">
+      <DependentUpon>StudentPilotListPage.xaml</DependentUpon>
     </Compile>
     <Page Include="UIComponents\FrameworkElementWithHeader.xaml">
       <SubType>Designer</SubType>
@@ -266,6 +287,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\EditDataViews\ConfirmRequiredRepairList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\EditDataViews\EditAirplane.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -275,6 +300,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\EditDataViews\EditEngine.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EditDataViews\EditEngineer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EditDataViews\EditInstructor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -310,6 +343,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\EditDataViews\EditStudentPilot.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EngineerListPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\EngineListPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -323,6 +364,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\FlightHistoryPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\InstructorListPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -343,6 +388,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\RepairHistoryPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\StudentPilotListPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

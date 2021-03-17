@@ -72,6 +72,18 @@ namespace RepairAirplanesWPF.ViewModels
                 Dispatcher.Invoke(() => { this.Person_listChangedEvent?.Invoke(); });
             }
         }
+        public ObservableCollection<Study_group> StudyGroup_list
+        {
+            get
+            {
+                return (ObservableCollection<Study_group>)GetValue(StudyGroup_listProperty);
+            }
+            set
+            {
+                SetValue(StudyGroup_listProperty, value);
+                Dispatcher.Invoke(() => { this.StudyGroup_listChangedEvent?.Invoke(); });
+            }
+        }
         public ObservableCollection<Permission_group> Permission_group_list
         {
             get
@@ -291,6 +303,14 @@ namespace RepairAirplanesWPF.ViewModels
                 Dispatcher.Invoke(() => { this.Cooling_system_list = result; });
             });
         }
+        public async Task LoadStudyGroupList()
+        {
+            await Task.Run(() =>
+            {
+                var result = DataManager.GetStudyGroup_List();
+                Dispatcher.Invoke(() => { this.StudyGroup_list = result; });
+            });
+        }
         public async Task LoadRepairWorkList()
         {
             await Task.Run(() =>
@@ -362,9 +382,22 @@ namespace RepairAirplanesWPF.ViewModels
         });
         public ICommand PersonListPage_Open => new MenuNavigateCommand((sender) =>
         {
-            _ = LoadPersonList();
-            
             var newPage = new PersonListPage(this) { DataContext = this };
+            SetPage(newPage, sender);
+        });
+        public ICommand StudentPilotListPage_Open => new MenuNavigateCommand((sender) =>
+        {
+            var newPage = new StudentPilotListPage(this) { DataContext = this };
+            SetPage(newPage, sender);
+        });
+        public ICommand InstructorListPage_Open => new MenuNavigateCommand((sender) =>
+        {
+            var newPage = new InstructorListPage(this) { DataContext = this };
+            SetPage(newPage, sender);
+        });
+        public ICommand EngineerListPage_Open => new MenuNavigateCommand((sender) =>
+        {
+            var newPage = new EngineerListPage(this) { DataContext = this };
             SetPage(newPage, sender);
         });
         public ICommand EditEngine_Show => new MenuNavigateCommand((sender) =>
@@ -374,8 +407,13 @@ namespace RepairAirplanesWPF.ViewModels
                 if (element.DataContext is Engine engine)
                 {
                     var window = new EditEngine(this) { DataContext = engine};
-                    window.ShowDialog();
-                    _ = LoadEngineList();
+                    var result = window.ShowDialog();
+                    if (result == true)
+                    {
+                        DataManager.SaveChanges();
+                        _ = LoadEngineList();
+                    }
+                    
                 }
             }
         });
@@ -386,8 +424,13 @@ namespace RepairAirplanesWPF.ViewModels
                 if (element.DataContext is Person person)
                 {
                     var window = new EditPerson(this) { DataContext = person };
-                    window.ShowDialog();
-                    _ = LoadPersonList();
+                    var result = window.ShowDialog();
+                    if (result == true)
+                    {
+                        DataManager.SaveChanges();
+                        _ = LoadPersonList();
+                    }
+                    
                 }
             }
         });
@@ -410,8 +453,110 @@ namespace RepairAirplanesWPF.ViewModels
             var result = window.ShowDialog();
             if(result == true)
             {
+                newPerson.permission_group = 1;
                 DataManager.AddPerson(newPerson);
-                _ = LoadCoolingSystemList();
+                _ = LoadPersonList();
+            }
+        });
+        public ICommand AddStudentPilot_Show => new MenuNavigateCommand((sender) =>
+        {
+            var newPerson = new Person();
+            var newPilot = new Pilot();
+            newPilot.Person = newPerson;
+
+            var newStudentPilot = new Student_pilot();
+            newStudentPilot.Pilot = newPilot;
+            var window = new EditStudentPilot(this) { DataContext = newStudentPilot };
+            var result = window.ShowDialog();
+            if (result == true)
+            {
+                newPerson.permission_group = 4;
+                DataManager.AddStudentPilot(newStudentPilot);
+                _ = LoadStudentPilotList();
+            }
+        });
+        public ICommand EditStudentPilot_Show => new MenuNavigateCommand((sender) =>
+        {
+            if (sender is FrameworkElement element)
+            {
+                if (element.DataContext is Student_pilot student_Pilot)
+                {
+                    var window = new EditStudentPilot(this) { DataContext = student_Pilot };
+                    var result = window.ShowDialog();
+                    if (result == true)
+                    {
+                        DataManager.SaveChanges();
+                        _ = LoadStudentPilotList();
+                    }
+                }
+            }
+                
+        });
+        public ICommand AddEngineer_Show => new MenuNavigateCommand((sender) =>
+        {
+            var newPerson = new Person();
+            var newEngineer = new Engineer();
+            newEngineer.Person = newPerson;
+
+            var window = new EditEngineer(this) { DataContext = newEngineer };
+            var result = window.ShowDialog();
+            if (result == true)
+            {
+                newPerson.permission_group = 2;
+                DataManager.AddEngineer(newEngineer);
+                _ = LoadEngineerList();
+            }
+        });
+        public ICommand EditEngineer_Show => new MenuNavigateCommand((sender) =>
+        {
+            if (sender is FrameworkElement element)
+            {
+                if (element.DataContext is Engineer engineer)
+                {
+                    var window = new EditEngineer(this) { DataContext = engineer };
+                    var result = window.ShowDialog();
+                    if (result == true)
+                    {
+                        DataManager.SaveChanges();
+                        _ = LoadEngineerList();
+                    }
+                }
+            }
+        });
+
+        public ICommand EditInstructor_Show => new MenuNavigateCommand((sender) =>
+        {
+            if (sender is FrameworkElement element)
+            {
+                if (element.DataContext is Instructor instructor)
+                {
+                    var window = new EditInstructor(this) { DataContext = instructor };
+                    var result = window.ShowDialog();
+                    if (result == true)
+                    {
+                        DataManager.SaveChanges();
+                        _ = LoadInstructorList();
+                        _ = LoadPersonList();
+                    }
+                }
+            }
+        });
+        public ICommand AddInstuctor_Show => new MenuNavigateCommand((sender) =>
+        {
+            var newPerson = new Person();
+            var newPilot = new Pilot();
+            var newInstructor = new Instructor();
+            newPilot.Person = newPerson;
+            newInstructor.Pilot = newPilot;
+
+            var window = new EditInstructor(this) { DataContext = newInstructor };
+            var result = window.ShowDialog();
+            if (result == true)
+            {
+                newPerson.permission_group = 10002;
+                DataManager.AddInstructor(newInstructor);
+                _ = LoadInstructorList();
+                _ = LoadPersonList();
             }
         });
         public ICommand AddEngine_Show => new MenuNavigateCommand((sender) =>
@@ -434,6 +579,17 @@ namespace RepairAirplanesWPF.ViewModels
             {
                 DataManager.AddRepairWork(newWork);
                 _ = LoadRepairWorkList();
+            }
+        });
+        public ICommand AddStudyGroup_Show => new MenuNavigateCommand((sender) =>
+        {
+            var newGroup = new Study_group();
+            var window = new SimpleEditWindow(this) { DataContext = newGroup };
+            var result = window.ShowDialog();
+            if (result == true)
+            {
+                DataManager.AddStudyGroup(newGroup);
+                _ = LoadStudyGroupList();
             }
         });
         public ICommand AddRepairStatus_Show => new MenuNavigateCommand((sender) =>
@@ -486,6 +642,34 @@ namespace RepairAirplanesWPF.ViewModels
                 }
             }
         });
+        public ICommand ConfirmRequredRepairWork_Show => new MenuNavigateCommand((sender) =>
+        {
+            if (sender is FrameworkElement element)
+            {
+                if (element.DataContext is Repair_list repair_List)
+                {
+                    var window = new ConfirmRequiredRepairList(this) { DataContext = repair_List };
+                    var result = window.ShowDialog();
+                    if (result == true)
+                    {
+                        DataManager.SaveChanges();
+                        _ = LoadRepairList();
+                    }
+                }
+            }
+        });
+        public ICommand ConfirmRequredRepairWork => new MenuNavigateCommand((sender) =>
+        {
+            if (sender is FrameworkElement element)
+            {
+                if (element.DataContext is Required_repair_work required_Repair_Work)
+                {
+                    required_Repair_Work.status_id = 2;
+                        DataManager.SaveChanges();
+                        _ = LoadRepairList();
+                }
+            }
+        });
         public ICommand AddRequredRepairPart_Show => new MenuNavigateCommand((sender) =>
         {
             if (sender is FrameworkElement element)
@@ -510,6 +694,7 @@ namespace RepairAirplanesWPF.ViewModels
         {
             SetPage(new FlightHistoryPage(this), sender);
         });
+        
         #endregion
 
         #region CurrentPageManagement
@@ -562,6 +747,7 @@ namespace RepairAirplanesWPF.ViewModels
         public static DependencyProperty Pilot_listProperty = DependencyProperty.Register("Pilot_list", typeof(ObservableCollection<Pilot>), typeof(BaseViewModel), new PropertyMetadata(new ObservableCollection<Pilot>()));
         public static DependencyProperty StudentPilot_listProperty = DependencyProperty.Register("StudentPilot_list", typeof(ObservableCollection<Student_pilot>), typeof(BaseViewModel), new PropertyMetadata(new ObservableCollection<Student_pilot>()));
         public static DependencyProperty Instructor_listProperty = DependencyProperty.Register("Instructor_list", typeof(ObservableCollection<Instructor>), typeof(BaseViewModel), new PropertyMetadata(new ObservableCollection<Instructor>()));
+        public static DependencyProperty StudyGroup_listProperty = DependencyProperty.Register("StudyGroup_list", typeof(ObservableCollection<Study_group>), typeof(BaseViewModel), new PropertyMetadata(new ObservableCollection<Study_group>()));
         #endregion
 
         #region Events
@@ -581,6 +767,7 @@ namespace RepairAirplanesWPF.ViewModels
         public event Action Pilot_listChangedEvent;
         public event Action StudentPilot_listChangedEvent;
         public event Action Instructor_listChangedEvent;
+        public event Action StudyGroup_listChangedEvent;
         #endregion
     }
 }
