@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:RepairAirplanesWPF" xmlns:converters="clr-namespace:RepairAirplanesWPF.Converters"
              x:Name="ThisApp"
-             StartupUri="Views/MainWindow.xaml">
+             StartupUri="Views/AuthorizationWindow.xaml">
     <Application.Resources>
         <converters:ObjectExistingConverter x:Key="objectExistingConverter"/>
         <Color x:Key="AppMainColor" R="0" G="148" B="214" A="255"/>

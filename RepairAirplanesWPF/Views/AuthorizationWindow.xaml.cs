@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RepairAirplanesWPF.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,18 @@ namespace RepairAirplanesWPF.Views
     /// </summary>
     public partial class AuthorizationWindow : Window
     {
+        public LoginViewModel loginViewModel;
         public AuthorizationWindow()
         {
+            this.loginViewModel = new LoginViewModel();
+            this.DataContext = loginViewModel;
+            loginViewModel.closeScreen = () => { this.Close(); };
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            loginViewModel.LoginClick(sender);
         }
     }
 }

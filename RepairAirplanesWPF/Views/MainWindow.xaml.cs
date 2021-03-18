@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RepairAirplanesWPF.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,10 +21,13 @@ namespace RepairAirplanesWPF.Views
     /// </summary>
     public partial class MainWindow : Window
     {
+        private BaseViewModel BaseViewmodel;
         public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = (Application.Current as App).baseViewModel;
+            this.BaseViewmodel = (Application.Current as App).baseViewModel;
+            this.DataContext = BaseViewmodel;
+            BaseViewmodel.RepairHistoryPage_Open.Execute(new Button());
         }
 
         private void Frame_Navigated(object sender, NavigationEventArgs e)

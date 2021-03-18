@@ -42,7 +42,7 @@
                         <TextBox Text="{Binding Login}" Margin="0,0,0,15"/>
                         <TextBlock Text="Пароль:"></TextBlock>
                         <TextBox Text="{Binding Password}" Margin="0,0,0,25"/>
-                        <Button Content="Войти"></Button>
+                        <Button Content="Войти" Click="Button_Click"></Button>
                     </StackPanel>
                 </Grid>
             </Border>
