@@ -26,6 +26,7 @@ namespace RepairAirplanesWPF
         public long engineer_id { get; set; }
         public long id { get; set; }
         public int count { get; set; }
+        public Nullable<System.DateTime> end_date { get; set; }
     
         public virtual Engineer Engineer { get; set; }
         public virtual Repair_list Repair_list { get; set; }

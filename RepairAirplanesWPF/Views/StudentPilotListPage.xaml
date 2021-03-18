@@ -12,15 +12,17 @@
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
+                <ColumnDefinition Width="120"/>
                 <ColumnDefinition Width="30"/>
             </Grid.ColumnDefinitions>
             <TextBlock Text="Список студентов" HorizontalAlignment="Center" FontWeight="Bold" FontSize="24"/>
-            <Button x:Name="addStudentButton" Grid.Column="1" Content="+" Padding="2" Height="30"/>
+            <Button x:Name="printStudentButton" Grid.Column="1" Content="Печать" Padding="2" Height="30"/>
+            <Button x:Name="addStudentButton" Grid.Column="2" Content="+" Padding="2" Height="30"/>
         </Grid>
         <ItemsControl x:Name="studentListView">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Vertical" MouseUp="StackPanel_MouseUp">
+                    <StackPanel Orientation="Vertical">
                         <TextBlock FontSize="22" FontWeight="Bold" Margin="5,0,0,0" Text="{Binding Pilot.Person.FIO}"/>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock FontSize="16" Text="Аттестат:"/>
@@ -34,6 +36,14 @@
                             <TextBlock FontSize="16" Text="Дата поступления:"/>
                             <TextBlock FontSize="16" Margin="5,0,0,0" Text="{Binding start_learning_date, StringFormat='dd.MM.yyyy'}"/>
                         </StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0" Click="Edit_Click" Content="Изменить" MinHeight="20"/>
+                            <Button Grid.Column="1" Click="Remove_Click" Content="Удалить" MinHeight="20" Background="Red"/>
+                        </Grid>
                         <Separator/>
                     </StackPanel>
                 </DataTemplate>

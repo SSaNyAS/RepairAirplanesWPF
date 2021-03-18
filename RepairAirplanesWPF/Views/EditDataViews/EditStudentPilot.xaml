@@ -16,8 +16,12 @@
             <TextBox Text="{Binding Pilot.Person.middlename}"/>
             <TextBlock Margin="0,10,0,0" Text="Паспорт"/>
             <TextBox Text="{Binding Pilot.Person.passport}" ToolTip="Укажите серию и номер паспорта, без пробелов" />
+            <TextBlock Margin="0,10,0,0" Text="Документ об образовании"/>
+            <TextBox Text="{Binding eduation_sertificate}" ToolTip="Укажите серию и номер документа, без пробелов" />
             <TextBlock Margin="0,10,0,0" Text="Дата рождения"/>
-            <DatePicker MinHeight="30" SelectedDate="{Binding Pilot.Person.birthday}"/>
+            <DatePicker MinHeight="30" SelectedDate="{Binding Pilot.Person.birthday, StringFormat='dd.MM.yyyy', TargetNullValue='01.01.2021'}"/>
+            <TextBlock Margin="0,10,0,0" Text="Дата поступления"/>
+            <DatePicker IsTodayHighlighted="True" MinHeight="30" SelectedDate="{Binding start_learning_date, StringFormat='dd.MM.yyyy', TargetNullValue='01.01.2021'}"/>
             <TextBlock Margin="0,10,0,0" Text="Группа"/>
             <Grid>
                 <Grid.ColumnDefinitions>

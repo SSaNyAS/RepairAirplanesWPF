@@ -42,32 +42,48 @@ namespace RepairAirplanesWPF.Views.EditDataViews
         protected override void OnActivated(EventArgs e)
         {
             base.OnActivated(e);
+            
             _ = BaseViewModel.LoadRepairWorkList();
             _ = BaseViewModel.LoadRepairStatusList();
             _ = BaseViewModel.LoadEngineerList();
+            
         }
         private void BaseViewModel_Repair_status_listChangedEvent()
         {
+            var saved = repairStatusSelector.SelectedValue;
             repairStatusSelector.ItemsSource = null;
             repairStatusSelector.ItemsSource = BaseViewModel.Repair_status_list;
+            repairStatusSelector.SelectedValue = saved;
         }
 
         private void BaseViewModel_Engineer_listChangedEvent()
         {
+            var saved = engineerSelector.SelectedValue;
             engineerSelector.ItemsSource = null;
             engineerSelector.ItemsSource = BaseViewModel.Engineer_list;
+            engineerSelector.SelectedValue = saved;
+            if (DataContext is Required_repair_work required_Repair_Work)
+            {
+                requiredRepairPartListView.ItemsSource = required_Repair_Work.Required_repair_part.ToList();
+            }
         }
 
         private void BaseViewModel_Repair_work_listChangedEvent()
         {
+            var saved = repairWorkSelector.SelectedValue;
             repairWorkSelector.ItemsSource = null;
             repairWorkSelector.ItemsSource = BaseViewModel.Repair_work_list;
+            repairWorkSelector.SelectedValue = saved;
         }
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = true;
             this.Close();
+        }
+        private void RemovePart_Click(object sender, RoutedEventArgs e)
+        {
+            BaseViewModel.RemoveRequredRepairPart.Execute(sender);
         }
     }
 }

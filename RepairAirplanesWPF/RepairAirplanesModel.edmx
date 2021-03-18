@@ -159,7 +159,6 @@
           <Property Name="airplane_id" Type="bigint" Nullable="false" />
           <Property Name="start_repair_date" Type="datetime" Nullable="false" />
           <Property Name="end_repair_date" Type="datetime" />
-          <Property Name="status_id" Type="bigint" Nullable="false" />
           <Property Name="additional_information" Type="nvarchar" MaxLength="1000" />
         </EntityType>
         <EntityType Name="Repair_part">
@@ -204,6 +203,7 @@
           <Property Name="engineer_id" Type="bigint" Nullable="false" />
           <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="count" Type="int" Nullable="false" />
+          <Property Name="end_date" Type="datetime" />
         </EntityType>
         <EntityType Name="Student_pilot">
           <Key>
@@ -212,8 +212,7 @@
           <Property Name="person_id" Type="bigint" Nullable="false" />
           <Property Name="study_group_id" Type="bigint" Nullable="false" />
           <Property Name="start_learning_date" Type="date" Nullable="false" />
-          <Property Name="eduation_sertificate_number" Type="bigint" Nullable="false" />
-          <Property Name="eduation_sertificate_serial" Type="bigint" Nullable="false" />
+          <Property Name="eduation_sertificate" Type="nvarchar" MaxLength="14" Nullable="false" />
         </EntityType>
         <EntityType Name="Study_group">
           <Key>
@@ -590,6 +589,44 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="CustomLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="login" Type="nvarchar" Mode="In" />
+          <Parameter Name="password" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="GetSummaryFlightTime" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="airplane_id" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="Хранилище Repair_airplanesModelContainer">
           <EntitySet Name="Airplane" EntityType="Self.Airplane" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Authorization" EntityType="Self.Authorization" Schema="dbo" store:Type="Tables" />
@@ -912,7 +949,6 @@
           <Property Name="airplane_id" Type="Int64" Nullable="false" />
           <Property Name="start_repair_date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="end_repair_date" Type="DateTime" Precision="3" />
-          <Property Name="status_id" Type="Int64" Nullable="false" />
           <Property Name="additional_information" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Airplane" Relationship="Self.FK_Repair_list_Airplane" FromRole="Repair_list" ToRole="Airplane" />
           <NavigationProperty Name="Required_repair_work" Relationship="Self.FK_Required_repair_work_Repair_list" FromRole="Repair_list" ToRole="Required_repair_work" />
@@ -965,6 +1001,7 @@
           <Property Name="engineer_id" Type="Int64" Nullable="false" />
           <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="count" Type="Int32" Nullable="false" />
+          <Property Name="end_date" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Engineer" Relationship="Self.FK_Required_repair_work_Engineer" FromRole="Required_repair_work" ToRole="Engineer" />
           <NavigationProperty Name="Repair_list" Relationship="Self.FK_Required_repair_work_Repair_list" FromRole="Required_repair_work" ToRole="Repair_list" />
           <NavigationProperty Name="Repair_status" Relationship="Self.FK_Required_repair_work_Repair_status" FromRole="Required_repair_work" ToRole="Repair_status" />
@@ -978,8 +1015,7 @@
           <Property Name="person_id" Type="Int64" Nullable="false" />
           <Property Name="study_group_id" Type="Int64" Nullable="false" />
           <Property Name="start_learning_date" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="eduation_sertificate_number" Type="Int64" Nullable="false" />
-          <Property Name="eduation_sertificate_serial" Type="Int64" Nullable="false" />
+          <Property Name="eduation_sertificate" Type="String" MaxLength="14" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Pilot" Relationship="Self.FK_Student_pilot_Pilot1" FromRole="Student_pilot" ToRole="Pilot" />
           <NavigationProperty Name="Study_group" Relationship="Self.FK_Student_pilot_Study_group" FromRole="Student_pilot" ToRole="Study_group" />
         </EntityType>
@@ -1335,7 +1371,7 @@
           <End Role="Permission" Type="Self.Permission" Multiplicity="*" />
           <End Role="Permission_group" Type="Self.Permission_group" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="Repair_airplanesConnection" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="RepairAirplanesConnection" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Airplane" EntityType="Self.Airplane" />
           <EntitySet Name="Authorization" EntityType="Self.Authorization" />
           <EntitySet Name="Cooling_system" EntityType="Self.Cooling_system" />
@@ -1464,13 +1500,71 @@
             <End Role="Permission" EntitySet="Permission" />
             <End Role="Permission_group" EntitySet="Permission_group" />
           </AssociationSet>
+          <FunctionImport Name="CustomLogin" ReturnType="Collection(Repair_airplanesModel.CustomLogin_Result)">
+            <Parameter Name="login" Mode="In" Type="String" />
+            <Parameter Name="password" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetSummaryFlightTime" ReturnType="Collection(Int32)">
+            <Parameter Name="airplane_id" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(Repair_airplanesModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(Repair_airplanesModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
         </EntityContainer>
+        <ComplexType Name="CustomLogin_Result">
+          <Property Type="Int64" Name="id" Nullable="false" />
+          <Property Type="String" Name="firstname" Nullable="false" MaxLength="150" />
+          <Property Type="String" Name="lastname" Nullable="false" MaxLength="150" />
+          <Property Type="String" Name="middlename" Nullable="false" MaxLength="150" />
+          <Property Type="DateTime" Name="birthday" Nullable="false" />
+          <Property Type="Int64" Name="passport" Nullable="false" />
+          <Property Type="Int64" Name="permission_group" Nullable="false" />
+          <Property Type="String" Name="FIO" Nullable="false" MaxLength="452" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище Repair_airplanesModelContainer" CdmEntityContainer="Repair_airplanesConnection">
+        <EntityContainerMapping StorageEntityContainer="Хранилище Repair_airplanesModelContainer" CdmEntityContainer="RepairAirplanesConnection">
           <EntitySetMapping Name="Airplane">
             <EntityTypeMapping TypeName="Repair_airplanesModel.Airplane">
               <MappingFragment StoreEntitySet="Airplane">
@@ -1629,7 +1723,6 @@
                 <ScalarProperty Name="airplane_id" ColumnName="airplane_id" />
                 <ScalarProperty Name="start_repair_date" ColumnName="start_repair_date" />
                 <ScalarProperty Name="end_repair_date" ColumnName="end_repair_date" />
-                <ScalarProperty Name="status_id" ColumnName="status_id" />
                 <ScalarProperty Name="additional_information" ColumnName="additional_information" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1679,6 +1772,7 @@
                 <ScalarProperty Name="engineer_id" ColumnName="engineer_id" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="count" ColumnName="count" />
+                <ScalarProperty Name="end_date" ColumnName="end_date" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1688,8 +1782,7 @@
                 <ScalarProperty Name="person_id" ColumnName="person_id" />
                 <ScalarProperty Name="study_group_id" ColumnName="study_group_id" />
                 <ScalarProperty Name="start_learning_date" ColumnName="start_learning_date" />
-                <ScalarProperty Name="eduation_sertificate_number" ColumnName="eduation_sertificate_number" />
-                <ScalarProperty Name="eduation_sertificate_serial" ColumnName="eduation_sertificate_serial" />
+                <ScalarProperty Name="eduation_sertificate" ColumnName="eduation_sertificate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1720,6 +1813,45 @@
               <ScalarProperty Name="id" ColumnName="group_id" />
             </EndProperty>
           </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="CustomLogin" FunctionName="Хранилище Repair_airplanesModel.CustomLogin">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Repair_airplanesModel.CustomLogin_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="middlename" ColumnName="middlename" />
+                <ScalarProperty Name="birthday" ColumnName="birthday" />
+                <ScalarProperty Name="passport" ColumnName="passport" />
+                <ScalarProperty Name="permission_group" ColumnName="permission_group" />
+                <ScalarProperty Name="FIO" ColumnName="FIO" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetSummaryFlightTime" FunctionName="Хранилище Repair_airplanesModel.GetSummaryFlightTime" />
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="Хранилище Repair_airplanesModel.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="Хранилище Repair_airplanesModel.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="Хранилище Repair_airplanesModel.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="Хранилище Repair_airplanesModel.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Repair_airplanesModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="Хранилище Repair_airplanesModel.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Repair_airplanesModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Хранилище Repair_airplanesModel.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Хранилище Repair_airplanesModel.sp_upgraddiagrams" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

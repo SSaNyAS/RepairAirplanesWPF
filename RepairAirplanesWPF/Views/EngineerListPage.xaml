@@ -20,7 +20,7 @@
         <ItemsControl x:Name="engineerListView">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Vertical" MouseUp="StackPanel_MouseUp">
+                    <StackPanel Orientation="Vertical">
                         <TextBlock FontSize="22" FontWeight="Bold" Margin="5,0,0,0" Text="{Binding Person.FIO}"/>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock FontSize="16" Text="Квалификация:"/>
@@ -30,6 +30,14 @@
                             <TextBlock FontSize="16" Text="Выполнено работ:"/>
                             <TextBlock FontSize="16" Margin="5,0,0,0" Text="{Binding RepairWorkCount}"/>
                         </StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0" Click="Edit_Click" Content="Изменить" MinHeight="30"/>
+                            <Button Grid.Column="1" Click="Remove_Click" Content="Удалить" MinHeight="30" Background="Red"/>
+                        </Grid>
                         <Separator/>
                     </StackPanel>
                 </DataTemplate>

@@ -25,11 +25,30 @@ namespace RepairAirplanesWPF.Views.EditDataViews
         {
             this.BaseViewModel = baseViewModel;
             InitializeComponent();
+            printRepairInfo.Command = baseViewModel.PrintRepairInfo;
+            printRepairInfo.CommandParameter = printRepairInfo;
+        }
+        protected override void OnActivated(EventArgs e)
+        {
+            base.OnActivated(e);
+            updateList();
+        }
+        private void updateList()
+        {
+            var saved = repairWorkList.ItemsSource;
+            repairWorkList.ItemsSource = null;
+            repairWorkList.ItemsSource = saved;
         }
         private void Save_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = true;
             this.Close();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            BaseViewModel.ConfirmRequredRepairWork.Execute(sender);
+            updateList();
         }
     }
 }

@@ -26,7 +26,6 @@ namespace RepairAirplanesWPF.Views.EditDataViews
             this.BaseViewModel = baseViewModel;
             baseViewModel.Airplane_listChangedEvent += BaseViewModel_Airplane_listChangedEvent;
             InitializeComponent();
-            
             addRequiredRepairWorkButton.Command = baseViewModel.AddRequredRepairWork_Show;
             addRequiredRepairWorkButton.CommandParameter = addRequiredRepairWorkButton;
         }
@@ -34,17 +33,28 @@ namespace RepairAirplanesWPF.Views.EditDataViews
         {
             base.OnActivated(e);
             _ = BaseViewModel.LoadAirplaneList();
+            var saveItemSource = requiredWorkList.ItemsSource;
+            requiredWorkList.ItemsSource = null;
+            requiredWorkList.ItemsSource = saveItemSource;
         }
         private void BaseViewModel_Airplane_listChangedEvent()
         {
+            var selectedValue = airplaneSelector.SelectedValue;
             airplaneSelector.ItemsSource = null;
             airplaneSelector.ItemsSource = BaseViewModel.Airplane_list;
+            airplaneSelector.SelectedValue = selectedValue;
         }
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = true;
             this.Close();
+        }
+
+        private void RemoveRepairWork_Click(object sender, RoutedEventArgs e)
+        {
+            BaseViewModel.RemoveRequredRepairWork.Execute(sender);
+            OnActivated(new EventArgs());
         }
     }
 }

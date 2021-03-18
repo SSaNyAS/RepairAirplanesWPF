@@ -30,6 +30,8 @@ namespace RepairAirplanesWPF.Views
             _ = baseViewModel.LoadPersonList();
             addPersonButton.Command = baseViewModel.AddPerson_Show;
             addPersonButton.CommandParameter = addPersonButton;
+            printPersonButton.Command = baseViewModel.PrintPerson;
+            printPersonButton.CommandParameter = printPersonButton;
         }
 
         private void BaseViewModel_Person_listChangedEvent()

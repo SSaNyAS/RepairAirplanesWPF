@@ -9,6 +9,7 @@
 
 namespace RepairAirplanesWPF
 {
+    using RepairAirplanesWPF.Extensions;
     using System;
     using System.Collections.Generic;
     
@@ -24,9 +25,8 @@ namespace RepairAirplanesWPF
         public long airplane_id { get; set; }
         public System.DateTime start_repair_date { get; set; }
         public Nullable<System.DateTime> end_repair_date { get; set; }
-        public long status_id { get; set; }
         public string additional_information { get; set; }
-    
+        public string Status => this.GetStatus();
         public virtual Airplane Airplane { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Required_repair_work> Required_repair_work { get; set; }

@@ -16,12 +16,14 @@
                     <SolidColorBrush Color="{StaticResource ResourceKey= AppMainColor}"/>
                 </Setter.Value>
             </Setter>
+            <Setter Property="FontFamily" Value="./Fonts/#a_Futuraround"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="FontSize" Value="14"/>
         </Style>
 
         <Style TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="./Fonts/#a_Futuraround"/>
             <Setter Property="Padding" Value="0,5"/>
             <Setter Property="Foreground" Value="#222"/>
             <Setter Property="FontWeight" Value="Regular"/>
@@ -30,9 +32,11 @@
         
         <Style TargetType="TextBox">
             <Setter Property="MinHeight" Value="30"/>
+            <Setter Property="FontFamily" Value="./Fonts/#a_Futuraround"/>
         </Style>
         <Style TargetType="ComboBox">
             <Setter Property="MinHeight" Value="30"/>
+            <Setter Property="FontFamily" Value="./Fonts/#a_Futuraround"/>
         </Style>
     </Application.Resources>
 </Application>

@@ -20,7 +20,7 @@
         <ItemsControl x:Name="engineListView">
         <ItemsControl.ItemTemplate>
             <DataTemplate>
-                <StackPanel Orientation="Vertical" MouseUp="StackPanel_MouseUp">
+                <StackPanel Orientation="Vertical">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock FontSize="22" FontWeight="Bold" Text="Двигатель:"/>
                         <TextBlock FontSize="22" FontWeight="Bold" Margin="5,0,0,0" Text="{Binding model}"/>
@@ -40,7 +40,15 @@
                         <TextBlock FontSize="16" Margin="5,0,0,0" Text="{Binding repair_period}"/>
                         <TextBlock FontSize="16" Margin="5,0,0,0" Text="ч"/>
                     </StackPanel>
-                    <Separator/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0" Content="Изменить" MinHeight="30"/>
+                            <Button Grid.Column="1" Content="Удалить" MinHeight="30" Background="Red"/>
+                        </Grid>
+                        <Separator/>
                 </StackPanel>
             </DataTemplate>
         </ItemsControl.ItemTemplate>

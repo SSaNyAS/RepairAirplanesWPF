@@ -4,31 +4,31 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d2baa6afab8b4e9a99e1c3e7c0eeca15" Name="Diagram1">
+      <Diagram DiagramId="84b25c5b8e0f4a509fd29ac114a623d4" Name="Diagram1">
         <EntityTypeShape EntityType="Repair_airplanesModel.Airplane" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Repair_airplanesModel.Authorization" Width="1.5" PointX="3.75" PointY="10.5" IsExpanded="true" />
         <EntityTypeShape EntityType="Repair_airplanesModel.Cooling_system" Width="1.5" PointX="1.5" PointY="13.625" IsExpanded="true" />
         <EntityTypeShape EntityType="Repair_airplanesModel.Engine" Width="1.5" PointX="1.5" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Repair_airplanesModel.Engineer" Width="1.5" PointX="3.75" PointY="17" IsExpanded="true" />
         <EntityTypeShape EntityType="Repair_airplanesModel.Engines_fuel_type" Width="1.5" PointX="8.75" PointY="9.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Repair_airplanesModel.Flight_log" Width="1.5" PointX="8.25" PointY="12.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Repair_airplanesModel.Fuel_type" Width="1.5" PointX="6.5" PointY="16.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Repair_airplanesModel.Instructor" Width="1.5" PointX="6" PointY="26.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Repair_airplanesModel.Mastered_type_airplane" Width="1.5" PointX="6" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Repair_airplanesModel.Flight_log" Width="1.5" PointX="8.25" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Repair_airplanesModel.Fuel_type" Width="1.5" PointX="6.5" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Repair_airplanesModel.Instructor" Width="1.5" PointX="6" PointY="27.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Repair_airplanesModel.Mastered_type_airplane" Width="1.5" PointX="6" PointY="12" IsExpanded="true" />
         <EntityTypeShape EntityType="Repair_airplanesModel.Permission" Width="1.5" PointX="1.5" PointY="24" IsExpanded="true" />
         <EntityTypeShape EntityType="Repair_airplanesModel.Permission_group" Width="1.5" PointX="1.5" PointY="21" IsExpanded="true" />
         <EntityTypeShape EntityType="Repair_airplanesModel.Person" Width="1.5" PointX="1.5" PointY="16.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Repair_airplanesModel.Pilot" Width="1.5" PointX="3.75" PointY="22.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Repair_airplanesModel.Pilot" Width="1.5" PointX="3.75" PointY="23.125" IsExpanded="true" />
         <EntityTypeShape EntityType="Repair_airplanesModel.Recommended_repair_period" Width="1.5" PointX="3" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Repair_airplanesModel.Repair_list" Width="1.5" PointX="3.75" PointY="13.375" IsExpanded="true" />
         <EntityTypeShape EntityType="Repair_airplanesModel.Repair_part" Width="1.5" PointX="6" PointY="1.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Repair_airplanesModel.Repair_status" Width="1.5" PointX="3.75" PointY="19.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Repair_airplanesModel.Repair_status" Width="1.5" PointX="3.75" PointY="20.375" IsExpanded="true" />
         <EntityTypeShape EntityType="Repair_airplanesModel.Repair_work" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Repair_airplanesModel.Required_repair_part" Width="1.5" PointX="8.25" PointY="5.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Repair_airplanesModel.Required_repair_work" Width="1.5" PointX="6" PointY="5.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Repair_airplanesModel.Student_pilot" Width="1.5" PointX="6" PointY="22.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Repair_airplanesModel.Study_group" Width="1.5" PointX="3.75" PointY="25.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Repair_airplanesModel.sysdiagrams" Width="1.5" PointX="10.75" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Repair_airplanesModel.Required_repair_work" Width="1.5" PointX="6" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Repair_airplanesModel.Student_pilot" Width="1.5" PointX="6" PointY="23.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Repair_airplanesModel.Study_group" Width="1.5" PointX="3.75" PointY="26.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Repair_airplanesModel.sysdiagrams" Width="1.5" PointX="10.75" PointY="3.25" IsExpanded="true" />
         <AssociationConnector Association="Repair_airplanesModel.FK_Airplane_Engine" ManuallyRouted="false" />
         <AssociationConnector Association="Repair_airplanesModel.FK_Flight_log_Airplane" ManuallyRouted="false" />
         <AssociationConnector Association="Repair_airplanesModel.FK_Mastered_type_airplane_Airplane" ManuallyRouted="false" />

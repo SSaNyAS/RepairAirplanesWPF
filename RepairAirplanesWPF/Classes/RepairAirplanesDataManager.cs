@@ -10,7 +10,7 @@ namespace RepairAirplanesWPF.Classes
 {
     public class RepairAirplanesDataManager
     {
-        private Repair_airplanesConnection Connection;
+        public RepairAirplanesConnection Connection;
         #region DataLoaders
         private DBLoader<Airplane> AirplaneDataLoader;
         private DBLoader<Engine> EngineDataLoader;
@@ -36,7 +36,7 @@ namespace RepairAirplanesWPF.Classes
         #endregion
 
 
-        public RepairAirplanesDataManager(Repair_airplanesConnection connection)
+        public RepairAirplanesDataManager(RepairAirplanesConnection connection)
         {
             this.Connection = connection;
             AirplaneDataLoader = new DBLoader<Airplane>(connection);
@@ -76,6 +76,7 @@ namespace RepairAirplanesWPF.Classes
             }
         }
         #endregion
+
         #region GetDataList
         public ObservableCollection<Airplane> GetAirplane_List()
         {
@@ -84,6 +85,15 @@ namespace RepairAirplanesWPF.Classes
         public ObservableCollection<Repair_list> GetRepair_List()
         {
             return RepairListDataLoader.GetList();
+        }
+        public ObservableCollection<Repair_list> GetRepairToAccept_List()
+        {
+            return RepairListDataLoader.GetListWhere((repair) => repair.end_repair_date == null);
+        }
+        public ObservableCollection<Repair_list> GetFinishedRepair_List()
+        {
+            
+            return RepairListDataLoader.GetListWhere((repair) => repair.end_repair_date != null);
         }
         public ObservableCollection<Engine> GetEngine_List()
         {
@@ -235,6 +245,48 @@ namespace RepairAirplanesWPF.Classes
         public void AddStudyGroup(Study_group group)
         {
             StudyGroupListDataLoader.AddItem(group);
+        }
+        #endregion
+
+        #region RemoveItems
+        public void RemoveAirplane(Airplane airplane)
+        {
+            AirplaneDataLoader.RemoveItem(airplane);
+        }
+        public void RemoveEngine(Engine engine)
+        {
+            EngineDataLoader.RemoveItem(engine);
+        }
+        public void RemovePerson(Person person)
+        {
+            PersonDataLoader.RemoveItem(person);
+        }
+        public void RemoveEngineer(Engineer engineer)
+        {
+            EngineerDataLoader.RemoveItem(engineer);
+        }
+        public void RemovePilot(Pilot pilot)
+        {
+            PilotDataLoader.RemoveItem(pilot);
+            RemovePerson(pilot.Person);
+        }
+        public void RemoveStudentPilot(Student_pilot student_Pilot)
+        {
+            StudentPilotDataLoader.RemoveItem(student_Pilot);
+            RemovePilot(student_Pilot.Pilot);
+        }
+        public void RemoveInstructor(Instructor instructor)
+        {
+            InstructorDataLoader.RemoveItem(instructor);
+            RemovePilot(instructor.Pilot);
+        }
+        public void RemoveRequiredRepairWork(Required_repair_work required_Repair_Work)
+        {
+            RequiredRepairWorkDataLoader.RemoveItem(required_Repair_Work);
+        }
+        public void RemoveRequiredRepairWork(Required_repair_part required_Repair_Part)
+        {
+            RequiredRepairPartDataLoader.RemoveItem(required_Repair_Part);
         }
         #endregion
 

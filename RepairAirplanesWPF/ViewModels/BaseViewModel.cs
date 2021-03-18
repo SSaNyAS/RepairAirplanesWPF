@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using RepairAirplanesWPF.Classes;
+using RepairAirplanesWPF.Extensions;
 using RepairAirplanesWPF.Views;
 using RepairAirplanesWPF.Views.EditDataViews;
 using System;
@@ -15,9 +16,9 @@ using System.Windows.Input;
 
 namespace RepairAirplanesWPF.ViewModels
 {
-    public class BaseViewModel: DependencyObject
+    public class BaseViewModel : DependencyObject
     {
-        public RepairAirplanesDataManager DataManager = new RepairAirplanesDataManager(new Repair_airplanesConnection());
+        public RepairAirplanesDataManager DataManager = new RepairAirplanesDataManager(new RepairAirplanesConnection());
         public BaseViewModel(Page currentPage)
         {
             CurrentPage = currentPage;
@@ -34,6 +35,30 @@ namespace RepairAirplanesWPF.ViewModels
             {
                 SetValue(Repair_listProperty, value);
                 Dispatcher.Invoke(() => { this.Repair_listChangedEvent?.Invoke(); });
+            }
+        }
+        public ObservableCollection<Repair_list> RepairToAccept_list
+        {
+            get
+            {
+                return (ObservableCollection<Repair_list>)GetValue(RepairToAccept_listProperty);
+            }
+            set
+            {
+                SetValue(RepairToAccept_listProperty, value);
+                Dispatcher.Invoke(() => { this.RepairToAccept_listChangedEvent?.Invoke(); });
+            }
+        }
+        public ObservableCollection<Repair_list> FinishedRepair_list
+        {
+            get
+            {
+                return (ObservableCollection<Repair_list>)GetValue(FinishedRepair_listProperty);
+            }
+            set
+            {
+                SetValue(FinishedRepair_listProperty, value);
+                Dispatcher.Invoke(() => { this.FinishedRepair_listChangedEvent?.Invoke(); });
             }
         }
         public ObservableCollection<Airplane> Airplane_list
@@ -104,7 +129,7 @@ namespace RepairAirplanesWPF.ViewModels
             }
             set
             {
-                SetValue(Engine_listProperty,value);
+                SetValue(Engine_listProperty, value);
                 Dispatcher.Invoke(() => { this.Engine_listChangedEvent?.Invoke(); });
             }
         }
@@ -247,6 +272,22 @@ namespace RepairAirplanesWPF.ViewModels
                 Dispatcher.Invoke(() => { this.Repair_list = result; });
             });
         }
+        public async Task LoadRepairToAcceptList()
+        {
+            await Task.Run(() =>
+            {
+                var result = DataManager.GetRepairToAccept_List();
+                Dispatcher.Invoke(() => { this.RepairToAccept_list = result; });
+            });
+        }
+        public async Task LoadFinishedRepairList()
+        {
+            await Task.Run(() =>
+            {
+                var result = DataManager.GetFinishedRepair_List();
+                Dispatcher.Invoke(() => { this.FinishedRepair_list = result; });
+            });
+        }
         public async Task LoadPersonList()
         {
             await Task.Run(() =>
@@ -327,6 +368,20 @@ namespace RepairAirplanesWPF.ViewModels
                 Dispatcher.Invoke(() => { this.Repair_status_list = result; });
             });
         }
+        public async Task LoadRequiredRepairWorkList()
+        {
+            await Task.Run(() =>
+            {
+                var result = DataManager.GetRequiredRepairWork_List();
+            });
+        }
+        public async Task LoadRequiredRepairPartList()
+        {
+            await Task.Run(() =>
+            {
+                var result = DataManager.GetRequiredRepairPart_List();
+            });
+        }
         public async Task LoadRepairPartList()
         {
             await Task.Run(() =>
@@ -380,6 +435,24 @@ namespace RepairAirplanesWPF.ViewModels
         {
             SetPage(new EngineListPage(this) { DataContext = this }, sender);
         });
+        public ICommand PrintPerson => new MenuNavigateCommand((sender) =>
+        {
+            Person_list.PrintData(sender as Button);
+        });
+        public ICommand PrintRepairInfo => new MenuNavigateCommand((sender) =>
+        {
+            if (sender is FrameworkElement element)
+            {
+                if (element.DataContext is Repair_list repair)
+                {
+                    repair.PrintData(sender as Button);
+                }
+            }
+        });
+        public ICommand PrintStudentPilot => new MenuNavigateCommand((sender) =>
+        {
+            StudentPilot_list.PrintData(sender as Button);
+        });
         public ICommand PersonListPage_Open => new MenuNavigateCommand((sender) =>
         {
             var newPage = new PersonListPage(this) { DataContext = this };
@@ -400,20 +473,37 @@ namespace RepairAirplanesWPF.ViewModels
             var newPage = new EngineerListPage(this) { DataContext = this };
             SetPage(newPage, sender);
         });
+        public ICommand RepairToAcceptListPage_Open => new MenuNavigateCommand((sender) =>
+        {
+            var newPage = new RepairAcceptList(this) { DataContext = this };
+            SetPage(newPage, sender);
+        });
         public ICommand EditEngine_Show => new MenuNavigateCommand((sender) =>
         {
             if (sender is FrameworkElement element)
             {
                 if (element.DataContext is Engine engine)
                 {
-                    var window = new EditEngine(this) { DataContext = engine};
+                    var window = new EditEngine(this) { DataContext = engine };
                     var result = window.ShowDialog();
                     if (result == true)
                     {
                         DataManager.SaveChanges();
                         _ = LoadEngineList();
                     }
-                    
+
+                }
+            }
+        });
+        public ICommand RemoveEngine => new MenuNavigateCommand((sender) =>
+        {
+            if (sender is FrameworkElement element)
+            {
+                if (element.DataContext is Engine engine)
+                {
+                    DataManager.RemoveEngine(engine);
+                    DataManager.SaveChanges();
+                    _ = LoadEngineList();
                 }
             }
         });
@@ -430,34 +520,47 @@ namespace RepairAirplanesWPF.ViewModels
                         DataManager.SaveChanges();
                         _ = LoadPersonList();
                     }
-                    
+
+                }
+            }
+        });
+        public ICommand RemovePerson => new MenuNavigateCommand((sender) =>
+        {
+            if (sender is FrameworkElement element)
+            {
+                if (element.DataContext is Person person)
+                {
+                    DataManager.RemovePerson(person);
+                    DataManager.SaveChanges();
+                    _ = LoadPersonList();
                 }
             }
         });
         public ICommand AddCoolingSystem_Show => new MenuNavigateCommand((sender) =>
         {
             var newCoolingSystem = new Cooling_system();
-            var window = new SimpleEditWindow(this) { DataContext = newCoolingSystem }; 
+            var window = new SimpleEditWindow(this) { DataContext = newCoolingSystem };
             var result = window.ShowDialog();
             if (result == true)
             {
                 DataManager.AddCoolingSystem(newCoolingSystem);
                 _ = LoadCoolingSystemList();
             }
-            
+
         });
         public ICommand AddPerson_Show => new MenuNavigateCommand((sender) =>
         {
             var newPerson = new Person();
             var window = new EditPerson(this) { DataContext = newPerson };
             var result = window.ShowDialog();
-            if(result == true)
+            if (result == true)
             {
                 newPerson.permission_group = 1;
                 DataManager.AddPerson(newPerson);
                 _ = LoadPersonList();
             }
         });
+
         public ICommand AddStudentPilot_Show => new MenuNavigateCommand((sender) =>
         {
             var newPerson = new Person();
@@ -490,7 +593,20 @@ namespace RepairAirplanesWPF.ViewModels
                     }
                 }
             }
-                
+
+        });
+        public ICommand RemoveStudentPilot => new MenuNavigateCommand((sender) =>
+        {
+            if (sender is FrameworkElement element)
+            {
+                if (element.DataContext is Student_pilot student_Pilot)
+                {
+                    DataManager.RemoveStudentPilot(student_Pilot);
+                    DataManager.SaveChanges();
+                    _ = LoadStudentPilotList();
+                }
+            }
+
         });
         public ICommand AddEngineer_Show => new MenuNavigateCommand((sender) =>
         {
@@ -523,6 +639,18 @@ namespace RepairAirplanesWPF.ViewModels
                 }
             }
         });
+        public ICommand RemoveEngineer => new MenuNavigateCommand((sender) =>
+        {
+            if (sender is FrameworkElement element)
+            {
+                if (element.DataContext is Engineer engineer)
+                {
+                    DataManager.RemoveEngineer(engineer);
+                    DataManager.SaveChanges();
+                    _ = LoadEngineerList();
+                }
+            }
+        });
 
         public ICommand EditInstructor_Show => new MenuNavigateCommand((sender) =>
         {
@@ -538,6 +666,19 @@ namespace RepairAirplanesWPF.ViewModels
                         _ = LoadInstructorList();
                         _ = LoadPersonList();
                     }
+                }
+            }
+        });
+        public ICommand RemoveInstructor => new MenuNavigateCommand((sender) =>
+        {
+            if (sender is FrameworkElement element)
+            {
+                if (element.DataContext is Instructor instructor)
+                {
+                    DataManager.RemoveInstructor(instructor);
+                    DataManager.SaveChanges();
+                    _ = LoadInstructorList();
+                    _ = LoadPersonList();
                 }
             }
         });
@@ -621,6 +762,11 @@ namespace RepairAirplanesWPF.ViewModels
             var result = window.ShowDialog();
             if (result == true)
             {
+                if (newRepairList.Required_repair_work.Count == 0)
+                {
+                    ShowError("Количество работ должно быть больше 0");
+                    return;
+                }
                 newRepairList.start_repair_date = DateTime.Now;
                 DataManager.AddRepairList(newRepairList);
                 _ = LoadRepairList();
@@ -632,13 +778,39 @@ namespace RepairAirplanesWPF.ViewModels
             {
                 if (element.DataContext is Repair_list repair_List)
                 {
-                    var newRequiredWork = new Required_repair_work();
+                    var newRequiredWork = new Required_repair_work() { count = 1 };
                     var window = new EditRequiredRepairWorkList(this) { DataContext = newRequiredWork };
                     var result = window.ShowDialog();
                     if (result == true)
                     {
+                        newRequiredWork.Repair_list = repair_List;
                         repair_List.Required_repair_work.Add(newRequiredWork);
+                        var find = DataManager.Connection.Repair_work.Find(newRequiredWork.repair_work_id);
+                        if (find != null)
+                        {
+                            newRequiredWork.Repair_work = find;
+                        }
                     }
+                }
+            }
+        });
+        public ICommand RemoveRequredRepairWork => new MenuNavigateCommand((sender) =>
+        {
+            if (sender is FrameworkElement element)
+            {
+                if (element.DataContext is Required_repair_work repair_Work)
+                {
+                    repair_Work.Repair_list.Required_repair_work.Remove(repair_Work);
+                }
+            }
+        });
+        public ICommand RemoveRequredRepairPart => new MenuNavigateCommand((sender) =>
+        {
+            if (sender is FrameworkElement element)
+            {
+                if (element.DataContext is Required_repair_part repair_Part)
+                {
+                    repair_Part.Required_repair_work.Required_repair_part.Remove(repair_Part);
                 }
             }
         });
@@ -664,9 +836,15 @@ namespace RepairAirplanesWPF.ViewModels
             {
                 if (element.DataContext is Required_repair_work required_Repair_Work)
                 {
-                    required_Repair_Work.status_id = 2;
-                        DataManager.SaveChanges();
-                        _ = LoadRepairList();
+                    var successStatusCode = 2;
+                    required_Repair_Work.status_id = successStatusCode;
+                    required_Repair_Work.end_date = DateTime.Now;
+                    if (required_Repair_Work.Repair_list.Required_repair_work.Count((work) => work.status_id == successStatusCode) == required_Repair_Work.Repair_list.Required_repair_work.Count)
+                    {
+                        required_Repair_Work.Repair_list.end_repair_date = DateTime.Now;
+                    }
+                    DataManager.SaveChanges();
+                    _ = LoadRepairList();
                 }
             }
         });
@@ -676,12 +854,27 @@ namespace RepairAirplanesWPF.ViewModels
             {
                 if (element.DataContext is Required_repair_work required_Repair_Work)
                 {
-                    var newRequiredPart = new Required_repair_part();
+                    var newRequiredPart = new Required_repair_part() { count = 1};
                     var window = new EditRequiredRepairPartList(this) { DataContext = newRequiredPart };
                     var result = window.ShowDialog();
                     if (result == true)
                     {
-                        required_Repair_Work.Required_repair_part.Add(newRequiredPart);
+                        var find = DataManager.Connection.Repair_part.Find(newRequiredPart.repair_part_id);
+                        if (find != null)
+                        {
+                            newRequiredPart.Repair_part = find;
+                        }
+
+                        if (required_Repair_Work.Required_repair_part.FirstOrDefault((part) => part.repair_part_id == find.id) == default(Required_repair_part))
+                        {
+                            newRequiredPart.Required_repair_work = required_Repair_Work;
+                            required_Repair_Work.Required_repair_part.Add(newRequiredPart);
+                        }
+                        else
+                        {
+                            ShowError("Данный товар уже присутствует");
+                        }
+                        
                     }
                 }
             }
@@ -694,7 +887,7 @@ namespace RepairAirplanesWPF.ViewModels
         {
             SetPage(new FlightHistoryPage(this), sender);
         });
-        
+
         #endregion
 
         #region CurrentPageManagement
@@ -728,11 +921,13 @@ namespace RepairAirplanesWPF.ViewModels
             this.CurrentPage = page;
         }
         #endregion
-        
+
         #region DependencyProperties
         public static DependencyProperty CurrentPageProperty = DependencyProperty.Register("CurrentPage", typeof(Page), typeof(BaseViewModel));
         public static DependencyProperty Repair_listProperty = DependencyProperty.Register("Repair_list", typeof(ObservableCollection<Repair_list>), typeof(BaseViewModel), new PropertyMetadata(new ObservableCollection<Repair_list>()));
-        public static DependencyProperty Person_listProperty = DependencyProperty.Register("Person_list", typeof(ObservableCollection<Person>), typeof(BaseViewModel),new PropertyMetadata(new ObservableCollection<Person>()));
+        public static DependencyProperty RepairToAccept_listProperty = DependencyProperty.Register("RepairToAccept_list", typeof(ObservableCollection<Repair_list>), typeof(BaseViewModel), new PropertyMetadata(new ObservableCollection<Repair_list>()));
+        public static DependencyProperty FinishedRepair_listProperty = DependencyProperty.Register("FinishedRepair_list", typeof(ObservableCollection<Repair_list>), typeof(BaseViewModel), new PropertyMetadata(new ObservableCollection<Repair_list>()));
+        public static DependencyProperty Person_listProperty = DependencyProperty.Register("Person_list", typeof(ObservableCollection<Person>), typeof(BaseViewModel), new PropertyMetadata(new ObservableCollection<Person>()));
         public static DependencyProperty Engine_listProperty = DependencyProperty.Register("Engine_list", typeof(ObservableCollection<Engine>), typeof(BaseViewModel), new PropertyMetadata(new ObservableCollection<Engine>()));
         public static DependencyProperty Permission_group_listProperty = DependencyProperty.Register("Permission_group_list", typeof(ObservableCollection<Permission_group>), typeof(BaseViewModel), new PropertyMetadata(new ObservableCollection<Permission_group>()));
         public static DependencyProperty Engines_fuel_type_listProperty = DependencyProperty.Register("Engines_fuel_type_list", typeof(ObservableCollection<Engines_fuel_type>), typeof(BaseViewModel), new PropertyMetadata(new ObservableCollection<Engines_fuel_type>()));
@@ -752,6 +947,8 @@ namespace RepairAirplanesWPF.ViewModels
 
         #region Events
         public event Action Repair_listChangedEvent;
+        public event Action FinishedRepair_listChangedEvent;
+        public event Action RepairToAccept_listChangedEvent;
         public event Action Person_listChangedEvent;
         public event Action Engine_listChangedEvent;
         public event Action Permission_group_listChangedEvent;
@@ -769,5 +966,9 @@ namespace RepairAirplanesWPF.ViewModels
         public event Action Instructor_listChangedEvent;
         public event Action StudyGroup_listChangedEvent;
         #endregion
+        public void ShowError(string message, string title = "Ошибка")
+        {
+            MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
 }

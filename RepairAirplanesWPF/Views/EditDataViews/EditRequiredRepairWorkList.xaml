@@ -50,11 +50,11 @@
             <TextBlock Grid.Column="0" Text="Компоненты необходимые для работы"/>
             <Button x:Name="addRequiredRepairPartButton" Grid.Column="1" Content="+" Padding="2"/>
         </Grid>
-        <ListBox ItemsSource="{Binding Required_repair_part}" Height="130">
+        <ListBox x:Name="requiredRepairPartListView" ItemsSource="{Binding Required_repair_part}" Height="130">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <Button Content="-" Height="20" Width="20"/>
+                        <Button Content="-" Click="RemovePart_Click" Height="20" Padding="1" Width="20"/>
                         <Ellipse Width="3" Height="3" Fill="Black"/>
                         <TextBlock Margin="5,0,0,0" Text="{Binding Repair_part.name}"/>
                         <TextBlock Margin="15,0,0,0" Text="{Binding count}"/>

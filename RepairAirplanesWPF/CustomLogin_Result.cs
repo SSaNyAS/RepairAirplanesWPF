@@ -10,16 +10,16 @@
 namespace RepairAirplanesWPF
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Student_pilot
+    public partial class CustomLogin_Result
     {
-        public long person_id { get; set; }
-        public long study_group_id { get; set; }
-        public System.DateTime start_learning_date { get; set; }
-        public string eduation_sertificate { get; set; }
-    
-        public virtual Pilot Pilot { get; set; }
-        public virtual Study_group Study_group { get; set; }
+        public long id { get; set; }
+        public string firstname { get; set; }
+        public string lastname { get; set; }
+        public string middlename { get; set; }
+        public System.DateTime birthday { get; set; }
+        public long passport { get; set; }
+        public long permission_group { get; set; }
+        public string FIO { get; set; }
     }
 }

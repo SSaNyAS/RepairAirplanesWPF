@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RepairAirplanesWPF.Views.EditDataViews"
         mc:Ignorable="d"
+        x:Name="thisWindow"
         Title="Редактирование данных" Height="545" MinHeight="400" Width="600" MinWidth="400"
         WindowStartupLocation="CenterScreen">
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden" Margin="10">
@@ -30,12 +31,13 @@
             <TextBlock Grid.Column="0" Text="Список необходимых работ"/>
             <Button x:Name="addRequiredRepairWorkButton" CommandTarget="{Binding RelativeSource={RelativeSource Mode=Self}}" Grid.Column="1" Content="+" Padding="2"/>
         </Grid>
-        <ListBox ItemsSource="{Binding Required_repair_work}" Height="150">
+        <ListBox x:Name="requiredWorkList" ItemsSource="{Binding Required_repair_work}" Height="150">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Vertical">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Repair_work.name}"/>
+                                <Button Content="-" Width="20" Height="20" Padding="2" Click="RemoveRepairWork_Click"/>
+                                <TextBlock Text="{Binding Repair_work.name}"/>
                             <TextBlock Margin="15,0,0,0" Text="в количестве "/>
                             <TextBlock Margin="5,0,0,0" Text="{Binding count}"/>
                             <TextBlock Margin="5,0,0,0" Text="раз"/>
@@ -60,7 +62,6 @@
                                         </ListBox.ItemsPanel>
                             </ListBox>
                         </Expander>
-                            <Button Content="+"/>
                         </StackPanel>
                     </StackPanel>
                 </DataTemplate>

@@ -32,12 +32,15 @@ namespace RepairAirplanesWPF.Views.EditDataViews
         protected override void OnActivated(EventArgs e)
         {
             base.OnActivated(e);
+            
             _ = BaseViewModel.LoadRepairPartList();
         }
         private void BaseViewModel_Repair_part_listChangedEvent()
         {
+            var saved = repairPartSelector.SelectedValue;
             repairPartSelector.ItemsSource = null;
             repairPartSelector.ItemsSource = BaseViewModel.Repair_part_list;
+            repairPartSelector.SelectedValue = saved;
         }
         private void Save_Click(object sender, RoutedEventArgs e)
         {

@@ -17,23 +17,25 @@ using System.Windows.Shapes;
 namespace RepairAirplanesWPF.Views
 {
     /// <summary>
-    /// Логика взаимодействия для RepairHistoryPage.xaml
+    /// Логика взаимодействия для RepairAcceptList.xaml
     /// </summary>
-    public partial class RepairHistoryPage : Page
+    public partial class RepairAcceptList : Page
     {
         private BaseViewModel BaseViewModel;
-        public RepairHistoryPage(BaseViewModel baseViewModel)
+        public RepairAcceptList(BaseViewModel baseViewModel)
         {
             this.BaseViewModel = baseViewModel;
-            baseViewModel.Repair_listChangedEvent += BaseViewModel_FinishedRepair_listChangedEvent;
+            baseViewModel.Repair_listChangedEvent += BaseViewModel_RepairToAccept_listChangedEvent;
             _ = baseViewModel.LoadRepairList();
             InitializeComponent();
+            addRepairOrderButton.Command = baseViewModel.AddRepairListItem_Show;
+            addRepairOrderButton.CommandTarget = addRepairOrderButton;
         }
 
-        private void BaseViewModel_FinishedRepair_listChangedEvent()
+        private void BaseViewModel_RepairToAccept_listChangedEvent()
         {
             this.repairListView.ItemsSource = null;
-            this.repairListView.ItemsSource = BaseViewModel.Repair_list.Where((repair)=>repair.end_repair_date != null);
+            this.repairListView.ItemsSource = BaseViewModel.Repair_list.Where((repair)=>repair.end_repair_date == null);
         }
 
         private void StackPanel_MouseUp(object sender, MouseButtonEventArgs e)

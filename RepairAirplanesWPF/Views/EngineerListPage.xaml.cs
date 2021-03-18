@@ -37,10 +37,13 @@ namespace RepairAirplanesWPF.Views
             engineerListView.ItemsSource = null;
             engineerListView.ItemsSource = BaseViewModel.Engineer_list;
         }
-
-        private void StackPanel_MouseUp(object sender, MouseButtonEventArgs e)
+        private void Edit_Click(object sender, RoutedEventArgs e)
         {
             BaseViewModel.EditEngineer_Show.Execute(sender);
+        }
+        private void Remove_Click(object sender, RoutedEventArgs e)
+        {
+            BaseViewModel.RemoveEngineer.Execute(sender);
         }
     }
 }

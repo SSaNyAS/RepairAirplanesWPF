@@ -107,6 +107,9 @@
     <Compile Include="Cooling_system.cs">
       <DependentUpon>RepairAirplanesModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="CustomLogin_Result.cs">
+      <DependentUpon>RepairAirplanesModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Engine.cs">
       <DependentUpon>RepairAirplanesModel.tt</DependentUpon>
     </Compile>
@@ -116,6 +119,7 @@
     <Compile Include="Engines_fuel_type.cs">
       <DependentUpon>RepairAirplanesModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Extensions\PrintExtension.cs" />
     <Compile Include="Extensions\RepairListExtension.cs" />
     <Compile Include="Flight_log.cs">
       <DependentUpon>RepairAirplanesModel.tt</DependentUpon>
@@ -175,6 +179,12 @@
       <DependentUpon>RepairAirplanesModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Required_repair_work.cs">
+      <DependentUpon>RepairAirplanesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>RepairAirplanesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_helpdiagrams_Result.cs">
       <DependentUpon>RepairAirplanesModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Student_pilot.cs">
@@ -264,6 +274,9 @@
     </Compile>
     <Compile Include="Views\PersonListPage.xaml.cs">
       <DependentUpon>PersonListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RepairAcceptList.xaml.cs">
+      <DependentUpon>RepairAcceptList.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\RepairHistoryPage.xaml.cs">
       <DependentUpon>RepairHistoryPage.xaml</DependentUpon>
@@ -387,6 +400,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\RepairAcceptList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\RepairHistoryPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -414,6 +431,11 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="акт об оказании услуг.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Resource Include="Fonts\a_futuraround_bold.ttf" />
+    <Resource Include="Fonts\a_futuraround_regular.ttf" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -430,7 +452,18 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="RepairAirplanesModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>RepairAirplanesModel.edmx</DependentUpon>
+      <LastGenOutput>RepairAirplanesModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="RepairAirplanesModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>RepairAirplanesModel.edmx</DependentUpon>
+      <LastGenOutput>RepairAirplanesModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
       <Visible>False</Visible>
@@ -450,19 +483,36 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="RepairAirplanesModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>RepairAirplanesModel.Context.cs</LastGenOutput>
-      <DependentUpon>RepairAirplanesModel.edmx</DependentUpon>
-    </Content>
-    <Content Include="RepairAirplanesModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>RepairAirplanesModel.edmx</DependentUpon>
-      <LastGenOutput>RepairAirplanesModel.cs</LastGenOutput>
-    </Content>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>9</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

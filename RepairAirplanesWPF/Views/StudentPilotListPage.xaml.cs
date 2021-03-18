@@ -27,9 +27,12 @@ namespace RepairAirplanesWPF.Views
             this.BaseViewModel = baseViewModel;
             baseViewModel.StudentPilot_listChangedEvent += BaseViewModel_StudentPilot_listChangedEvent;
             InitializeComponent();
+            _ = baseViewModel.LoadStudentPilotList();
             addStudentButton.Command = baseViewModel.AddStudentPilot_Show;
             addStudentButton.CommandParameter = addStudentButton;
-            _ = baseViewModel.LoadStudentPilotList();
+
+            printStudentButton.Command = baseViewModel.PrintStudentPilot;
+            printStudentButton.CommandParameter = printStudentButton;
         }
         private void BaseViewModel_StudentPilot_listChangedEvent()
         {
@@ -37,9 +40,13 @@ namespace RepairAirplanesWPF.Views
             studentListView.ItemsSource = BaseViewModel.StudentPilot_list;
         }
 
-        private void StackPanel_MouseUp(object sender, MouseButtonEventArgs e)
+        private void Edit_Click(object sender, RoutedEventArgs e)
         {
             BaseViewModel.EditStudentPilot_Show.Execute(sender);
+        }
+        private void Remove_Click(object sender, RoutedEventArgs e)
+        {
+            BaseViewModel.RemoveStudentPilot.Execute(sender);
         }
     }
 }

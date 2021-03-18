@@ -27,19 +27,22 @@ namespace RepairAirplanesWPF.Views
             this.BaseViewModel = baseViewModel;
             baseViewModel.Instructor_listChangedEvent += BaseViewModel_Instructor_listChangedEvent;
             InitializeComponent();
+            _ = baseViewModel.LoadInstructorList();
             addInstructorButton.Command = baseViewModel.AddInstuctor_Show;
             addInstructorButton.CommandParameter = addInstructorButton;
         }
-
         private void BaseViewModel_Instructor_listChangedEvent()
         {
             instructorListView.ItemsSource = null;
             instructorListView.ItemsSource = BaseViewModel.Instructor_list;
         }
-
-        private void StackPanel_MouseUp(object sender, MouseButtonEventArgs e)
+        private void Edit_Click(object sender, RoutedEventArgs e)
         {
             BaseViewModel.EditInstructor_Show.Execute(sender);
+        }
+        private void Remove_Click(object sender, RoutedEventArgs e)
+        {
+            BaseViewModel.RemoveInstructor.Execute(sender);
         }
     }
 }

@@ -5,9 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RepairAirplanesWPF.Views.EditDataViews"
         mc:Ignorable="d"
-        Title="Подтверждение выполнения работ" Height="578.137" Width="812.535" MinHeight="350" MinWidth="400" WindowStartupLocation="CenterScreen">
+        x:Name="thisWindow"
+        Title="Подтверждение выполнения работ" Height="505" Width="600" MinHeight="505" MinWidth="500" WindowStartupLocation="CenterScreen">
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden" Margin="10">
-        <StackPanel Orientation="Vertical" Height="490">
+        <StackPanel Orientation="Vertical">
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Ремонтируемый самолет:"/>
                 <TextBlock Margin="5,0,0,0" FontWeight="Bold" Text="{Binding Airplane.model}"/>
@@ -15,7 +16,7 @@
             <TextBlock Margin="0,10,0,0" Text="Сведения для ремонта"/>
             <TextBox Height="150" IsReadOnly="True" Text="{Binding additional_information}"/>
                 <TextBlock Margin="0,10,0,0" Grid.Column="0" Text="Список работ"/>
-            <ListBox ItemsSource="{Binding Required_repair_work}" Height="150">
+            <ListBox x:Name="repairWorkList" ItemsSource="{Binding Required_repair_work}" Height="150">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Vertical">
@@ -25,10 +26,10 @@
                                 <TextBlock Margin="5,0,0,0" Text="{Binding count}"/>
                                 <TextBlock Margin="5,0,0,0" Text="раз"/>
                                 <StackPanel Orientation="Horizontal" Visibility="{Binding end_date, Converter={StaticResource objectExistingConverter}}">
-                                    <TextBlock Text="завершено: "/>
+                                    <TextBlock Margin="5,0,0,0" Text="завершено: "/>
                                     <TextBlock Margin="5,0,0,0" Text="{Binding end_date, StringFormat='dd.MM.yy hh:mm'}"/>
                                 </StackPanel>
-                                <Button Name="confirmWorkButton" Visibility="{Binding end_date, Converter={StaticResource objectExistingConverter}, ConverterParameter='reversed'}" Content="Подтвердить выполнение"/>
+                                <Button Click="Button_Click" Visibility="{Binding end_date, Converter={StaticResource objectExistingConverter}, ConverterParameter='reversed'}" Padding="1" Content="Подтвердить выполнение"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <Expander Header="Список компонентов для данной работы">
@@ -50,13 +51,12 @@
                                         </ListBox.ItemsPanel>
                                     </ListBox>
                                 </Expander>
-                                <Button Content="+"/>
                             </StackPanel>
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <Button Margin="0,10,0,0" Click="Save_Click" Content="Сохранить"/>
+            <Button x:Name="printRepairInfo" Margin="0,10,0,0" Content="Печать"/>
         </StackPanel>
     </ScrollViewer>
 </Window>
