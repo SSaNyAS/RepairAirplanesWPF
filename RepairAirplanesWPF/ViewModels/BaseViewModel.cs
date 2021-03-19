@@ -435,6 +435,14 @@ namespace RepairAirplanesWPF.ViewModels
         {
             SetPage(new EngineListPage(this) { DataContext = this }, sender);
         });
+        public ICommand ManualListPage_Open => new MenuNavigateCommand((sender) =>
+        {
+            SetPage(new ManualListPage(this) { DataContext = this }, sender);
+        });
+        public ICommand WelcomePage_Open => new MenuNavigateCommand((sender) =>
+        {
+            SetPage(new WelcomePage() { DataContext = this }, sender);
+        });
         public ICommand PrintPerson => new MenuNavigateCommand((sender) =>
         {
             Person_list.PrintData(sender as Button);
@@ -504,6 +512,106 @@ namespace RepairAirplanesWPF.ViewModels
                     DataManager.RemoveEngine(engine);
                     DataManager.SaveChanges();
                     _ = LoadEngineList();
+                }
+            }
+        });
+        public ICommand EditRepairWorkList_Open => new MenuNavigateCommand((sender) =>
+        {
+            _ = LoadRepairWorkList();
+            var window = new SimpleItemsList(this, this.Repair_work_list) { DataContext = this.Repair_work_list };
+            window.ShowDialog();
+        });
+        public ICommand EditRepairPartList_Open => new MenuNavigateCommand((sender) =>
+        {
+            _ = LoadRepairPartList();
+            var window = new SimpleItemsList(this, this.Repair_part_list) { DataContext = this.Repair_part_list };
+            window.ShowDialog();
+        });
+        public ICommand EditStudyGroupList_Open => new MenuNavigateCommand((sender) =>
+        {
+            _ = LoadStudyGroupList();
+            var window = new SimpleItemsList(this, this.StudyGroup_list) { DataContext = this.StudyGroup_list };
+            window.ShowDialog();
+        });
+        public ICommand EditCoolingSystemList_Open => new MenuNavigateCommand((sender) =>
+        {
+            _ = LoadCoolingSystemList();
+            var window = new SimpleItemsList(this, this.Cooling_system_list) { DataContext = this.Cooling_system_list };
+            window.ShowDialog();
+        });
+        public ICommand EditSimpleItem => new MenuNavigateCommand((sender) =>
+        {
+            if (sender is FrameworkElement element)
+            {
+                if (element.DataContext is Repair_part repair_Part)
+                {
+                    var window = new EditRepairPart(this) { DataContext = repair_Part };
+                    var result = window.ShowDialog();
+                    if (result == true)
+                    {
+                        DataManager.SaveChanges();
+                        _ = LoadRepairPartList();
+                    }
+                }
+                if (element.DataContext is Repair_work repair_Work)
+                {
+                    var window = new SimpleEditWindow(this) { DataContext = repair_Work };
+                    var result = window.ShowDialog();
+                    if (result == true)
+                    {
+                        DataManager.SaveChanges();
+                        _ = LoadRepairWorkList();
+                    }
+                }
+                if (element.DataContext is Study_group study_Group)
+                {
+                    var window = new SimpleEditWindow(this) { DataContext = study_Group };
+                    var result = window.ShowDialog();
+                    if (result == true)
+                    {
+                        DataManager.SaveChanges();
+                        _ = LoadStudyGroupList();
+                    }
+                }
+                if (element.DataContext is Cooling_system cooling_System)
+                {
+                    var window = new SimpleEditWindow(this) { DataContext = cooling_System };
+                    var result = window.ShowDialog();
+                    if (result == true)
+                    {
+                        DataManager.SaveChanges();
+                        _ = LoadCoolingSystemList();
+                    }
+                }
+            }
+        });
+        public ICommand RemoveSimpleItem => new MenuNavigateCommand((sender) =>
+        {
+            if (sender is FrameworkElement element)
+            {
+                if (element.DataContext is Repair_part repair_Part)
+                {
+                    DataManager.RemoveRepairPart(repair_Part);
+                        _ = LoadRepairPartList();
+                }
+                if (element.DataContext is Repair_work repair_Work)
+                {
+                    var window = new SimpleEditWindow(this) { DataContext = repair_Work };
+                    var result = window.ShowDialog();
+                    if (result == true)
+                    {
+                        DataManager.RemoveRepairWork(repair_Work);
+                        _ = LoadRepairWorkList();
+                    }
+                }
+                if (element.DataContext is Study_group study_Group)
+                {
+                    DataManager.RemoveStudyGroup(study_Group);
+                        _ = LoadStudyGroupList();
+                }
+                if (element.DataContext is Cooling_system cooling_System)
+                {
+                    DataManager.RemoveCoolingSystem(cooling_System);
                 }
             }
         });

@@ -13,7 +13,7 @@
                 <ColumnDefinition/>
                 <ColumnDefinition Width="30"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Text="История ремонта" HorizontalAlignment="Center" FontWeight="Bold" FontSize="24"/>
+            <TextBlock Text="Выполненные ремонты" HorizontalAlignment="Center" FontWeight="Bold" FontSize="24"/>
         </Grid>
         <ItemsControl x:Name="repairListView">
             <ItemsControl.ItemTemplate>

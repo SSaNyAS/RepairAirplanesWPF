@@ -37,12 +37,25 @@ namespace RepairAirplanesWPF.Views
         private void BaseViewModel_Person_listChangedEvent()
         {
             this.personListView.ItemsSource = null;
-            this.personListView.ItemsSource = BaseViewModel.Person_list;
+            searchTextBox_TextChanged(null,null);
         }
 
         private void StackPanel_MouseUp(object sender, MouseButtonEventArgs e)
         {
             BaseViewModel.EditPerson_Show.Execute(sender);
+        }
+
+        private void searchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var text = searchTextBox.Text.Trim();
+            if (text.Length > 0)
+            {
+                this.personListView.ItemsSource = BaseViewModel.Person_list.Where((person) => person.FIO.Trim().ToLower().Contains(text.ToLower()));
+            }
+            else
+            {
+                this.personListView.ItemsSource = BaseViewModel.Person_list;
+            }
         }
     }
 }

@@ -32,6 +32,10 @@
                                 <Button Click="Button_Click" Visibility="{Binding end_date, Converter={StaticResource objectExistingConverter}, ConverterParameter='reversed'}" Padding="1" Content="Подтвердить выполнение"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Инженер:"/>
+                                <TextBlock Margin="5,0,0,0" Text="{Binding Engineer.Person.FIO}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
                                 <Expander Header="Список компонентов для данной работы">
                                     <ListBox ItemsSource="{Binding Required_repair_part}">
                                         <ListBox.ItemTemplate>

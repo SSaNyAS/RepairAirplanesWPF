@@ -288,6 +288,22 @@ namespace RepairAirplanesWPF.Classes
         {
             RequiredRepairPartDataLoader.RemoveItem(required_Repair_Part);
         }
+        public void RemoveRepairWork(Repair_work repair_Work)
+        {
+            RepairWorkDataLoader.RemoveItem(repair_Work);
+        }
+        public void RemoveRepairPart(Repair_part repair_Part)
+        {
+            RepairPartDataLoader.RemoveItem(repair_Part);
+        }
+        public void RemoveStudyGroup(Study_group group)
+        {
+            StudyGroupListDataLoader.RemoveItem(group);
+        }
+        public void RemoveCoolingSystem(Cooling_system cooling_System)
+        {
+            CoolingSystemDataLoader.RemoveItem(cooling_System);
+        }
         #endregion
 
         #region OtherFunctions

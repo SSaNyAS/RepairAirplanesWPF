@@ -5,14 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RepairAirplanesWPF" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:cmd="http://www.galasoft.ch/mvvmlight"
         mc:Ignorable="d"
-        Title="" Height="550" Width="1200">
-    <StackPanel Orientation="Vertical">
+        Title="БЛУГА ремонт воздушных судов" Height="550" MinHeight="400" MinWidth="800" Width="1200">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="1*"/>
+                <RowDefinition Height="50"/>
                 <RowDefinition Height="9*"/>
             </Grid.RowDefinitions>
-            <Grid>
+            <Grid Grid.Row="0" VerticalAlignment="Top">
                 <Grid.Background>
                     <SolidColorBrush Color="{StaticResource AppMainColor}"/>
                 </Grid.Background>
@@ -20,22 +19,25 @@
                     <WrapPanel.Background>
                         <SolidColorBrush Color="{StaticResource AppMainColor}"/>
                     </WrapPanel.Background>
-                    <Button Content="Двигатели" Command="{Binding EngineListPage_Open}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">
-                    </Button>
-                    <Button Command="{Binding RepairHistoryPage_Open}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">История ремонтов</Button>
-                    <Button Command="{Binding FlightHistoryPage_Open}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">История полётов</Button>
+                <Button x:Name="firstPageButton" Command="{Binding WelcomePage_Open}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Информация</Button>
+                <Button Command="{Binding RepairHistoryPage_Open}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">История ремонтов</Button>
+                <Button Visibility="Collapsed" Command="{Binding FlightHistoryPage_Open}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">История полётов</Button>
+                    <Button Command="{Binding RepairToAcceptListPage_Open}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Управление ремонтом</Button>
+                    <Button Content="Двигатели" Command="{Binding EngineListPage_Open}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}"/>
                     <Button Command="{Binding PersonListPage_Open}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Пользователи</Button>
                     <Button Command="{Binding StudentPilotListPage_Open}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Студенты</Button>
                     <Button Command="{Binding InstructorListPage_Open}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Инструкторы</Button>
-                    <Button Command="{Binding EngineerListPage_Open}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Инженеры</Button>
-                    <Button Command="{Binding RepairToAcceptListPage_Open}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Подтверждение</Button>
-                </WrapPanel>
+                <Button Command="{Binding EngineerListPage_Open}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Инженеры</Button>
+                <Button Command="{Binding ManualListPage_Open}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Справочники</Button>
+            </WrapPanel>
             </Grid>
-            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden">
-                <Frame Background="White" NavigationUIVisibility="Hidden" Content="{Binding CurrentPage}" Navigated="Frame_Navigated"/>
-            </ScrollViewer>
+            
+                <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto" CanContentScroll="True">
+                    <Grid>
+                        <Frame Background="White" NavigationUIVisibility="Hidden" Content="{Binding CurrentPage}" Navigated="Frame_Navigated"/>
+                    </Grid>
+                </ScrollViewer>
+            
         </Grid>
-    </StackPanel>
-    
 </Window>
 

@@ -7,35 +7,49 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="PersonListPage">
-
-    <StackPanel Orientation="Vertical" Margin="10">
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="120"/>
-                <ColumnDefinition Width="30"/>
-            </Grid.ColumnDefinitions>
-            <TextBlock Text="Список пользователей" HorizontalAlignment="Center" FontWeight="Bold" FontSize="24"/>
-            <Button x:Name="printPersonButton" Grid.Column="1" Content="Печать" Padding="2" Height="30"/>
-            <Button x:Name="addPersonButton" Grid.Column="2" Content="+" Padding="2" Height="30"/>
-        </Grid>
-        <ItemsControl x:Name="personListView">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Vertical" MouseUp="StackPanel_MouseUp">
+        <Grid Margin="10">
+        <StackPanel Orientation="Vertical">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="30"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Список пользователей" HorizontalAlignment="Center" FontWeight="Bold" FontSize="24"/>
+                <Button x:Name="printPersonButton" Grid.Column="1" Content="Печать" Padding="2" Height="30"/>
+                <Button x:Name="addPersonButton" Grid.Column="2" Content="+" Padding="2" Height="30"/>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Поиск:"/>
+                <TextBox Grid.Column="1" x:Name="searchTextBox" TextChanged="searchTextBox_TextChanged"/>
+            </Grid>
+            <ItemsControl x:Name="personListView">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical" MouseUp="StackPanel_MouseUp">
                             <TextBlock FontSize="22" FontWeight="Bold" Margin="5,0,0,0" Text="{Binding FIO}"/>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock FontSize="16" Text="Паспорт:"/>
-                            <TextBlock FontSize="16" Margin="5,0,0,0" Text="{Binding passport}"/>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock FontSize="16" Text="Паспорт:"/>
+                                <TextBlock FontSize="16" Margin="5,0,0,0" Text="{Binding passport}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock FontSize="16" Text="Отношение:"/>
+                                <TextBlock FontSize="16" Margin="5,0,0,0" Text="{Binding Permission_group1.name}"/>
+                            </StackPanel>
+                            <Separator/>
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock FontSize="16" Text="Отношение:"/>
-                            <TextBlock FontSize="16" Margin="5,0,0,0" Text="{Binding Permission_group1.name}"/>
-                        </StackPanel>
-                        <Separator/>
-                    </StackPanel>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-    </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </StackPanel>
+        </Grid>
 </Page>

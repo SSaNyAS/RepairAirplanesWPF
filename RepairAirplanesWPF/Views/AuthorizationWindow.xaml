@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RepairAirplanesWPF.Views"
         mc:Ignorable="d"
-        Title="Подтверждение доступа" Height="450" Width="800">
+        Title="Бугурусланское летное училище гражданской авиации" Height="450" Width="800">
     <Grid>
         <Image x:Name="backGroundImage" Source="https://www.bluga.ru/images/slide11.jpg" Stretch="UniformToFill"></Image>
         <Grid>

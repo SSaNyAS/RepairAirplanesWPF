@@ -45,8 +45,8 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <Button Grid.Column="0" Content="Изменить" MinHeight="30"/>
-                            <Button Grid.Column="1" Content="Удалить" MinHeight="30" Background="Red"/>
+                            <Button Grid.Column="0" Content="Изменить" Click="Edit_Click" MinHeight="30"/>
+                            <Button Grid.Column="1" Content="Удалить" Click="Remove_Click" MinHeight="30" Background="OrangeRed"/>
                         </Grid>
                         <Separator/>
                 </StackPanel>

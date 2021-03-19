@@ -255,6 +255,9 @@
     <Compile Include="Views\EditDataViews\EditStudentPilot.xaml.cs">
       <DependentUpon>EditStudentPilot.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\EditRepair_partList.xaml.cs">
+      <DependentUpon>EditRepair_partList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\EngineerListPage.xaml.cs">
       <DependentUpon>EngineerListPage.xaml</DependentUpon>
     </Compile>
@@ -273,6 +276,9 @@
     <Compile Include="Views\InstructorListPage.xaml.cs">
       <DependentUpon>InstructorListPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ManualListPage.xaml.cs">
+      <DependentUpon>ManualListPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\PersonListPage.xaml.cs">
       <DependentUpon>PersonListPage.xaml</DependentUpon>
     </Compile>
@@ -282,8 +288,14 @@
     <Compile Include="Views\RepairHistoryPage.xaml.cs">
       <DependentUpon>RepairHistoryPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\SimpleItemsList.xaml.cs">
+      <DependentUpon>SimpleItemsList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\StudentPilotListPage.xaml.cs">
       <DependentUpon>StudentPilotListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WelcomePage.xaml.cs">
+      <DependentUpon>WelcomePage.xaml</DependentUpon>
     </Compile>
     <Page Include="UIComponents\FrameworkElementWithHeader.xaml">
       <SubType>Designer</SubType>
@@ -361,6 +373,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\EditRepair_partList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\EngineerListPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -397,6 +413,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\ManualListPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\PersonListPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -409,7 +429,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\SimpleItemsList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\StudentPilotListPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WelcomePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

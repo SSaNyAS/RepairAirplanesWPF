@@ -27,9 +27,8 @@ namespace RepairAirplanesWPF.Views
             InitializeComponent();
             this.BaseViewmodel = (Application.Current as App).baseViewModel;
             this.DataContext = BaseViewmodel;
-            BaseViewmodel.RepairHistoryPage_Open.Execute(new Button());
+            BaseViewmodel.WelcomePage_Open.Execute(firstPageButton);
         }
-
         private void Frame_Navigated(object sender, NavigationEventArgs e)
         {
             if (e.Content is EngineListPage engineListPage)

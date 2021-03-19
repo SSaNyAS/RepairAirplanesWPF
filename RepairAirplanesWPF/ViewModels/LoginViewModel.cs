@@ -15,7 +15,8 @@ namespace RepairAirplanesWPF.ViewModels
     public class LoginViewModel : DependencyObject
     {
         private RepairAirplanesConnection dataLoader = new RepairAirplanesConnection();
-        static LoginViewModel(){
+        static LoginViewModel()
+        {
             LoginProperty = DependencyProperty.RegisterAttached("Login", typeof(string), typeof(LoginViewModel), new PropertyMetadata(""));
             PasswordProperty = DependencyProperty.RegisterAttached("Password", typeof(string), typeof(LoginViewModel), new PropertyMetadata(""));
         }
@@ -41,7 +42,8 @@ namespace RepairAirplanesWPF.ViewModels
             return AuthorizedClient;
         }
         public Person AuthorizedClient { get; set; } = null;
-        public String Login {
+        public String Login
+        {
             get
             {
                 return (string)GetValue(LoginProperty);
@@ -55,7 +57,7 @@ namespace RepairAirplanesWPF.ViewModels
         {
             get
             {
-                return (string)GetValue(PasswordProperty) ;
+                return (string)GetValue(PasswordProperty);
             }
             set
             {
@@ -77,25 +79,29 @@ namespace RepairAirplanesWPF.ViewModels
         public void LoginClick(object sender)
         {
             TryOpenConnection();
-            var client = Authorization(Login, Password, (Authorizedclient) => { 
-                if (Authorizedclient != null){
-                var mainWindow = new MainWindow();
-                    Thread.Sleep(200);
-                mainWindow.Show();
-                closeScreen?.Invoke();
-            } else
+            var client = Authorization(Login, Password, (Authorizedclient) =>
             {
-                if (IsConnected == false)
+                if (Authorizedclient != null)
                 {
+                    var mainWindow = new MainWindow();
+                    Thread.Sleep(200);
+                    mainWindow.Show();
+                    closeScreen?.Invoke();
+                }
+                else
+                {
+                    if (IsConnected == false)
+                    {
                         MessageBox.Show("Проверьте подключение к базе данных!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                } else 
-                    MessageBox.Show("Неправильный логин или пароль!!!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+                    }
+                    else
+                        MessageBox.Show("Неправильный логин или пароль!!!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             });
-            
+
         }
         public Action closeScreen;
-        
+
         public static readonly DependencyProperty LoginProperty;
 
         public static readonly DependencyProperty PasswordProperty;
