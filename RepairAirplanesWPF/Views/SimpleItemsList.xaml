@@ -15,8 +15,9 @@
             </ListBox.ItemsPanel>
         </ListBox>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
-            <Button x:Name="EditButton" Grid.Row="1" DataContext="{Binding ElementName=elementListView, Path=SelectedItem}" Margin="0,0,5,0" Content="Изменить"/>
-            <Button x:Name="RemoveButton" Grid.Row="1" DataContext="{Binding ElementName=elementListView, Path=SelectedItem}" Width="{Binding ElementName=EditButton, Path=ActualWidth}" Margin="5,0,0,0" Background="OrangeRed" Content="Удалить"/>
+            <Button x:Name="AddButton" DataContext="{Binding ElementName=elementListView, Path=SelectedItem}" Margin="0,0,5,0" Content="Добавить"/>
+            <Button x:Name="EditButton" DataContext="{Binding ElementName=elementListView, Path=SelectedItem}" Margin="5,0,5,0" Content="Изменить"/>
+            <Button x:Name="RemoveButton" DataContext="{Binding ElementName=elementListView, Path=SelectedItem}" Width="{Binding ElementName=EditButton, Path=ActualWidth}" Margin="5,0,0,0" Background="OrangeRed" Content="Удалить"/>
         </StackPanel>
     </StackPanel>
 </Window>

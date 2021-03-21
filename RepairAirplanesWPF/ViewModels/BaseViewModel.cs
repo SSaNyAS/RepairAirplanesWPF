@@ -590,6 +590,76 @@ namespace RepairAirplanesWPF.ViewModels
                 }
             }
         });
+        public ICommand AddSimpleItem => new MenuNavigateCommand((sender) =>
+        {
+            if (sender is FrameworkElement element)
+            {
+                if (element.DataContext is Repair_part repair_Part)
+                {
+                    var newItem = new Repair_part();
+                    var window = new EditRepairPart(this) { DataContext = newItem };
+                    var result = window.ShowDialog();
+                    if (result == true)
+                    {
+                        if (newItem.name.Length < 1)
+                        {
+                            ShowError("Ошибка укажите название");
+                            return;
+                        }
+                        DataManager.AddRepairPart(newItem);
+                        _ = LoadRepairPartList();
+                    }
+                }
+                if (element.DataContext is Repair_work repair_Work)
+                {
+                    var newItem = new Repair_work();
+                    var window = new SimpleEditWindow(this) { DataContext = newItem };
+                    var result = window.ShowDialog();
+                    if (result == true)
+                    {
+                        if (newItem.name.Length < 1)
+                        {
+                            ShowError("Ошибка укажите название");
+                            return;
+                        }
+                        DataManager.AddRepairWork(newItem);
+                        _ = LoadRepairWorkList();
+                    }
+                }
+                if (element.DataContext is Study_group study_Group)
+                {
+                    var newItem = new Study_group();
+                    var window = new SimpleEditWindow(this) { DataContext = newItem };
+                    var result = window.ShowDialog();
+                    if (result == true)
+                    {
+                        if (newItem.name.Length < 1)
+                        {
+                            ShowError("Ошибка укажите название");
+                            return;
+                        }
+                        DataManager.AddStudyGroup(newItem);
+                        _ = LoadStudyGroupList();
+                    }
+                }
+                if (element.DataContext is Cooling_system cooling_System)
+                {
+                    var newItem = new Cooling_system();
+                    var window = new SimpleEditWindow(this) { DataContext = newItem };
+                    var result = window.ShowDialog();
+                    if (result == true)
+                    {
+                        if (newItem.name.Length < 1)
+                        {
+                            ShowError("Ошибка укажите название");
+                            return;
+                        }
+                        DataManager.AddCoolingSystem(newItem);
+                        _ = LoadCoolingSystemList();
+                    }
+                }
+            }
+        });
         public ICommand RemoveSimpleItem => new MenuNavigateCommand((sender) =>
         {
             if (sender is FrameworkElement element)

@@ -32,7 +32,7 @@
                     <ComboBox x:Name="coolingSystemSelector" Grid.Column="0" DisplayMemberPath="name" MinWidth="250" SelectedValuePath="id" SelectedValue="{Binding cooling_system_id}"/>
                     <Button x:Name="addCoolingSystemButton" Grid.Column="1" CommandTarget="{Binding RelativeSource={RelativeSource Mode=Self}}" Content="+" Padding="5"/>
                 </Grid>
-                <Button Click="Save_Click" Content="Сохранить"/>
+                <Button Click="Save_Click" Margin="0,10,0,0" Content="Сохранить"/>
             </StackPanel>
         </StackPanel>
     </ScrollViewer>

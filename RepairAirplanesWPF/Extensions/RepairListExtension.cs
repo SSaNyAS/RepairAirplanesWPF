@@ -50,19 +50,22 @@ namespace RepairAirplanesWPF.Extensions
                     Excel.Worksheet sheet = (Excel.Worksheet)ex.Worksheets.get_Item(1);
 
                     var workList = item.Required_repair_work;
-
+                    sheet.Cells[3, 2] = $"Акт № {item.id} от {item.start_repair_date.ToShortDateString()} г. по выполнению обслуживания самолёта";
+                    sheet.Cells[7, 6] = item.Airplane.model;
+                    var copyRangeRow = 11;
                     for (int i = 0; i < workList.Count; i++)
                     {
                         var element = workList.ElementAt(i);
 
                         if (i < workList.Count - 1)
                         {
-                            ((Excel.Range)sheet.Rows[13]).Copy();
-                            ((Excel.Range)sheet.Rows[14]).Insert(Excel.XlDirection.xlDown, Excel.XlInsertFormatOrigin.xlFormatFromLeftOrAbove);
+                            ((Excel.Range)sheet.Rows[copyRangeRow]).Copy();
+                            ((Excel.Range)sheet.Rows[copyRangeRow+1]).Insert(Excel.XlDirection.xlDown, Excel.XlInsertFormatOrigin.xlFormatFromLeftOrAbove);
                         }
-                        sheet.Cells[13 + i, 2] = i + 1;
-                        sheet.Cells[13 + i, 4] = element.Repair_work.name;
-                        sheet.Cells[13 + i, 21] = element.count;
+                        sheet.Cells[copyRangeRow + i, 2] = i + 1;
+                        sheet.Cells[copyRangeRow + i, 4] = element.Repair_work.name;
+                        sheet.Cells[copyRangeRow + i, 21] = element.count;
+                        sheet.Cells[copyRangeRow + i, 26] = element.Engineer.Person.FIO;
 
                     }
                     ex.Visible = true;

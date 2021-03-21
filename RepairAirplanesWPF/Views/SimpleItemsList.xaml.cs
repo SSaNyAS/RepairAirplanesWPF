@@ -30,8 +30,12 @@ namespace RepairAirplanesWPF.Views
             baseViewModel.Repair_work_listChangedEvent += ListChanged;
             baseViewModel.Repair_part_listChangedEvent += ListChanged;
             InitializeComponent();
+            AddButton.Command = baseViewModel.AddSimpleItem;
+            AddButton.CommandParameter = AddButton;
+
             EditButton.Command = BaseViewModel.EditSimpleItem;
             EditButton.CommandParameter = EditButton;
+
             RemoveButton.Command = baseViewModel.RemoveSimpleItem;
             RemoveButton.CommandParameter = RemoveButton;
         }
@@ -54,6 +58,7 @@ namespace RepairAirplanesWPF.Views
             {
                 elementListView.ItemsSource = BaseViewModel.Repair_work_list;
             }
+            elementListView.SelectedIndex = 0;
         }
     }
 }
