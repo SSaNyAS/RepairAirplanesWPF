@@ -13,11 +13,9 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition Width="120"/>
-                    <ColumnDefinition Width="30"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="Список пользователей" HorizontalAlignment="Center" FontWeight="Bold" FontSize="24"/>
                 <Button x:Name="printPersonButton" Grid.Column="1" Content="Печать" Padding="2" Height="30"/>
-                <Button x:Name="addPersonButton" Grid.Column="2" Content="+" Padding="2" Height="30"/>
             </Grid>
             <Grid>
                 <Grid.ColumnDefinitions>

@@ -263,22 +263,19 @@ namespace RepairAirplanesWPF.Classes
         }
         public void RemoveEngineer(Engineer engineer)
         {
-            EngineerDataLoader.RemoveItem(engineer);
+            RemovePerson(engineer.Person);
         }
         public void RemovePilot(Pilot pilot)
         {
-            PilotDataLoader.RemoveItem(pilot);
             RemovePerson(pilot.Person);
         }
         public void RemoveStudentPilot(Student_pilot student_Pilot)
         {
-            StudentPilotDataLoader.RemoveItem(student_Pilot);
-            RemovePilot(student_Pilot.Pilot);
+            RemovePerson(student_Pilot.Pilot.Person);
         }
         public void RemoveInstructor(Instructor instructor)
         {
-            InstructorDataLoader.RemoveItem(instructor);
-            RemovePilot(instructor.Pilot);
+            RemovePerson(instructor.Pilot.Person);
         }
         public void RemoveRequiredRepairWork(Required_repair_work required_Repair_Work)
         {

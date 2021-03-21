@@ -23,8 +23,9 @@
                 <Button Command="{Binding RepairHistoryPage_Open}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">История ремонтов</Button>
                 <Button Visibility="Collapsed" Command="{Binding FlightHistoryPage_Open}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">История полётов</Button>
                     <Button Command="{Binding RepairToAcceptListPage_Open}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Управление ремонтом</Button>
-                    <Button Content="Двигатели" Command="{Binding EngineListPage_Open}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}"/>
-                    <Button Command="{Binding PersonListPage_Open}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Пользователи</Button>
+                <Button Content="Самолёты" Command="{Binding AirplaneListPage_Open}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}"/>
+                <Button Content="Двигатели" Command="{Binding EngineListPage_Open}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}"/>
+                <Button Command="{Binding PersonListPage_Open}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Пользователи</Button>
                     <Button Command="{Binding StudentPilotListPage_Open}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Студенты</Button>
                     <Button Command="{Binding InstructorListPage_Open}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Инструкторы</Button>
                 <Button Command="{Binding EngineerListPage_Open}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}">Инженеры</Button>

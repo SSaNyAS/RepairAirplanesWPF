@@ -37,7 +37,7 @@ namespace RepairAirplanesWPF.Views
         private void BaseViewModel_StudentPilot_listChangedEvent()
         {
             studentListView.ItemsSource = null;
-            studentListView.ItemsSource = BaseViewModel.StudentPilot_list;
+            searchTextBox_TextChanged(null, null);
         }
 
         private void Edit_Click(object sender, RoutedEventArgs e)
@@ -47,6 +47,18 @@ namespace RepairAirplanesWPF.Views
         private void Remove_Click(object sender, RoutedEventArgs e)
         {
             BaseViewModel.RemoveStudentPilot.Execute(sender);
+        }
+        private void searchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var text = searchTextBox.Text.Trim().ToLower();
+            if (text.Length > 0)
+            {
+                this.studentListView.ItemsSource = BaseViewModel.StudentPilot_list.Where((student) => student.Pilot.Person.FIO.Trim().ToLower().Contains(text) || student.eduation_sertificate.Trim().Contains(text));
+            }
+            else
+            {
+                this.studentListView.ItemsSource = BaseViewModel.StudentPilot_list;
+            }
         }
     }
 }

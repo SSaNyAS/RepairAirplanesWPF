@@ -466,6 +466,11 @@ namespace RepairAirplanesWPF.ViewModels
             var newPage = new PersonListPage(this) { DataContext = this };
             SetPage(newPage, sender);
         });
+        public ICommand AirplaneListPage_Open => new MenuNavigateCommand((sender) =>
+        {
+            var newPage = new AirplaneListPage(this) { DataContext = this };
+            SetPage(newPage, sender);
+        });
         public ICommand StudentPilotListPage_Open => new MenuNavigateCommand((sender) =>
         {
             var newPage = new StudentPilotListPage(this) { DataContext = this };
@@ -632,6 +637,22 @@ namespace RepairAirplanesWPF.ViewModels
                 }
             }
         });
+        public ICommand EditAirplane_Show => new MenuNavigateCommand((sender) =>
+        {
+            if (sender is FrameworkElement element)
+            {
+                if (element.DataContext is Airplane airplane)
+                {
+                    var window = new EditAirplane(this) { DataContext = airplane };
+                    var result = window.ShowDialog();
+                    if (result == true)
+                    {
+                        DataManager.SaveChanges();
+                        _ = LoadPersonList();
+                    }
+                }
+            }
+        });
         public ICommand RemovePerson => new MenuNavigateCommand((sender) =>
         {
             if (sender is FrameworkElement element)
@@ -639,6 +660,18 @@ namespace RepairAirplanesWPF.ViewModels
                 if (element.DataContext is Person person)
                 {
                     DataManager.RemovePerson(person);
+                    DataManager.SaveChanges();
+                    _ = LoadPersonList();
+                }
+            }
+        });
+        public ICommand RemoveAirplane => new MenuNavigateCommand((sender) =>
+        {
+            if (sender is FrameworkElement element)
+            {
+                if (element.DataContext is Airplane airplane)
+                {
+                    DataManager.RemoveAirplane(airplane);
                     DataManager.SaveChanges();
                     _ = LoadPersonList();
                 }
@@ -815,8 +848,31 @@ namespace RepairAirplanesWPF.ViewModels
             var result = window.ShowDialog();
             if (result == true)
             {
+                if (newEngine.model.Trim().Length == 0)
+                {
+                    ShowError("Ошибка добавления, не была указана модель двигателя");
+                    return;
+                }
+
                 DataManager.AddEngine(newEngine);
                 _ = LoadEngineList();
+            }
+        });
+        public ICommand AddAirplane_Show => new MenuNavigateCommand((sender) =>
+        {
+            var newAirplane = new Airplane();
+            var window = new EditAirplane(this) { DataContext = newAirplane };
+            var result = window.ShowDialog();
+            if (result == true)
+            {
+                if (newAirplane.model.Trim().Length == 0)
+                {
+                    ShowError("Ошибка добавления, не была указана модель самолета");
+                    return;
+                }
+
+                DataManager.AddAirplane(newAirplane);
+                _ = LoadAirplaneList();
             }
         });
         public ICommand AddRepairWork_Show => new MenuNavigateCommand((sender) =>

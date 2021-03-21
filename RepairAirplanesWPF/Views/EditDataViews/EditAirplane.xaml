@@ -17,8 +17,8 @@
                     <ColumnDefinition/>
                     <ColumnDefinition Width="30"/>
                 </Grid.ColumnDefinitions>
-                <ComboBox x:Name="engineSelector" Grid.Column="0" SelectedValuePath="id" DisplayMemberPath="name" SelectedValue="{Binding engine_id}"/>
-                <Button Grid.Column="1" Content="+" Padding="2"/>
+                <ComboBox x:Name="engineSelector" Grid.Column="0" SelectedValuePath="id" DisplayMemberPath="model" SelectedValue="{Binding engine_id}"/>
+                <Button x:Name="addEngineButton" Grid.Column="1" Content="+" Padding="2"/>
             </Grid>
             <TextBlock Margin="0,10,0,0" Text="Количество мест для пилотов"/>
             <TextBox Text="{Binding pilots_seat_count}"/>
@@ -34,7 +34,7 @@
             <TextBox Text="{Binding load_capacity}"/>
             <TextBlock Margin="0,10,0,0" Text="Размер топливного бака"/>
             <TextBox Text="{Binding fuel_capacity}"/>
-            <Grid Margin="0,10,0,0">
+            <!---<Grid Margin="0,10,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition Width="30"/>
@@ -59,7 +59,7 @@
                         <StackPanel/>
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
-            </ListBox>
+            </ListBox>-->
             <Button Margin="0,10,0,0"  Click="Save_Click" Content="Сохранить"/>
         </StackPanel>
     </ScrollViewer>

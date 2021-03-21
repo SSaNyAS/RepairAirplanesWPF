@@ -27,12 +27,16 @@ namespace RepairAirplanesWPF.Views.EditDataViews
             baseViewModel.Engine_listChangedEvent += BaseViewModel_Engine_listChangedEvent;
             InitializeComponent();
             _ = baseViewModel.LoadEngineList();
+            addEngineButton.Command = baseViewModel.AddEngine_Show;
+            addEngineButton.CommandParameter = addEngineButton;
         }
 
         private void BaseViewModel_Engine_listChangedEvent()
         {
+            var saved = engineSelector.SelectedValue;
             engineSelector.ItemsSource = null;
             engineSelector.ItemsSource = BaseViewModel.Engine_list;
+            engineSelector.SelectedValue = saved;
         }
         private void Save_Click(object sender, RoutedEventArgs e)
         {

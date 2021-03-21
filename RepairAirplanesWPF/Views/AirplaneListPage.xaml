@@ -1,4 +1,4 @@
-﻿<Page x:Class="RepairAirplanesWPF.Views.StudentPilotListPage"
+﻿<Page x:Class="RepairAirplanesWPF.Views.AirplaneListPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,18 +6,16 @@
       xmlns:local="clr-namespace:RepairAirplanesWPF.Views"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Студенты">
+      Title="AirplaneListPage">
 
     <StackPanel Orientation="Vertical" Margin="10">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
-                <ColumnDefinition Width="120"/>
                 <ColumnDefinition Width="30"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Text="Список студентов" HorizontalAlignment="Center" FontWeight="Bold" FontSize="24"/>
-            <Button x:Name="printStudentButton" Grid.Column="1" Content="Печать" Padding="2" Height="30"/>
-            <Button x:Name="addStudentButton" Grid.Column="2" Content="+" Padding="2" Height="30"/>
+            <TextBlock Text="Список самолётов" HorizontalAlignment="Center" FontWeight="Bold" FontSize="24"/>
+            <Button x:Name="addAirplaneButton" Grid.Column="1" Content="+" Padding="2" Height="30"/>
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -27,30 +25,35 @@
             <TextBlock Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Поиск:"/>
             <TextBox Grid.Column="1" x:Name="searchTextBox" TextChanged="searchTextBox_TextChanged"/>
         </Grid>
-        <ItemsControl x:Name="studentListView">
+        <ItemsControl x:Name="airplaneListView">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Vertical">
-                        <TextBlock FontSize="22" FontWeight="Bold" Margin="5,0,0,0" Text="{Binding Pilot.Person.FIO}"/>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock FontSize="16" Text="Аттестат:"/>
-                            <TextBlock FontSize="16" Margin="5,0,0,0" Text="{Binding eduation_sertificate}"/>
+                            <TextBlock FontSize="22" FontWeight="Bold" Text="Самолёт:"/>
+                            <TextBlock FontSize="22" FontWeight="Bold" Margin="5,0,0,0" Text="{Binding model}"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock FontSize="16" Text="Группа:"/>
-                            <TextBlock FontSize="16" Margin="5,0,0,0" Text="{Binding Study_group.name}"/>
+                            <TextBlock FontSize="16" Text="Двигатель:"/>
+                            <TextBlock FontSize="16" Margin="5,0,0,0" Text="{Binding Engine.model}"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock FontSize="16" Text="Дата поступления:"/>
-                            <TextBlock FontSize="16" Margin="5,0,0,0" Text="{Binding start_learning_date, StringFormat='dd.MM.yyyy'}"/>
+                            <TextBlock FontSize="16" Text="Мощность двигателя:"/>
+                            <TextBlock FontSize="16" Margin="5,0,0,0" Text="{Binding Engine.power}"/>
+                            <TextBlock FontSize="16" Margin="5,0,0,0" Text="л.с"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontSize="16" Text="Межремонтный период:"/>
+                            <TextBlock FontSize="16" Margin="5,0,0,0" Text="{Binding Engine.repair_period}"/>
+                            <TextBlock FontSize="16" Margin="5,0,0,0" Text="ч"/>
                         </StackPanel>
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <Button Grid.Column="0" Click="Edit_Click" Content="Изменить" MinHeight="20"/>
-                            <Button Grid.Column="1" Click="Remove_Click" Content="Удалить" MinHeight="20" Background="Red"/>
+                            <Button Grid.Column="0" Content="Изменить" Click="Edit_Click" MinHeight="30"/>
+                            <Button Grid.Column="1" Content="Удалить" Click="Remove_Click" MinHeight="30" Background="OrangeRed"/>
                         </Grid>
                         <Separator/>
                     </StackPanel>
